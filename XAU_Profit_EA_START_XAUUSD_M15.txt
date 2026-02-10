@@ -1,0 +1,16 @@
+Symbol=
+Timeframe=PERIOD_CURRENT
+RiskPercent=1.0
+TP_Percent=1.50
+SL_Percent=0.75
+UseTrailingStop=true
+TrailPercent=0.60
+TrailStepPoints=50
+MAPeriod=50
+BreakoutLookback=20
+MaxSpreadPoints=200
+DeviationPoints=20
+AllowLong=true
+AllowShort=true
+TradeStartHour=7
+TradeEndHour=22
