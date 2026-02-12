@@ -1,0 +1,21 @@
+========================================
+XAU_Profit_EA v3.0 – od zera (bez błędu 4801)
+========================================
+
+EA używa TYLKO CopyClose do liczenia EMA i RSI. Zero wskaźników platformy (iMA, iRSI, iATR),
+więc w Testerze Strategii nie ma błędu 4801.
+
+JAK URUCHOMIĆ W TESTERZE:
+
+1. W MT5: Plik → Otwórz folder danych.
+2. Skopiuj XAU_Profit_EA.mq5 do podfolderu: MQL5\Experts\
+3. F4 (MetaEditor) → otwórz XAU_Profit_EA.mq5 z folderu Experts → F7 (Kompiluj).
+4. W Testerze: wybierz XAU_Profit_EA, symbol XAUUSD, M1, Start.
+
+W Dzienniku powinna być linia: "XAU_Profit_EA v3.0 start (tylko CopyClose/High/Low, bez wskaźników)."
+
+Parametry: InpTestWejscie=true – jedna mała BUY na start (sprawdzenie brokera).
+           InpDebug=true – drukuj close/EMA co bar.
+           InpEMATolerancePoints=100–500 – więcej wejść przy złocie.
+
+========================================

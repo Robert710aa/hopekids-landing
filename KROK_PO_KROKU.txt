@@ -1,0 +1,104 @@
+========================================
+XAU_Profit_EA v3.0 – INSTRUKCJA KROK PO KROKU
+========================================
+
+KROK 1. Otwórz MetaTrader 5
+   - Uruchom program MT5 (LibertexCom lub inny).
+
+
+KROK 2. Znajdź folder Ekspertów MT5
+   - W MT5 kliknij w górnym menu: Plik (File).
+   - Kliknij: Otwórz folder danych (Open Data Folder).
+   - Otworzy się okno z folderem, np.:
+     C:\Users\Crypt\AppData\Roaming\MetaQuotes\Terminal\XXXXXXXX\
+   - W tym folderze wejdź do podfolderu: MQL5
+   - Potem wejdź do podfolderu: Experts
+   - Zostaw to okno otwarte (będziesz tu wklejał plik).
+
+
+KROK 3. Skopiuj plik EA do folderu Experts
+   - Otwórz drugie okno (Eksplorator Windows):
+     Ten komputer → dysk C → Users → Crypt → noktra-start-static
+   - W folderze noktra-start-static znajdź plik: XAU_Profit_EA.mq5
+   - Kliknij prawym na XAU_Profit_EA.mq5 → Kopiuj (Copy).
+   - Wróć do okna z folderem Experts (z Kroku 2).
+   - Kliknij prawym w puste miejsce → Wklej (Paste).
+   - Jeśli pojawi się pytanie „Zastąpić?”, wybierz: Tak (Replace).
+   - Zamknij oba okna folderów.
+
+
+KROK 4. Otwórz MetaEditor
+   - Wróć do okna MT5.
+   - Naciśnij klawisz F4 (albo menu: Narzędzia → MetaQuotes Language Editor).
+   - Otworzy się program MetaEditor.
+
+
+KROK 5. Otwórz plik EA w MetaEditorze
+   - W MetaEditorze po lewej stronie znajdź listę folderów („Eksplorator”).
+   - Rozwiń: MQL5 → Experts.
+   - Kliknij dwukrotnie na: XAU_Profit_EA.mq5
+   - Plik otworzy się w środkowej części okna.
+
+
+KROK 6. Skompiluj EA
+   - Upewnij się, że aktywny jest plik XAU_Profit_EA.mq5 (zakładka na górze).
+   - Naciśnij klawisz F7 (albo menu: Kompiluj → Kompiluj).
+   - Na dole okna zobaczysz zakładkę „Błędy” (Errors).
+   - Sprawdź: musi być napisane „0 error(s)” (zero błędów).
+   - Jeśli są błędy – napisz, co dokładnie się wyświetla.
+   - Zamknij MetaEditor (możesz zapisać plik, jeśli coś zmieniałeś).
+
+
+KROK 7. Otwórz Tester Strategii w MT5
+   - Wróć do MT5.
+   - Naciśnij Ctrl+R (albo menu: Widok → Tester strategii).
+   - Na dole pojawi się panel „Tester strategii”.
+
+
+KROK 8. Ustaw parametry testu
+   - W polu „Ekspert” (Expert) wybierz z listy: XAU_Profit_EA.
+   - W polu „Symbol” wybierz: XAUUSD.
+   - W polu „Timeframe” (ramy czasowe) wybierz: M1.
+   - Ustaw datę od – do (np. ostatni miesiąc).
+   - Model: „Każdy tick” lub „Ceny otwarcia” – dowolnie.
+   - Resztę możesz zostawić domyślnie.
+
+
+KROK 9. Uruchom test
+   - Kliknij zielony przycisk „Start” w panelu Testera.
+   - Poczekaj, aż test się wykona (może chwilę potrwać).
+
+
+KROK 10. Sprawdź wynik
+   - W panelu na dole przejdź do zakładki „Dziennik” (Journal).
+   - Szukaj linii z tekstem:
+     „XAU_Profit_EA v3.0 start (tylko CopyClose – EMA, RSI; bez wskaźników, brak 4801).”
+   - Jeśli ta linia JEST – EA działa poprawnie, błąd 4801 nie powinien się pojawić.
+   - Jeśli NIE MA tej linii, a w dzienniku jest „cannot load indicator” lub „4801” –
+     znaczy to, że Tester nadal używa starej wersji. Wróć do Kroku 2 i 3 i upewnij się,
+     że skopiowałeś plik do właściwego folderu Experts i że po kompilacji (Krok 6) było 0 błędów.
+
+
+KROK 11. (Opcjonalnie) Uruchomienie na żywym wykresie
+   - Otwórz wykres XAUUSD, timeframe M1.
+   - W Nawigatorze (lewa strona) rozwiń „Eksperci” (Expert Advisors).
+   - Przeciągnij „XAU_Profit_EA” na wykres.
+   - W oknie parametrów możesz nic nie zmieniać lub włączyć np. InpDebug = true.
+   - Kliknij OK.
+   - Włącz handel automatyczny: zielony przycisk „Algo Trading” na pasku narzędzi.
+   - W lewym górnym rogu wykresu zobaczysz komunikat EA (np. „Oczekiwanie na sygnał”).
+
+
+========================================
+Podsumowanie numerów kroków:
+  1 – Otwórz MT5
+  2 – Otwórz folder danych → MQL5 → Experts
+  3 – Skopiuj XAU_Profit_EA.mq5 z noktra-start-static do Experts
+  4 – F4 (MetaEditor)
+  5 – Otwórz XAU_Profit_EA.mq5 w MetaEditorze (z listy Experts)
+  6 – F7 (Kompiluj), sprawdź 0 errors
+  7 – Ctrl+R (Tester)
+  8 – Wybierz XAU_Profit_EA, XAUUSD, M1
+  9 – Start
+  10 – Dziennik: szukaj linii „v3.0 start”
+========================================
