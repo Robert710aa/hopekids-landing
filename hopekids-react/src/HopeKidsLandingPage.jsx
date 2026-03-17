@@ -159,7 +159,7 @@ export default function HopeKidsLandingPage() {
 
             {/* removed: Where HopeKids Helps / Trade cards */}
 
-            <section className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_0.9fr]">
+            <section className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-3">
               <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-5">
                 <div className="text-2xl sm:text-3xl">🪙</div>
                 <div className="mt-2 text-2xl font-extrabold sm:mt-3 sm:text-[32px]">Earn</div>
