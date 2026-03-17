@@ -1,3 +1,7 @@
+// Adres mint tokena HKIDS na Solana – do swapu na Jupiter
+const HKIDS_MINT = '6u5PLy9ePpuGEBK3kmQ9isVDFjqSurKpvmCFzheDgQke';
+const JUPITER_BUY_URL = `https://jup.ag/swap/SOL-${HKIDS_MINT}`;
+
 export default function HopeKidsLandingPage() {
   const stats = [
     { label: 'Tokens Saved for Children', value: '3,245,678', suffix: 'HKIDS' },
@@ -52,9 +56,14 @@ export default function HopeKidsLandingPage() {
                   </p>
 
                   <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4 sm:justify-center lg:justify-start">
-                    <button className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-blue-500 active:scale-[0.98] sm:px-6">
+                    <a
+                      href={JUPITER_BUY_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex justify-center rounded-xl bg-blue-600 px-5 py-3 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-blue-500 active:scale-[0.98] sm:px-6"
+                    >
                       Buy Token
-                    </button>
+                    </a>
 
                     <button className="rounded-xl border border-white/30 px-5 py-3 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-white/10 active:scale-[0.98] sm:px-6">
                       View Donation Wallet
