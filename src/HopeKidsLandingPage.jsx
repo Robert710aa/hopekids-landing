@@ -33,40 +33,40 @@ export default function HopeKidsLandingPage() {
           <div className="absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(circle_at_72%_28%,rgba(251,146,60,0.35),transparent_20%),radial-gradient(circle_at_60%_18%,rgba(59,130,246,0.35),transparent_24%)]" />
 
           <div className="relative z-10 mx-auto max-w-[1180px] px-4 py-4 sm:px-6 lg:px-8">
-            <section className="relative overflow-hidden rounded-[28px] border border-cyan-400/25 bg-[linear-gradient(180deg,rgba(4,10,25,0.25),rgba(3,7,18,0.38))] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.3),0_0_20px_rgba(56,189,248,0.1)] px-8 py-16 lg:px-12 lg:py-20">
+            <section className="relative overflow-hidden rounded-2xl sm:rounded-[28px] border border-cyan-400/25 bg-[linear-gradient(180deg,rgba(4,10,25,0.25),rgba(3,7,18,0.38))] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.3),0_0_20px_rgba(56,189,248,0.1)] px-4 py-10 sm:px-6 sm:py-14 lg:px-12 lg:py-20">
               <div className="absolute bottom-0 left-0 right-0 h-32 bg-[linear-gradient(180deg,transparent,rgba(0,0,0,0.35))]" />
               <div className="absolute right-24 top-10 h-[320px] w-[320px] rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.45),transparent_60%)] blur-2xl animate-pulse" />
 
-              <div className="relative z-10 grid items-center gap-10 lg:grid-cols-2">
-                <div>
-                  <h1 className="text-5xl font-extrabold">HopeKids</h1>
+              <div className="relative z-10 grid items-center gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-10">
+                <div className="text-center lg:text-left">
+                  <h1 className="text-4xl font-extrabold sm:text-5xl">HopeKids</h1>
 
-                  <p className="mt-6 text-2xl font-semibold text-blue-100">
+                  <p className="mt-4 text-lg font-semibold text-blue-100 sm:mt-6 sm:text-2xl">
                     Trade Crypto. Give Hope.<br />Help Children.
                   </p>
 
-                  <p className="mt-6 max-w-xl text-blue-200">
+                  <p className="mt-4 max-w-xl text-blue-200 sm:mt-6 sm:text-base">
                     Each transaction saves tokens to help children.
                     <br />
                     5% of every transaction goes to the public donation wallet.
                   </p>
 
-                  <div className="mt-8 flex gap-4">
-                    <button className="rounded-xl bg-blue-600 px-6 py-3 font-bold hover:bg-blue-500">
+                  <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4 sm:justify-center lg:justify-start">
+                    <button className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-blue-500 active:scale-[0.98] sm:px-6">
                       Buy Token
                     </button>
 
-                    <button className="rounded-xl border border-white/30 px-6 py-3 font-bold hover:bg-white/10">
+                    <button className="rounded-xl border border-white/30 px-5 py-3 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-white/10 active:scale-[0.98] sm:px-6">
                       View Donation Wallet
                     </button>
                   </div>
                 </div>
 
                 <div className="flex justify-center lg:justify-end animate-[float_6s_ease-in-out_infinite]">
-                  <div className="relative flex h-[360px] w-[360px] items-center justify-center">
+                  <div className="relative flex h-[220px] w-[220px] items-center justify-center sm:h-[280px] sm:w-[280px] lg:h-[360px] lg:w-[360px]">
                     <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,166,0,0.32),transparent_62%)] blur-3xl" />
-                    <div className="absolute right-6 top-4 h-[300px] w-[300px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.28),transparent_65%)] blur-2xl" />
-                    <div className="relative z-10 h-[260px] w-[260px] overflow-hidden rounded-full bg-transparent">
+                    <div className="absolute right-2 top-2 h-[180px] w-[180px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.28),transparent_65%)] blur-2xl sm:right-4 sm:top-4 sm:h-[240px] sm:w-[240px] lg:right-6 lg:top-4 lg:h-[300px] lg:w-[300px]" />
+                    <div className="relative z-10 h-[180px] w-[180px] overflow-hidden rounded-full bg-transparent sm:h-[220px] sm:w-[220px] lg:h-[260px] lg:w-[260px]">
                       <div className="pointer-events-none absolute inset-[-18px] rounded-full bg-[radial-gradient(circle,rgba(255,190,80,0.35),transparent_62%)] blur-2xl" />
                       <img
                         src="/hopekids-coin.png"
@@ -80,10 +80,10 @@ export default function HopeKidsLandingPage() {
               </div>
 
               {/* Ikony społecznościowe na całą szerokość hero */}
-              <div className="relative z-10 mt-10 grid w-full grid-cols-4 gap-3">
+              <div className="relative z-10 mt-8 grid w-full grid-cols-2 gap-2 sm:mt-10 sm:grid-cols-4 sm:gap-3">
                 <a
                   href="#"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)]"
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)] active:scale-[0.98]"
                   aria-label="Telegram"
                 >
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(56,189,248,0.18)]">
@@ -96,7 +96,7 @@ export default function HopeKidsLandingPage() {
 
                 <a
                   href="#"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)]"
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)] active:scale-[0.98]"
                   aria-label="Twitter / X"
                 >
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(148,163,184,0.16)]">
@@ -109,7 +109,7 @@ export default function HopeKidsLandingPage() {
 
                 <a
                   href="#"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)]"
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)] active:scale-[0.98]"
                   aria-label="DexScreener"
                 >
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(34,211,238,0.14)]">
@@ -123,7 +123,7 @@ export default function HopeKidsLandingPage() {
 
                 <a
                   href="#"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)]"
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)] active:scale-[0.98]"
                   aria-label="Solscan"
                 >
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(59,130,246,0.18)]">
@@ -138,10 +138,10 @@ export default function HopeKidsLandingPage() {
 
             <section className="mt-6 grid gap-4 md:grid-cols-3">
               {stats.map((item) => (
-                <div key={item.label} className="rounded-2xl border border-cyan-400/25 bg-[#071226]/28 px-6 py-5 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.2),0_0_14px_rgba(56,189,248,0.12)] backdrop-blur">
-                  <div className="text-sm text-blue-100/72">{item.label}</div>
-                  <div className="mt-3 flex items-end gap-2">
-                    <span className="text-4xl font-extrabold tracking-tight">{item.value}</span>
+                <div key={item.label} className="rounded-2xl border border-cyan-400/25 bg-[#071226]/28 px-4 py-4 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.2),0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:px-6 sm:py-5">
+                  <div className="text-xs text-blue-100/72 sm:text-sm">{item.label}</div>
+                  <div className="mt-2 flex items-end gap-2 sm:mt-3">
+                    <span className="text-2xl font-extrabold tracking-tight sm:text-4xl">{item.value}</span>
                     {item.suffix ? <span className="pb-1 text-lg font-semibold text-blue-100/80">{item.suffix}</span> : null}
                   </div>
                 </div>
@@ -150,41 +150,41 @@ export default function HopeKidsLandingPage() {
 
             {/* removed: Where HopeKids Helps / Trade cards */}
 
-            <section className="mt-8 grid gap-4 lg:grid-cols-[1fr_1fr_1fr_0.9fr]">
-              <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-5 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur">
-                <div className="text-3xl">🪙</div>
-                <div className="mt-3 text-[32px] font-extrabold">Earn</div>
-                <p className="mt-2 text-blue-100/74">Trade crypto and earn profits.</p>
+            <section className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1fr_0.9fr]">
+              <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-5">
+                <div className="text-2xl sm:text-3xl">🪙</div>
+                <div className="mt-2 text-2xl font-extrabold sm:mt-3 sm:text-[32px]">Earn</div>
+                <p className="mt-1 text-sm text-blue-100/74 sm:mt-2 sm:text-base">Trade crypto and earn profits.</p>
               </div>
-              <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-5 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur">
-                <div className="text-3xl">💛</div>
-                <div className="mt-3 text-[32px] font-extrabold">Help</div>
-                <p className="mt-2 text-blue-100/74">Help children every transaction.</p>
+              <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-5">
+                <div className="text-2xl sm:text-3xl">💛</div>
+                <div className="mt-2 text-2xl font-extrabold sm:mt-3 sm:text-[32px]">Help</div>
+                <p className="mt-1 text-sm text-blue-100/74 sm:mt-2 sm:text-base">Help children every transaction.</p>
               </div>
               {/* removed: Impact card */}
-              <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-5 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur">
-                <div className="text-sm text-blue-100/72">Market Cap</div>
-                <div className="mt-3 text-4xl font-extrabold">$3,250,000</div>
-                <div className="mt-3 text-blue-100/74">184 holders</div>
+              <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-5 sm:col-span-2 lg:col-span-1">
+                <div className="text-xs text-blue-100/72 sm:text-sm">Market Cap</div>
+                <div className="mt-2 text-3xl font-extrabold sm:mt-3 sm:text-4xl">$3,250,000</div>
+                <div className="mt-2 text-sm text-blue-100/74 sm:mt-3">184 holders</div>
               </div>
             </section>
 
-            <section className="mt-8 grid gap-6 lg:grid-cols-[1.05fr]">
-              <div className="rounded-[26px] border border-cyan-400/25 bg-[#061126]/28 p-6 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur">
-                <div className="text-[34px] font-extrabold">Transparency</div>
-                <div className="mt-5 rounded-2xl border border-cyan-400/20 bg-[#08172f]/50 p-5 shadow-[0_0_12px_rgba(56,189,248,0.1)]">
-                  <div className="text-xl font-bold">Public Donation Wallet</div>
-                  <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                    <div className="rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-blue-100/80">xxxxxxxxxxxxxxxxxxxxxxxx</div>
-                    <button className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500">View on Solscan</button>
+            <section className="mt-6 sm:mt-8">
+              <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:rounded-[26px] sm:p-6">
+                <div className="text-2xl font-extrabold sm:text-[34px]">Transparency</div>
+                <div className="mt-4 rounded-2xl border border-cyan-400/20 bg-[#08172f]/50 p-4 shadow-[0_0_12px_rgba(56,189,248,0.1)] sm:mt-5 sm:p-5">
+                  <div className="text-lg font-bold sm:text-xl">Public Donation Wallet</div>
+                  <div className="mt-3 flex flex-col gap-3 sm:mt-4 lg:flex-row lg:items-center lg:justify-between lg:gap-4">
+                    <div className="rounded-xl border border-white/10 bg-black/20 px-3 py-2.5 text-sm text-blue-100/80 break-all sm:px-4 sm:py-3 sm:text-base">xxxxxxxxxxxxxxxxxxxxxxxx</div>
+                    <button className="rounded-xl bg-blue-600 px-4 py-3 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-blue-500 active:scale-[0.98] sm:px-5 shrink-0">View on Solscan</button>
                   </div>
                 </div>
               </div>
             </section>
 
-            <footer className="py-10 text-center text-blue-100/70">
-              <div className="text-3xl font-extrabold text-white">HopeKids © 2026</div>
-              <div className="mt-2 text-lg">Trade crypto. Give hope.</div>
+            <footer className="py-8 text-center text-blue-100/70 sm:py-10">
+              <div className="text-2xl font-extrabold text-white sm:text-3xl">HopeKids © 2026</div>
+              <div className="mt-1 text-base sm:mt-2 sm:text-lg">Trade crypto. Give hope.</div>
             </footer>
           </div>
         </div>
