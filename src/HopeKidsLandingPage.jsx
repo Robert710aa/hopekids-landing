@@ -5,8 +5,6 @@ export default function HopeKidsLandingPage() {
     { label: 'Total Transactions Helping Children', value: '15,284', suffix: '' },
   ];
 
-  const community = ['Telegram', 'Twitter', 'DexScreener', 'Solscan'];
-
   return (
     <>
       <style>{`
@@ -85,7 +83,7 @@ export default function HopeKidsLandingPage() {
               <div className="relative z-10 mt-10 grid w-full grid-cols-4 gap-3">
                 <a
                   href="#"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-transparent bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 backdrop-blur transition hover:border-transparent hover:bg-[#071a35]/35"
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)]"
                   aria-label="Telegram"
                 >
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(56,189,248,0.18)]">
@@ -98,7 +96,7 @@ export default function HopeKidsLandingPage() {
 
                 <a
                   href="#"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-transparent bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 backdrop-blur transition hover:border-transparent hover:bg-[#071a35]/35"
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)]"
                   aria-label="Twitter / X"
                 >
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(148,163,184,0.16)]">
@@ -111,7 +109,7 @@ export default function HopeKidsLandingPage() {
 
                 <a
                   href="#"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-transparent bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 backdrop-blur transition hover:border-transparent hover:bg-[#071a35]/35"
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)]"
                   aria-label="DexScreener"
                 >
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(34,211,238,0.14)]">
@@ -125,7 +123,7 @@ export default function HopeKidsLandingPage() {
 
                 <a
                   href="#"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-transparent bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 backdrop-blur transition hover:border-transparent hover:bg-[#071a35]/35"
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)]"
                   aria-label="Solscan"
                 >
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(59,130,246,0.18)]">
@@ -183,19 +181,6 @@ export default function HopeKidsLandingPage() {
                 </div>
               </div>
             </section>
-
-            <section className="mt-8 rounded-[26px] border border-blue-300/18 bg-[#061126]/28 px-6 py-8 text-center backdrop-blur">
-              <div className="text-[34px] font-extrabold">Join Our Community</div>
-              <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
-                {community.map((item) => (
-                  <div key={item} className="rounded-xl border border-blue-300/20 bg-white/5 px-6 py-4 font-bold text-blue-100/84">
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* removed: The Story of HopeKids */}
 
             <footer className="py-10 text-center text-blue-100/70">
               <div className="text-3xl font-extrabold text-white">HopeKids © 2026</div>
