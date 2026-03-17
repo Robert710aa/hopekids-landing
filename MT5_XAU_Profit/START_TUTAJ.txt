@@ -1,0 +1,15 @@
+=== Szybki start (edytujesz w Cursorze) ===
+
+1. Dwuklik:  1_Skopiuj_i_otworz_folder_MT5.bat
+   (skopiuje pliki do MT5 i otworzy folder)
+
+2. W otwartym folderze: dwuklik na  XAU_Profit_EA.mq5
+   (otworzy się MetaEditor)
+
+3. W MetaEditorze: F7 (Kompiluj)
+
+4. W MT5: Nawigator → Eksperci → odśwież, przeciągnij EA na wykres
+
+--- Szczegóły ---
+Pełna instrukcja: JAK_EDYTOWAC_I_KOMPILOWAC.txt
+Koniec.

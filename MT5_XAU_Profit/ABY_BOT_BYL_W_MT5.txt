@@ -1,0 +1,24 @@
+Bot jest w Nawigatorze tylko gdy plik .ex5 jest w folderze DANYCH MT5.
+.ex5 powstaje w TYM SAMYM folderze co otwarty plik .mq5 w MetaEditorze.
+
+KROK 1 - Sprawdź skąd otwierasz
+  W MetaEditorze: jeśli w tytule okna lub w Plik->Zapisz jako widzisz
+  "noktra-start-static" lub "Cursor" - to ZŁA ścieżka. Zamknij ten plik.
+
+KROK 2 - Otwórz plik Z DANYCH MT5
+  W MT5: Plik -> Otwórz folder danych.
+  W otwartym oknie: MQL5 -> Experts -> MT5_XAU_Profit.
+  Dwuklik na XAU_Profit_EA.mq5 (otwórz w Notatniku lub wybierz MetaEditor).
+  LUB w MetaEditorze: Plik -> Otwórz -> przejdź do tego samego folderu
+  (folder danych MT5 -> MQL5 -> Experts -> MT5_XAU_Profit) -> wybierz XAU_Profit_EA.mq5.
+
+KROK 3 - Kompiluj
+  W MetaEditorze naciśnij F7. Musi być "0 errors".
+
+KROK 4 - Odśwież MT5
+  W MT5: Nawigator -> Eksperci -> prawy przycisk -> Odśwież.
+  Rozwiń Eksperci -> MT5_XAU_Profit. Powinien być XAU_Profit_EA.
+
+Jeśli nadal nie ma: w folderze Experts\MT5_XAU_Profit sprawdź czy jest plik
+XAU_Profit_EA.ex5 (data modyfikacji = teraz). Jeśli nie ma - kompilujesz
+nadal z innego miejsca (np. Cursor). Otwórz .mq5 TYLKO z folderu danych MT5.

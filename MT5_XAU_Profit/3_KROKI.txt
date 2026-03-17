@@ -1,0 +1,8 @@
+1. W MT5: Plik -> Otwórz folder danych. Wejdź: MQL5 -> Experts.
+   Nie ma folderu "MT5_XAU_Profit"? Prawy przycisk -> Nowy -> Folder -> nazwa: MT5_XAU_Profit. Otwórz ten folder.
+
+2. Uruchom (dwuklik) plik: Otworz_oba_foldery.bat.
+   Z okna, które się otworzy, przeciągnij do folderu z punktu 1 te pliki: XAU_Profit_EA.mq5 i 4 pliki .mqh (wszystkie z końcówką .mq5 lub .mqh).
+
+3. MetaEditor (F4 w MT5) -> Plik -> Otwórz -> wejdź w Experts -> MT5_XAU_Profit -> otwórz XAU_Profit_EA.mq5 -> naciśnij F7.
+   Potem w MT5: Nawigator -> Eksperci -> prawy przycisk -> Odśwież. Bot będzie pod: Eksperci -> MT5_XAU_Profit.

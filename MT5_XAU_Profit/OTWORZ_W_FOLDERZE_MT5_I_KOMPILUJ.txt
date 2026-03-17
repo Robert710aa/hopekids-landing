@@ -1,0 +1,25 @@
+=== WAZNE: zeby nie bylo 100 bledow - otwieraj plik Z FOLDERU MT5 ===
+
+MetaEditor musi kompilowac plik, ktory jest W FOLDERZE DANYCH MT5 (tam gdzie sa tez 4 pliki .mqh).
+Jesli otworzysz XAU_Profit_EA.mq5 z folderu Cursor (noktra-start-static), kompilator nie znajdzie .mqh i dostaniesz dziesiątki bledow.
+
+--- CO ZROBIC (w tej kolejnosci) ---
+
+1. Uruchom:  1_Skopiuj_i_otworz_folder_MT5.bat
+   (skopiuje 5 plikow do MT5 i otworzy wlasciwy folder w Eksploratorze)
+
+2. W otwartym folderze (Experts\MT5_XAU_Profit) zobaczysz 5 plikow:
+   XAU_Profit_EA.mq5, XAU_Profit_Helpers.mqh, itd.
+
+3. Uruchom MetaEditor (w MT5: F4).
+
+4. W MetaEditorze:
+   Plik  ->  Otworz folder danych
+   W oknie, ktore sie otworzy, wejdz:  MQL5  ->  Experts  ->  MT5_XAU_Profit
+
+5. W tym folderze otworz (dwuklik)  XAU_Profit_EA.mq5
+   NIE otwieraj pliku z paska adresu Cursor ani z noktra-start-static.
+
+6. Nacisnij F7 (Kompiluj).
+
+Jesli dalej sa bledy - w MetaEditorze na dole w panelu "Bledy" zobacz PIERWSZY wpis (pierwsza linia z numerem linii). Napisz mi ten numer linii i tresc pierwszego bledu.

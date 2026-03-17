@@ -1,0 +1,30 @@
+========================================
+  XAU_Profit_EA – instalacja w MetaTrader 5
+========================================
+
+1. Otwórz MetaTrader 5.
+
+2. W MT5: Plik → Otwórz folder danych (lub w menu: Narzędzia → Opcje → Zakładka "Serwer" / ścieżka do danych).
+   Typowa ścieżka to:
+   C:\Users\[Twoja_nazwa]\AppData\Roaming\MetaQuotes\Terminal\[ID]\MQL5\Experts\
+
+3. Skopiuj WSZYSTKIE 5 plików z folderu MT5_XAU_Profit do folderu Experts:
+   - XAU_Profit_EA.mq5
+   - XAU_Profit_Indicators.mqh
+   - XAU_Profit_Helpers.mqh
+   - XAU_Profit_Signals.mqh
+   - XAU_Profit_Trade.mqh
+   (Wszystkie w tym samym folderze Experts.)
+
+4. W MT5 uruchom MetaEditor (F4 lub Narzędzia → MetaQuotes Language Editor).
+
+5. W MetaEditorze otwórz plik XAU_Profit_EA.mq5 (z folderu Experts).
+
+6. Skompiluj: naciśnij F7 (lub Montaż → Kompiluj).
+   Ważne: kompiluj tylko plik .mq5, nie pliki .mqh.
+
+7. Zamknij MetaEditor. W MT5 w oknie Nawigator (Ctrl+N) odśwież listę (prawy przycisk → Odśwież). Pojawi się "XAU_Profit_EA" w sekcji Doradcy eksperci.
+
+8. Przeciągnij XAU_Profit_EA na wykres XAUUSD (lub innego symbolu). Ustaw parametry i włącz "Zezwól na handel algorytmiczny".
+
+Gotowe.

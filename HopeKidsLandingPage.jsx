@@ -24,6 +24,14 @@ export default function HopeKidsLandingPage() {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
         }
+
+        @keyframes shineSweep {
+          0% { transform: translateX(-180%) rotate(18deg); opacity: 0; }
+          20% { opacity: 0; }
+          45% { opacity: 0.75; }
+          70% { opacity: 0; }
+          100% { transform: translateX(220%) rotate(18deg); opacity: 0; }
+        }
       `}</style>
 
       <div className="min-h-screen text-white bg-[url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06')] bg-cover bg-center bg-fixed">
@@ -34,7 +42,7 @@ export default function HopeKidsLandingPage() {
           {/* Logo w prawym górnym rogu strony (fixed) */}
           <div className="fixed right-4 top-4 z-50 flex h-14 w-14 items-center justify-center rounded-full border-2 border-amber-300/50 bg-[#061126]/90 shadow-lg shadow-amber-500/20 backdrop-blur md:right-6 md:top-6 md:h-16 md:w-16">
             <img
-              src="/hopekids-logo.png"
+              src="/hopekids-coin.png"
               alt="HopeKids"
               className="h-full w-full rounded-full object-contain p-0.5"
             />
@@ -44,7 +52,7 @@ export default function HopeKidsLandingPage() {
             <header className="mb-6 flex items-center justify-between rounded-2xl border border-blue-400/20 bg-[#061126]/80 px-4 py-3 backdrop-blur">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-full border border-amber-300/50 bg-gradient-to-br from-amber-300 to-amber-600 shadow-lg shadow-amber-500/20 overflow-hidden">
-                  <img src="/hopekids-logo.png" alt="HopeKids" className="h-full w-full object-contain" />
+                  <img src="/hopekids-coin.png" alt="HopeKids" className="h-full w-full object-contain" />
                 </div>
                 <div className="text-2xl font-extrabold tracking-tight">HopeKids</div>
               </div>
@@ -95,11 +103,16 @@ export default function HopeKidsLandingPage() {
                   <div className="relative flex h-[360px] w-[360px] items-center justify-center">
                     <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,166,0,0.32),transparent_62%)] blur-3xl" />
                     <div className="absolute right-6 top-4 h-[300px] w-[300px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.28),transparent_65%)] blur-2xl" />
-                    <img
-                      src="/coin.png"
-                      alt="HopeKids Coin"
-                      className="relative z-10 h-[320px] w-[320px] object-contain drop-shadow-[0_0_36px_rgba(255,190,80,0.55)] animate-[coinRotate_20s_linear_infinite]"
-                    />
+                    <div className="relative z-10 h-[320px] w-[320px] overflow-hidden rounded-full border border-amber-200/40 shadow-[0_0_80px_rgba(255,190,80,0.35)]">
+                      <div className="absolute inset-[-10px] rounded-full bg-[radial-gradient(circle_at_30%_25%,rgba(255,245,200,0.35),transparent_38%),radial-gradient(circle_at_70%_65%,rgba(59,130,246,0.25),transparent_45%)] blur-md" />
+                      <img
+                        src="/hopekids-coin.png"
+                        alt="HopeKids Coin"
+                        className="relative z-10 h-full w-full object-cover [animation:coinRotate_24s_linear_infinite]"
+                      />
+                      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(255,255,255,0.18),transparent_35%),radial-gradient(circle_at_50%_100%,rgba(0,0,0,0.25),transparent_45%)]" />
+                      <div className="pointer-events-none absolute left-1/2 top-[-20%] h-[140%] w-[22%] -translate-x-1/2 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.55),transparent)] blur-md [animation:shineSweep_6s_ease-in-out_infinite]" />
+                    </div>
                   </div>
                 </div>
               </div>

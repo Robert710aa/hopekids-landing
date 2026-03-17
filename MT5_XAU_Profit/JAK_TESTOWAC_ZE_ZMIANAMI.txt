@@ -1,0 +1,22 @@
+Dlaczego test wyglada tak jakby nic sie nie zmienilo?
+=====================================================
+
+1. MT5 uruchamia plik z FOLDERU MT5, nie z Cursora.
+   - Skopiuj 5 plikow (XAU_Profit_EA.mq5 + 4 .mqh) z tego folderu
+     do: MetaTrader 5 / MQL5 / Experts /
+   - W MetaEditorze otworz XAU_Profit_EA.mq5 Z FOLDERU Experts (nie z Cursora).
+   - Nacisnij F7 (Kompiluj). Musi byc "0 error(s)".
+
+2. W Testerze Strategii parametry moga byc nadpisane przez plik .set.
+   - NIE wczytuj zadnego pliku .set (albo w zakladce "Parametry wejsciowe"
+     sprawdz recznie: TrendFilter=true, 2swiece=true, MinBarsBetween=2, SL=0.4, TP=1.3).
+   - Jesli wczytujesz .set, w nim sa stare wartosci - test bedzie na starych.
+
+3. Po starcie testu sprawdz DZIENNIK (Journal).
+   - Na poczatku musi byc linijka:
+     "XAU_Profit PARAMETRY DZIALAJACE: TrendFilter=TAK | 2swiece=TAK | MinBarsBetween=2 | SL=0.4 TP=1.3 ..."
+   - Jesli widzisz TrendFilter=NIE, 2swiece=NIE, SL=0.45, TP=1.0 - dziala STARA wersja
+     albo wczytales .set ze starymi parametrami.
+
+Podsumowanie: Skopiuj pliki -> Kompiluj w MetaEditorze (F7) -> W testerze nie wczytuj .set ->
+Uruchom test -> W Dzienniku sprawdz czy jest "PARAMETRY DZIALAJACE: ... TAK ... 0.4 ... 1.3".

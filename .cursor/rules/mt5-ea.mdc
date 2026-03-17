@@ -1,0 +1,10 @@
+---
+description: Zasady przy edycji EA MT5_XAU_Profit
+globs: MT5_XAU_Profit/**/*.mq5, MT5_XAU_Profit/**/*.mqh
+---
+
+# MT5 XAU Profit EA – zasady przy zmianach
+
+- Zachowaj strukturę: **1 plik .mq5 (XAU_Profit_EA.mq5) + 4 pliki .mqh** (Helpers, Indicators, Signals, Trade). Nie rozdzielaj na inne foldery ani nie wymagaj dodatkowych kroków instalacji.
+- Aktualizacja na VPS ma być zawsze taka sama: użytkownik kopiuje te 5 plików do Experts (lub Experts\MT5_XAU_Profit), na VPS otwiera .mq5 w MetaEditorze, F7, odświeża Nawigator. Nie wprowadzaj zmian w kodzie ani w projekcie, które wymagałyby ponownego „dodawania bota do MT5” (np. nowe ścieżki, nowe zależności, zmiana nazw plików).
+- Instrukcja aktualizacji: `MT5_XAU_Profit/JAK_AKTUALIZOWAC_BOTA.txt`.

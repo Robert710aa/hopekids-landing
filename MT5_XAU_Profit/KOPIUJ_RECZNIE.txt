@@ -1,0 +1,31 @@
+========================================
+  JAK SKOPIOWAC BOTA DO MT5 (gdy bat "nie znalazl")
+========================================
+
+KROK 1 - Otwórz folder danych MT5
+   W MetaTrader 5: menu Plik -> Otwórz folder danych.
+   Zostanie otwarty folder Twojego terminala.
+
+KROK 2 - Wejdź do Experts
+   W tym folderze otwórz: MQL5 -> Experts
+
+KROK 3 - Folder na bota
+   - Jesli NIE MA folderu "MT5_XAU_Profit": prawy przycisk -> Nowy -> Folder -> wpisz: MT5_XAU_Profit
+   - Otwórz folder MT5_XAU_Profit (dwuklik)
+
+KROK 4 - Skopiuj 5 plików
+   Z folderu, w którym jest ten plik (MT5_XAU_Profit w Cursorze), przeciągnij do Experts\MT5_XAU_Profit te pliki:
+   - XAU_Profit_EA.mq5
+   - XAU_Profit_Trade.mqh
+   - XAU_Profit_Helpers.mqh
+   - XAU_Profit_Indicators.mqh
+   - XAU_Profit_Signals.mqh
+   (Przeciągnij myszką z jednego okna do drugiego - Zastąp gdy zapyta.)
+
+KROK 5 - Kompilacja
+   MetaEditor (F4 w MT5) -> Plik -> Otwórz -> wejdź w MQL5\Experts\MT5_XAU_Profit -> otwórz XAU_Profit_EA.mq5 -> naciśnij F7.
+
+KROK 6 - Nawigator
+   W MT5: Nawigator -> Eksperci -> prawy przycisk -> Odśwież. Bot: Eksperci -> MT5_XAU_Profit -> XAU_Profit_EA.
+
+========================================

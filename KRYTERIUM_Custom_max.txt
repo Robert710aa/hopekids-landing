@@ -1,0 +1,17 @@
+========================================
+DLACZEGO „Wynik” = 0 W OPTYMALIZACJI
+========================================
+
+1. W Testerze Strategii, w zakładce „Wyniki Optymalizacji”, nad tabelą jest pole:
+   „Wybierz kryterium” (Select criterion).
+
+2. Musi być wybrane: „Custom max” (maksymalizacja wartości zwracanej przez OnTester).
+   Wtedy kolumna „Wynik” = to, co zwraca EA w OnTester() (u nas: zysk + ewentualnie 0.0001 gdy były transakcje przy zysku 0).
+
+3. Jeśli wybrane jest np. „Max Saldo” lub inne kryterium, tabela może pokazywać inną wielkość i przy braku transakcji będzie 0.
+
+4. Po zmianie kodu EA: skompiluj (F7) i uruchom optymalizację ponownie. W Dzienniku (zakładka Dziennik) sprawdź, czy pojawia się:
+   - „XAU_Profit_EA [tester fallback]: OpenTestPosition błąd …” – wtedy w Testerze nie udało się otworzyć pozycji (symbol/handel).
+   - „TEST OK – pozycja otwarta.” – fallback zadziałał.
+
+========================================

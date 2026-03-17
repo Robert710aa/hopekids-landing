@@ -1,0 +1,30 @@
+========================================
+  JAK WGRAC EA DO METATRADER 5 (krok po kroku)
+========================================
+
+KROK 1 – Otwórz folder z plikami
+   • Kliknij dwukrotnie: 1_OTWORZ_TEN_FOLDER.bat
+   • Otworzy się folder z 5 plikami (XAU_Profit_EA.mq5 i 4× .mqh)
+
+KROK 2 – Otwórz folder Experts w MT5
+   • Uruchom MetaTrader 5
+   • Wciśnij F4 (MetaEditor)
+   • W MetaEditorze: menu Plik → Otwórz folder danych
+   • W otwartym oknie wejdź w folder: MQL5 → Experts
+
+KROK 3 – Skopiuj pliki
+   • W oknie z KROKU 1: zaznacz wszystkie 5 plików (Ctrl+A)
+   • Skopiuj (Ctrl+C)
+   • Przejdź do okna z KROKU 2 (folder Experts)
+   • Wklej (Ctrl+V)
+
+KROK 4 – Kompilacja
+   • W MetaEditorze: Plik → Otwórz → wejdź w MQL5\Experts
+   • Otwórz plik XAU_Profit_EA.mq5
+   • Wciśnij F7 (Kompiluj)
+
+KROK 5 – Uruchomienie
+   • W MT5 w oknie Nawigator (Ctrl+N) odśwież listę
+   • Przeciągnij „XAU_Profit_EA” na wykres
+
+========================================

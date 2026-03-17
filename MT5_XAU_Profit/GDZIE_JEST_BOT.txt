@@ -1,0 +1,13 @@
+Bot XAU_Profit_EA JEST na Twoim komputerze w 3 miejscach:
+
+1) C:\Users\Crypt\AppData\Roaming\MetaQuotes\Terminal\533D3B671547FBB075C60982C0F6378D\MQL5\Experts\MT5_XAU_Profit
+
+2) C:\Users\Crypt\AppData\Roaming\MetaQuotes\Terminal\5DCD9DE4EBFA1582CF551B9A7A9D0DDC\MQL5\Experts\MT5_XAU_Profit
+
+3) C:\Users\Crypt\AppData\Roaming\MetaQuotes\Terminal\D0E8209F77C8CF37AD8BF550E51FF075\MQL5\Experts\MT5_XAU_Profit
+
+W kazdym folderze sa pliki: XAU_Profit_EA.mq5, XAU_Profit_Trade.mqh, XAU_Profit_Helpers.mqh, XAU_Profit_Indicators.mqh, XAU_Profit_Signals.mqh.
+
+JAK ZOBACZYC: Uruchom (dwuklik) plik POKAZ_MI_GDZIE_JEST_BOT.bat - otworzy sie 3 okna z tymi folderami.
+
+DLACZEGO NIE WIDAC W MT5: Aby bot pojawil sie w programie MT5, trzeba go SKOMPILOWAC (w MetaEditorze nacisnac F7). Bez tego pliku .ex5 MT5 nie pokazuje bota. To musisz zrobic recznie: MetaEditor (F4 w MT5) - Plik - Otworz - wejdz w MQL5 - Experts - MT5_XAU_Profit - otworz XAU_Profit_EA.mq5 - nacisnij F7. Potem w MT5: Eksperci - odswiez.

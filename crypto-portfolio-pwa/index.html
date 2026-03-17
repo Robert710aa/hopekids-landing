@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#6366f1">
+  <meta name="description" content="Portfolio kryptowalut – wartość w PLN/USD">
+  <title>Portfolio Kryptowalut</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Portfolio</h1>
+      <p class="total">
+        <span id="totalUSD">0.00</span> USD ·
+        <span id="totalPLN">0.00</span> PLN
+      </p>
+      <p class="sub" id="lastUpdate">—</p>
+    </header>
+
+    <section class="add-form">
+      <h2>Dodaj pozycję</h2>
+      <div class="row">
+        <select id="coinSelect">
+          <option value="bitcoin">BTC – Bitcoin</option>
+          <option value="ethereum">ETH – Ethereum</option>
+          <option value="tether">USDT – Tether</option>
+          <option value="binancecoin">BNB – BNB</option>
+          <option value="solana">SOL – Solana</option>
+          <option value="ripple">XRP – Ripple</option>
+          <option value="cardano">ADA – Cardano</option>
+          <option value="dogecoin">DOGE – Dogecoin</option>
+          <option value="polkadot">DOT – Polkadot</option>
+          <option value="avalanche-2">AVAX – Avalanche</option>
+          <option value="chainlink">LINK – Chainlink</option>
+          <option value="polygon">MATIC – Polygon</option>
+        </select>
+        <input type="number" id="amount" placeholder="Ilość" min="0" step="any" inputmode="decimal">
+        <button type="button" id="btnAdd">Dodaj</button>
+      </div>
+    </section>
+
+    <section class="list">
+      <h2>Twoje pozycje</h2>
+      <ul id="holdings"></ul>
+      <p class="empty" id="emptyMsg">Brak pozycji. Dodaj pierwszą powyżej.</p>
+    </section>
+
+    <footer>
+      <button type="button" id="btnRefresh">Odśwież ceny</button>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

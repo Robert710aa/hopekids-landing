@@ -1,0 +1,50 @@
+========================================
+OPTYMALIZACJA XAU_Profit_EA – co zrobić
+========================================
+
+Komunikat: "no optimized parameter selected, please check input(s) to be optimized 
+and set start, step and stop values"
+
+Znaczy: włączona jest OPCJA OPTYMALIZACJA, ale żaden parametr nie ma ustawionych 
+Start / Step / Stop. Trzeba wybrać przynajmniej jeden parametr do optymalizacji.
+
+KROKI:
+
+1. W Testerze Strategii kliknij zakładkę „Parametry wejścia” (Input Parameters).
+
+2. Zobaczysz listę parametrów EA (InpMAPeriod, InpEMATolerancePoints, itd.).
+   Dla każdego parametru są kolumny: wartość, Start, Step, Stop.
+
+3. Wybierz PRZYNAJMNIEJ JEDEN parametr do optymalizacji:
+   - W kolumnie „Start” wpisz wartość początkową.
+   - W kolumnie „Step” wpisz krok (np. 10).
+   - W kolumnie „Stop” wpisz wartość końcową.
+
+   Przykłady (możesz skopiować):
+
+   InpMAPeriod (okres EMA):
+     Start: 20    Step: 10    Stop: 60
+     (będzie testowane: 20, 30, 40, 50, 60)
+
+   InpEMATolerancePoints (tolerancja EMA, więcej wejść):
+     Start: 0     Step: 100   Stop: 500
+     (będzie testowane: 0, 100, 200, 300, 400, 500)
+
+   InpMAPeriod + InpEMATolerancePoints (oba naraz – dłuższa optymalizacja):
+     InpMAPeriod:         Start 20  Step 10  Stop 50
+     InpEMATolerancePoints: Start 0   Step 100 Stop 300
+
+4. Upewnij się, że w „Ustawieniach” testera masz wybrane:
+   - Tryb: „Optymalizacja” (nie „Pojedyncze wejście”).
+   - Kryterium: np. „Custom max” (wtedy używa OnTester() = zysk).
+
+5. Kliknij Start. Optymalizacja wystartuje i będzie testować wszystkie kombinacje 
+   wybranych parametrów.
+
+========================================
+Jeśli chcesz tylko JEDEN test (bez optymalizacji):
+========================================
+W ustawieniach Testera ustaw tryb „Pojedyncze wejście” (single run), 
+a nie „Optymalizacja”. Wtedy nie trzeba ustawiać Start/Step/Stop.
+
+========================================

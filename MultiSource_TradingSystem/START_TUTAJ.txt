@@ -1,0 +1,38 @@
+========================================
+  MULTI-SOURCE SIGNAL HUB – START
+========================================
+
+1. URUCHOM HUB (wybierz jedno):
+
+   A) Podwojne klikniecie: Uruchom_Signal_Hub.bat
+      – Zainstaluje Python venv i zaleznosci (pierwszy raz)
+      – Uruchomi serwer na http://127.0.0.1:8000
+      – Zostaw okno otwarte
+
+   B) Reczenie (w folderze MultiSource_TradingSystem):
+      python -m venv venv
+      venv\Scripts\activate
+      pip install -r requirements.txt
+      uvicorn main:app --host 127.0.0.1 --port 8000
+
+2. POLACZ Z EA (MT5):
+
+   – W .env jest ustawione: SIGNAL_FILE_PATH = ...\Terminal\Common\Files\signal_xau.txt
+     Hub zapisuje tam plik; EA czyta z tego samego miejsca (Common/Files) – nic nie kopiujesz.
+
+   – W XAU_Profit_EA domyslnie: InpUseExternalSignal = true, InpExternalSignalFile = signal_xau.txt
+     Jesli zmieniales .env na inna sciezke, upewnij sie ze EA czyta z MQL5/Files albo ustaw
+     z powrotem Common (EA uzywa FILE_COMMON = Terminal\Common\Files).
+
+3. OPCJONALNIE – klucze API (w pliku .env):
+
+   – ALPHA_VANTAGE_API_KEY – darmowy: https://www.alphavantage.co/support/#api-key
+   – TWELVE_DATA_API_KEY – https://twelvedata.com/
+   Bez kluczy dzialaja: webhook TradingView i odswiezanie (GET /refresh).
+
+4. TradingView webhook (opcjonalnie):
+
+   – Alert → Webhook URL: http://TWOJ_IP:8000/webhook/tradingview
+   – Body (JSON): {"direction": "long", "strength": 0.8}
+
+========================================

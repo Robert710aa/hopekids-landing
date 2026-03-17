@@ -1,0 +1,9 @@
+Skopiuj te 5 plikow do folderu Experts (MQL5\Experts):
+
+XAU_Profit_EA.mq5
+XAU_Profit_Trade.mqh
+XAU_Profit_Helpers.mqh
+XAU_Profit_Indicators.mqh
+XAU_Profit_Signals.mqh
+
+Zaznacz powyzsze 5 plikow w tym folderze (Ctrl+A po otwarciu folderu) i wklej do Experts.

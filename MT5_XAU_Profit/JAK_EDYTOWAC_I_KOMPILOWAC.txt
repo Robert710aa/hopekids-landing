@@ -1,0 +1,35 @@
+=== Jak edytować bota w Cursorze i kompilować w MetaEditorze ===
+
+ZASADA: Kod trzymasz w Cursorze (ten folder). Żeby MetaEditor kompilował to samo,
+najpierw kopiujesz pliki do MT5, potem otwierasz je w MetaEditorze.
+
+--- KROK PO KROKU ---
+
+1. Edytujesz w Cursorze
+   Otwierasz i zmieniasz pliki w folderze:
+   c:\Users\Crypt\noktra-start-static\MT5_XAU_Profit
+   (np. XAU_Profit_EA.mq5 i pliki .mqh)
+
+2. Zapisujesz
+   W Cursorze: Ctrl+S (zapisz wszystkie pliki)
+
+3. Kopiujesz do MT5
+   Dwuklik na plik:  Skopiuj_do_MT5.bat
+   (jest w tym samym folderze co EA)
+   Poczekaj, aż pojawi się „Gotowe. Skopiowano do X terminali”.
+   Możesz zamknąć okno (Enter lub krzyżyk).
+
+4. Otwierasz w MetaEditorze
+   • Włącz MetaTrader 5 (lub MetaEditor).
+   • Naciśnij F4  → otworzy się MetaEditor.
+   • W MetaEditorze:  Plik  →  Otwórz folder danych
+   • W oknie, które się otworzy, wejdź:  MQL5  →  Experts  →  MT5_XAU_Profit
+   • Otwórz plik  XAU_Profit_EA.mq5  (dwuklik).
+   • Naciśnij F7  (Kompiluj).
+
+5. Gotowe
+   Kompilujesz dokładnie ten sam kod, który masz w Cursorze.
+   W MT5: Nawigator → Eksperci → prawy przycisk → Odśwież (żeby zobaczyć nową wersję).
+
+--- Skrót ---
+Zapamiętaj:  Cursor (edytuj, Zapisz)  →  dwuklik Skopiuj_do_MT5.bat  →  MetaEditor (Otwórz folder danych → MQL5 → Experts → MT5_XAU_Profit → otwórz .mq5 → F7).

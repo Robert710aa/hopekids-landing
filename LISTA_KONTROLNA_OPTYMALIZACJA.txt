@@ -1,0 +1,28 @@
+========================================
+LISTA KONTROLNA – Wynik = 0 w optymalizacji
+========================================
+
+Zrób po kolei:
+
+[ ] 1. Skopiuj plik XAU_Profit_EA.mq5 z folderu:
+      c:\Users\Crypt\noktra-start-static\
+    do folderu Ekspertów MT5 (Plik → Otwórz folder danych → MQL5 → Experts).
+    Nadpisz istniejący plik.
+
+[ ] 2. W MetaEditorze (F4) otwórz XAU_Profit_EA.mq5 Z FOLDERU Experts (nie z noktra-start-static).
+    Naciśnij F7 (Kompiluj). Na dole musi być: 0 errors.
+
+[ ] 3. W Testerze Strategii:
+    - Zakładka „Wyniki optymalizacji”
+    - Nad tabelą: „Wybierz kryterium” → ustaw **Custom max** (maks. wartość z OnTester).
+    - Odznacz „Wyświetl poprzednie wyniki optymalizacji” (żeby nie oglądać starych wyników).
+    - Kliknij Start i poczekaj na zakończenie.
+
+[ ] 4. Po zakończeniu: w kolumnie „Wynik” powinny być małe wartości (np. 0.000001 lub wyższe).
+    Jeśli nadal wszędzie 0 → Tester nie używa „Custom max” albo EA jest stara wersja (wróć do kroku 1–2).
+
+[ ] 5. Dziennik: zakładka „Dziennik” w Testerze. Szukaj:
+    - „XAU_Profit_EA [tester fallback]: OpenTestPosition błąd …” = w Testerze nie udało się otworzyć pozycji.
+    - „TEST OK – pozycja otwarta.” = fallback zadziałał.
+
+========================================

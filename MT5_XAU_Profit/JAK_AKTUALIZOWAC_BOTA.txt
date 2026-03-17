@@ -1,0 +1,33 @@
+=== Jak zaktualizować bota na VPS po zmianach w kodzie ===
+
+Struktura NIE ZMIENIA SIĘ: 1 plik .mq5 + 4 pliki .mqh. Nie rozdzielaj ich,
+nie zmieniaj nazw folderów w MT5 - inaczej znowu trzeba będzie go dodawać od zera.
+
+KROK 1 - Na swoim PC (po zmianach w Cursorze)
+   Skopiuj te 5 plików z folderu MT5_XAU_Profit:
+   - XAU_Profit_EA.mq5
+   - XAU_Profit_Helpers.mqh
+   - XAU_Profit_Indicators.mqh
+   - XAU_Profit_Signals.mqh
+   - XAU_Profit_Trade.mqh
+
+KROK 2 - Na VPS
+   MT5 → Plik → Otwórz folder danych → MQL5 → Experts
+   (Jeśli bota trzymasz w podfolderze: Experts → MT5_XAU_Profit)
+
+   Wklej tam te 5 plików (nadpisz istniejące).
+
+KROK 3 - Kompilacja na VPS
+   MT5 → F4 (MetaEditor)
+   Plik → Otwórz folder danych → MQL5 → Experts (albo Experts → MT5_XAU_Profit)
+   Otwórz XAU_Profit_EA.mq5 → F7 (Kompiluj)
+   Zamknij MetaEditor.
+
+KROK 4
+   W MT5: Nawigator → Eksperci → prawy przycisk → Odśwież.
+   Gotowe. Bot jest zaktualizowany.
+
+--- Zasada przy edycji kodu ---
+Przy zmianach w EA: modyfikuj tylko te 5 plików. Nie twórz nowych ścieżek
+ani wymagań instalacyjnych - żeby aktualizacja zawsze była: skopiuj 5 plików,
+F7 na VPS, odśwież.

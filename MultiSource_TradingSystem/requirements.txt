@@ -1,0 +1,11 @@
+# Multi-Source Trading Signal Hub
+fastapi>=0.100.0
+uvicorn[standard]>=0.22.0
+python-dotenv>=1.0.0
+httpx>=0.24.0
+requests>=2.31.0
+# Opcjonalnie (odblokuj gdy dodasz źródła):
+# pandas>=2.0.0
+# alpha-vantage
+# python-binance
+# polygon-api-client
