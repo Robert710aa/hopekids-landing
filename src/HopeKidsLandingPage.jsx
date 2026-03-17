@@ -43,7 +43,7 @@ export default function HopeKidsLandingPage() {
 
               <div className="relative z-10 grid items-center gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-10">
                 <div className="text-center lg:text-left">
-                  <h1 className="text-4xl font-extrabold sm:text-5xl">HopeKids</h1>
+                  <h1 className="text-4xl font-extrabold text-amber-400 sm:text-5xl">HopeKids</h1>
 
                   <p className="mt-4 text-lg font-semibold text-blue-100 sm:mt-6 sm:text-2xl">
                     Trade Crypto. Give Hope.<br />Help Children.
