@@ -1,346 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Noktra Airdrop</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="logo.png">
-  <link rel="preconnect" href="https://plausible.io">
-  <link rel="preload" as="image" href="logo.png">
-  <link rel="preload" as="image" href="D3897B39-FBCA-41A6-9BC2-C88AF6DD2B6B.png">
-  <link rel="preload" as="image" href="E7A36217-5496-4C3A-9439-87C9278E6F24.png">
-  <link rel="preload" as="image" href="889DE7F5-6899-4172-A704-6EC2F9E3114A.png">
-  <meta property="og:title" content="Noktra Airdrop">
-  <meta property="og:description" content="Noktra — zdecentralizowany token społecznościowy na Solanie.">
-  <meta property="og:image" content="logo.png">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@Noktra1755">
-  <style>
-    .linklike{background:none;border:none;color:#00ffcc;cursor:pointer;text-decoration:underline;padding:0;margin-left:8px;font:inherit}
-    #toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:rgba(0,0,0,.75);color:#fff;padding:8px 12px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .2s;font-size:.9rem;z-index:99999}
-    #toast.show{opacity:1}
-    .lightbox-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:9999}
-    .lightbox-backdrop img{max-width:90vw;max-height:90vh;border-radius:8px;box-shadow:0 0 20px rgba(0,0,0,.6)}
-    html{scroll-behavior:smooth}
-    .nft-card{transition:transform .25s ease, box-shadow .25s ease}
-    .nft-card:hover{transform:translateY(-4px) scale(1.02); box-shadow:0 0 24px rgba(0,255,204,.35)}
-    .reveal{opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s ease}
-    .reveal.visible{opacity:1; transform:none}
-    .share-row{margin-top:10px; text-align:center}
-    .share-row a{color:#00ffcc; margin:0 8px; text-decoration:underline}
-    .neon-ornament{display:flex;justify-content:center;margin:6px 0 14px}
-    .neon-ornament svg{height:18px;filter:drop-shadow(0 0 8px rgba(0,255,204,.5))}
-    .neon-ornament path{stroke:url(#grad-neon);stroke-width:3;fill:none;stroke-linecap:round;opacity:.9;stroke-dasharray:180;animation:dash 12s linear infinite}
-    @keyframes dash{to{stroke-dashoffset:-360}}
-    /* Splash: logo full screen + fade/blur */
-    body.splash-lock{overflow:hidden}
-    .splash{
-      position:fixed; inset:0; z-index:100000; display:flex; flex-direction:column; align-items:center; justify-content:center;
-      background:radial-gradient(60% 60% at 50% 50%, rgba(0,0,0,.6), rgba(0,0,0,.92) 60%);
-      backdrop-filter:blur(2px);
-      opacity:1; transition:opacity .7s ease;
-    }
-    .splash.hide{opacity:0; pointer-events:none; visibility:hidden}
-    .splash .mark{
-      width:min(92vmin, 96vw); height:auto;
-      filter:drop-shadow(0 0 26px rgba(0,255,204,.55));
-      transition:transform .6s ease, filter .6s ease, opacity .6s ease;
-    }
-    .splash.play .mark{animation:logoFade 1.4s ease .4s forwards}
-    @keyframes logoFade{to{opacity:0; filter:blur(18px) brightness(1.15); transform:scale(1.06)}}
-    .splash .title{
-      margin-top:10px;
-      font-size:clamp(18px,3.6vw,28px); color:#00ffcc; letter-spacing:1.2px; font-weight:700; text-align:center;
-      text-shadow:0 0 16px rgba(0,255,204,.65), 0 0 28px rgba(0,255,204,.35);
-      opacity:.95;
-    }
-  </style>
-  <script>window.NOKTRA_BACKEND_URL="https://noktra-airdrop-6r387ygq6-noktras-projects.vercel.app/api";</script>
-  <script>
-    (function(){var s=document.createElement('script');s.src='https://plausible.io/js/script.js';s.defer=true;s.setAttribute('data-domain',location.hostname);document.head.appendChild(s);})();
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HopeKids – Trade Crypto. Give Hope. Help Children. 5% of every transaction goes to children's charity.">
+  <title>HopeKids – Trade Crypto. Give Hope. Help Children.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=1">
 </head>
 <body>
-  <div class="top-link">
-    <a href="#nft-gallery">Gallery NFT Noktra</a>
-  </div>
-  <div class="background"></div>
-  <img src="logo.png" alt="Noktra Logo" class="corner-logo" decoding="async" />
+  <div class="stars-bg" aria-hidden="true"></div>
+  <div class="gradient-bg" aria-hidden="true"></div>
 
-  <!-- Splash -->
-  <div id="splash" class="splash" aria-hidden="true">
-    <img class="mark" src="logo.png" alt="">
-    <div class="title">NOKTRA THANKS YOU FOR BEING PART OF THE PROJECT</div>
-  </div>
+  <header class="header">
+    <a href="#" class="logo">
+      <span class="logo-icon logo-heart">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2" fill="none"/>
+          <path d="M24 18c-2-3-6-2-8 2-2 4 0 8 8 12 8-4 10-8 8-12-2-4-6-5-8-2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+          <circle cx="18" cy="24" r="2.5" fill="currentColor"/><circle cx="30" cy="24" r="2.5" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="logo-text">HopeKids</span>
+    </a>
+    <nav class="nav">
+      <a href="#home">Home</a>
+      <a href="#why">Why HopeKids</a>
+      <a href="#transparency">Transparency</a>
+      <a href="#donations">Donations</a>
+      <a href="#community">Community</a>
+    </nav>
+    <a href="#buy" class="btn btn-primary btn-header">Buy HKIDS</a>
+  </header>
 
-  <div id="nft-gallery" class="nft-gallery">
-    <h2>NFT Gallery</h2>
-    <div class="neon-ornament" aria-hidden="true">
-      <svg viewBox="0 0 260 20" preserveAspectRatio="xMidYMid meet">
-        <defs>
-          <linearGradient id="grad-neon" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#00ffcc"/>
-            <stop offset="50%" stop-color="#ffffff"/>
-            <stop offset="100%" stop-color="#00ffcc"/>
-          </linearGradient>
-        </defs>
-        <path d="M5 10 Q 45 0, 85 10 T 165 10 T 245 10"/>
-      </svg>
-    </div>
-    <div class="nft-items">
-      <div class="nft-card">
-        <img src="D3897B39-FBCA-41A6-9BC2-C88AF6DD2B6B.png" alt="NFT 1" loading="lazy" decoding="async">
-        <p>Noktra Genesis #1</p>
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">HopeKids</h1>
+        <p class="hero-tagline">Trade Crypto. Give Hope. Help Children.</p>
+        <p class="hero-desc">Each transaction saves 5% tokens to help children.<br>5% każdej transakcji trafia do portfela pomocy.</p>
+        <div class="hero-buttons">
+          <a href="#buy" class="btn btn-primary btn-glow">Buy Token</a>
+          <a href="#donations" class="btn btn-outline">View Donation Wallet</a>
+        </div>
       </div>
-      <div class="nft-card">
-        <img src="E7A36217-5496-4C3A-9439-87C9278E6F24.png" alt="NFT 2" loading="lazy" decoding="async">
-        <p>Noktra Genesis #2</p>
+      <div class="hero-visual">
+        <div class="planet-coin">
+          <div class="planet"></div>
+          <div class="coin">
+            <span class="coin-face"></span>
+            <span class="coin-logo">HK</span>
+          </div>
+        </div>
       </div>
-      <div class="nft-card">
-        <img src="889DE7F5-6899-4172-A704-6EC2F9E3114A.png" alt="NFT 3" loading="lazy" decoding="async">
-        <p>Noktra Genesis #3</p>
+    </section>
+
+    <section class="stats">
+      <div class="stat-card">
+        <span class="stat-value">3,245,678 HKIDS</span>
+        <span class="stat-label">Tokens Saved for Children</span>
       </div>
-    </div>
-    <p class="nft-description"
-       data-en="Noktra is my own project, a dream I'm realizing. Thank you for being a part of it. The token was born out of passion, faith, and the desire to create something of my own. Noktra isn't just a project—it's a feeling. Noktra will continue to grow—until the whole world hears about it."
-       data-pl="Noktra is my own project, a dream I'm realizing. Thank you for being a part of it. The token was born out of passion, faith, and the desire to create something of my own. Noktra isn't just a project—it's a feeling. Noktra will continue to grow—until the whole world hears about it.">
-       Noktra is my own project, a dream I'm realizing. Thank you for being a part of it. The token was born out of passion, faith, and the desire to create something of my own. Noktra isn't just a project—it's a feeling. Noktra will continue to grow—until the whole world hears about it.
-    </p>
-    <div class="share-row">
-      <a id="share-twitter" href="#" target="_blank" rel="noopener">Udostępnij na Twitter</a>
-      <a id="share-telegram" href="#" target="_blank" rel="noopener">Udostępnij na Telegram</a>
-    </div>
-  </div>
+      <div class="stat-card">
+        <span class="stat-value">$16,380</span>
+        <span class="stat-label">Current Value</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">15,284</span>
+        <span class="stat-label">Total Transactions Helping Children</span>
+        <div class="stat-progress">
+          <div class="progress-bar"><span class="progress-fill" style="width:76%"></span></div>
+          <p class="progress-text">764,678 / 1,000,000 HKIDS · $3,260,000</p>
+        </div>
+      </div>
+    </section>
 
-  <div class="language-switcher">
-    <button onclick="setLanguage('en')">🇬🇧 English</button>
-    <button onclick="setLanguage('pl')">🇵🇱 Polski</button>
-  </div>
+    <section id="why" class="where-helps">
+      <h2 class="section-title">Where HopeKids Helps</h2>
+      <div class="where-grid">
+        <div class="map-wrap">
+          <div class="world-map" aria-hidden="true">
+            <div class="map-dot" style="top:28%;left:48%"></div>
+            <div class="map-dot" style="top:32%;left:52%"></div>
+            <div class="map-dot" style="top:45%;left:18%"></div>
+            <div class="map-dot" style="top:38%;left:25%"></div>
+            <div class="map-line" style="--x1:48;--y1:28;--x2:52;--y2:32"></div>
+            <div class="map-line" style="--x1:18;--y1:45;--x2:25;--y2:38"></div>
+          </div>
+          <div class="flags">
+            <span class="flag" title="Germany">🇩🇪</span>
+            <span class="flag" title="Poland">🇵🇱</span>
+            <span class="flag" title="USA">🇺🇸</span>
+          </div>
+        </div>
+        <div class="card trade-card">
+          <h3 class="card-title">Trade HopeKids Helps</h3>
+          <label class="trade-label">Amount</label>
+          <select class="trade-select">
+            <option>100,000 HKIDS</option>
+            <option>50,000 HKIDS</option>
+            <option>10,000 HKIDS</option>
+          </select>
+          <input type="text" class="trade-input" value="5,000 HKIDS" placeholder="Your amount">
+          <a href="#buy" class="btn btn-primary btn-block">Next →</a>
+        </div>
+      </div>
+    </section>
 
-  <div class="container">
-    <h1 data-en="Noktra Airdrop" data-pl="Airdrop Noktra">Noktra Airdrop</h1>
-    <p class="description" data-en="Noktra is a decentralized community token built on Solana. No inflation. No limits. For the people."
-       data-pl="Noktra to zdecentralizowany token społecznościowy zbudowany na Solanie. Bez dodruku. Bez barier. Dla ludzi.">
-       Noktra is a decentralized community token built on Solana. No inflation. No limits. For the people.
-    </p>
-    <div class="token-info">
-      <p><strong data-en="Token" data-pl="Token">Token</strong>: NOK</p>
-      <p><strong data-en="Total Supply" data-pl="Podaż">Total Supply</strong>: 1,000,000,000</p>
-      <p><strong data-en="Network" data-pl="Sieć">Network</strong>: Solana</p>
-      <p><strong>Token Address:</strong>
-        <a href="https://solscan.io/token/48QzG8RhntaiPjY7z3mPqaDiK8TxDKetBKAKMZr1TbL" target="_blank" rel="noopener" id="token-solscan">Solscan</a>
-        <button type="button" id="copy-token" class="linklike" data-addr="48QzG8RhntaiPjY7z3mPqaDiK8TxDKetBKAKMZr1TbL">Kopiuj</button>
-      </p>
-    </div>
+    <section class="core-values">
+      <div class="values-grid">
+        <div class="value-item">
+          <span class="value-icon value-earn">♥ $</span>
+          <h3>Earn</h3>
+          <p>Trade crypto & earn profits</p>
+        </div>
+        <div class="value-item">
+          <span class="value-icon value-help">♥</span>
+          <h3>Help</h3>
+          <p>Help children every transaction</p>
+        </div>
+        <div class="value-item">
+          <span class="value-icon value-impact">◎</span>
+          <h3>Impact</h3>
+          <p>Make a difference worldwide</p>
+        </div>
+        <div class="card market-card">
+          <span class="market-num">184</span>
+          <span class="market-label">market cap</span>
+          <span class="market-value">$3,250,000</span>
+        </div>
+      </div>
+    </section>
 
-    <p id="counter" style="text-align:center; font-weight:bold; margin-top:0.5rem; color:#00ffcc;">Zgłoszeń: 0</p>
+    <section id="donations" class="two-cols transparency-section">
+      <div id="transparency" class="card">
+        <h2 class="card-title">Transparency</h2>
+        <p class="wallet-label">Public Donation Wallet</p>
+        <code class="wallet-address">XXXXXXXXXXXXXXXXXXXXX</code>
+        <a href="https://solscan.io" target="_blank" rel="noopener" class="btn btn-outline btn-block">View on Solscan</a>
+      </div>
+      <div class="card">
+        <h2 class="card-title">Top Helpers</h2>
+        <ul class="helpers-list">
+          <li><span class="helper-label">Donated:</span> 450,000 HKIDS</li>
+          <li><span class="helper-label">Donated:</span> 310,000 HKIDS</li>
+        </ul>
+      </div>
+    </section>
 
-    <form id="airdrop-form" autocomplete="off">
-      <input type="text" id="address" placeholder="Solana Address" required
-             inputmode="text" minlength="32" maxlength="60"
-             pattern="[1-9A-HJ-NP-Za-km-z]{32,60}"
-             title="Wklej poprawny adres Solana (base58, 32–60 znaków)" />
-      <input type="text" id="twitter" placeholder="Twitter Username" required
-             inputmode="text" maxlength="32" title="@username bez spacji" />
-      <input type="text" id="telegram" placeholder="Telegram Username" required
-             inputmode="text" maxlength="32" title="@username bez spacji" />
-      <button type="submit" data-en="Submit to Airdrop" data-pl="Zgłoś się do airdropu">Submit to Airdrop</button>
-    </form>
-    <p id="message" aria-live="polite"></p>
-    <div class="socials">
-      <a href="https://phantom.app/" target="_blank" rel="noopener">Phantom Wallet</a> |
-      <a href="https://x.com/Noktra1755" target="_blank" rel="noopener">Twitter</a> |
-      <a href="https://t.me/Noktra_AirDrop" target="_blank" rel="noopener">Telegram</a>
-    </div>
-  </div>
+    <section id="community" class="community">
+      <h2 class="section-title"><span class="check-icon">✓</span> Join Our Community</h2>
+      <div class="community-buttons">
+        <a href="#" class="community-btn" target="_blank" rel="noopener" aria-label="Telegram">Telegram</a>
+        <a href="#" class="community-btn" target="_blank" rel="noopener" aria-label="Twitter">Twitter</a>
+        <a href="#" class="community-btn" target="_blank" rel="noopener" aria-label="Discord">Discord</a>
+        <a href="#" class="community-btn" target="_blank" rel="noopener" aria-label="DexScreener">DexScreener</a>
+        <a href="#" class="community-btn" target="_blank" rel="noopener" aria-label="Solscan">Solscan</a>
+      </div>
+      <div class="partners">
+        <h3 class="partners-title">PARTNERS</h3>
+        <div class="partners-logos">
+          <span class="partner-placeholder">Partner 1</span>
+          <span class="partner-placeholder">Partner 2</span>
+        </div>
+      </div>
+    </section>
 
-  <script src="script.js" defer></script>
+    <section class="story">
+      <div class="story-heart">
+        <div class="heart-glow"></div>
+        <span class="heart-logo">HK</span>
+      </div>
+      <div class="story-content">
+        <h2 class="section-title">The Story of HopeKids</h2>
+        <p>HopeKids was created to combine the power of blockchain with real help for children who need it the most.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-brand">HopeKids © 2026</p>
+    <p class="footer-tagline">Trade crypto. Give hope.</p>
+  </footer>
 
   <script>
-    (function(){
-      const backend = (typeof window!=='undefined' && window.NOKTRA_BACKEND_URL) ? String(window.NOKTRA_BACKEND_URL) : '';
-      const keyCount = 'noktra-airdrop-count';
-      const keySub = 'noktra-airdrop-submissions';
-
-      function getLocalCount(){ return parseInt(localStorage.getItem(keyCount) || '0', 10); }
-      function setLocalCount(v){ localStorage.setItem(keyCount, String(v)); }
-      function renderCount(v){
-        var el = document.getElementById('counter');
-        if(!el) return;
-        var n = (typeof v==='number') ? v : getLocalCount();
-        el.textContent = 'Zgłoszeń: ' + n;
-      }
-      async function fetchGlobal(){
-        if(!backend) return;
-        try{
-          const r = await fetch(backend.replace(/\/$/,'') + '/count');
-          if(!r.ok) return;
-          const d = await r.json();
-          if(typeof d.count === 'number'){ setLocalCount(d.count); renderCount(d.count); }
-        }catch(_){}
-      }
-      function isValidAddr(a){ return !!a && a.length>=32 && a.length<=60 && /^[1-9A-HJ-NP-Za-km-z]+$/.test(a); }
-      function getSubmitted(){ try{ return JSON.parse(localStorage.getItem(keySub)||'{}'); }catch{return {}} }
-      function saveSubmitted(m){ localStorage.setItem(keySub, JSON.stringify(m)); }
-      function setMsg(t,err){ var m=document.getElementById('message'); if(!m) return; m.textContent=t; m.style.color=err?'#ff6b6b':'#00ff88'; }
-
-      document.addEventListener('DOMContentLoaded', function(){
-        renderCount();
-        fetchGlobal();
-
-        var f = document.getElementById('airdrop-form');
-        if(!f) return;
-
-        f.addEventListener('submit', async function(e){
-          e.preventDefault();
-          var addr = document.getElementById('address')?.value.trim();
-          var tw = document.getElementById('twitter')?.value.trim();
-          var tg = document.getElementById('telegram')?.value.trim();
-
-          if(!isValidAddr(addr)) return setMsg('Nieprawidłowy adres Solana.', true);
-          if(!tw || !tg) return setMsg('Uzupełnij Twitter oraz Telegram.', true);
-
-          var submitted = getSubmitted();
-          if(submitted[addr]) return setMsg('Ten adres już złożył zgłoszenie.', true);
-
-          try{
-            if(backend){
-              const r = await fetch(backend.replace(/\/$/,'') + '/submit', {
-                method:'POST', headers:{'Content-Type':'application/json'},
-                body: JSON.stringify({ address: addr, twitter: tw, telegram: tg })
-              });
-              if(r.ok){
-                const d = await r.json();
-                if(d?.ok && typeof d.count==='number'){
-                  submitted[addr] = { tw, tg, ts: Date.now() }; saveSubmitted(submitted);
-                  setLocalCount(d.count); renderCount(d.count); f.reset(); return setMsg('Zgłoszenie przyjęte. Dziękujemy!', false);
-                }
-                if(d?.error==='duplicate') return setMsg('Ten adres już złożył zgłoszenie.', true);
-              }
-            }
-          }catch(_){}
-
-          submitted[addr] = { tw, tg, ts: Date.now() }; saveSubmitted(submitted);
-          setLocalCount(getLocalCount()+1); renderCount(); f.reset(); setMsg('Zgłoszenie przyjęte (lokalnie).', false);
-        });
-      });
-    })();
-  </script>
-
-  <script>
-    (function(){
-      const btn=document.getElementById('copy-token'); if(!btn) return;
-      btn.addEventListener('click', async ()=>{
-        try{ await navigator.clipboard.writeText(btn.dataset.addr); showToast('Skopiowano adres tokena'); }
-        catch(_){ showToast('Nie udało się skopiować'); }
-      });
-      function showToast(t){
-        let el=document.getElementById('toast'); if(!el){ el=document.createElement('div'); el.id='toast'; document.body.appendChild(el); }
-        el.textContent=t; el.className='show'; setTimeout(()=>{ el.className=''; },1800);
-      }
-    })();
-  </script>
-
-  <script>
-    (function(){
-      document.addEventListener('click', function(e){
-        const img=e.target.closest('.nft-card img'); if(!img) return;
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function(e) {
+        const id = this.getAttribute('href');
+        if (id === '#') return;
         e.preventDefault();
-        const src=img.getAttribute('src');
-        const wrap=document.createElement('div');
-        wrap.className='lightbox-backdrop';
-        wrap.innerHTML='<img src="'+src+'" alt="">';
-        wrap.addEventListener('click',()=>wrap.remove());
-        document.addEventListener('keydown',function esc(ev){ if(ev.key==='Escape'){ wrap.remove(); } },{once:true});
-        document.body.appendChild(wrap);
-      }, false);
-    })();
+        document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
   </script>
-
-  <script>
-    (function(){
-      // Reveal animacje
-      document.addEventListener('DOMContentLoaded', function(){
-        document.querySelectorAll('.nft-card, .container').forEach(el=>el.classList.add('reveal'));
-        const io=new IntersectionObserver((entries)=>{
-          entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
-        },{threshold:.15});
-        document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-      });
-
-      // Confetti po sukcesie
-      function confettiBurst(){
-        const canvas=document.createElement('canvas');
-        Object.assign(canvas.style,{position:'fixed',inset:'0',pointerEvents:'none',zIndex:99998});
-        document.body.appendChild(canvas);
-        const ctx=canvas.getContext('2d');
-        const resize=()=>{canvas.width=innerWidth; canvas.height=innerHeight;};
-        resize(); addEventListener('resize',resize,{once:true});
-        const colors=['#00ffcc','#00e6b8','#ffffff','#99ffee','#66ffd9'];
-        const parts=Array.from({length:80}).map(()=>({
-          x:Math.random()*canvas.width,
-          y:-20-Math.random()*40,
-          r:3+Math.random()*4,
-          c:colors[Math.floor(Math.random()*colors.length)],
-          vy:2+Math.random()*3,
-          vx:(Math.random()-.5)*2,
-          g:.05+.02*Math.random(),
-          a:1
-        }));
-        let t=0; const maxT=90;
-        (function loop(){
-          ctx.clearRect(0,0,canvas.width,canvas.height);
-          parts.forEach(p=>{
-            p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.a-=.008;
-            ctx.globalAlpha=Math.max(p.a,0);
-            ctx.fillStyle=p.c;
-            ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
-          });
-          t++; if(t<maxT){ requestAnimationFrame(loop); } else { canvas.remove(); }
-        })();
-      }
-
-      // Nasłuchuj sukcesu
-      document.addEventListener('DOMContentLoaded', function(){
-        const msg=document.getElementById('message'); if(!msg) return;
-        const obs=new MutationObserver(()=>{
-          const text=(msg.textContent||'').toLowerCase();
-          if(text.includes('zgłoszenie przyjęte')){ confettiBurst(); }
-        });
-        obs.observe(msg,{childList:true, characterData:true, subtree:true});
-      });
-
-      // Linki udostępnienia z aktualnym URL
-      document.addEventListener('DOMContentLoaded', function(){
-        const url=encodeURIComponent(location.href);
-        const txt=encodeURIComponent('Noktra Genesis on Solana — join the airdrop!');
-        const tw=document.getElementById('share-twitter');
-        const tg=document.getElementById('share-telegram');
-        if(tw) tw.href=`https://twitter.com/intent/tweet?text=${txt}&url=${url}`;
-        if(tg) tg.href=`https://t.me/share/url?url=${url}&text=${txt}`;
-      });
-    })();
-  </script>
-
-  <script>
-    (function(){
-      // Splash fade/blur out
-      document.addEventListener('DOMContentLoaded', function(){
-        var splash=document.getElementById('splash');
-        if(!splash) return;
-        document.body.classList.add('splash-lock');
-        splash.classList.add('play');
-        setTimeout(function(){
-          splash.classList.add('hide');
-          document.body.classList.remove('splash-lock');
-          setTimeout(function(){ splash.remove(); }, 800);
-        }, 1800);
-      });
-    })();
-  </script>
-
-  <div id="toast"></div>
 </body>
 </html>
