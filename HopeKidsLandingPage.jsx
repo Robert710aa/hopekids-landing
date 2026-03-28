@@ -10,7 +10,7 @@ export default function HopeKidsLandingPage() {
     { name: 'Wallet 2', amount: '310,000 HKIDS' },
   ];
 
-  const community = ['Telegram', 'Twitter', 'DexScreener', 'Solscan'];
+  const community = ['TikTok', 'Twitter', 'DexScreener', 'Facebook'];
 
   return (
     <>
@@ -40,7 +40,7 @@ export default function HopeKidsLandingPage() {
           <div className="absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(circle_at_72%_28%,rgba(251,146,60,0.35),transparent_20%),radial-gradient(circle_at_60%_18%,rgba(59,130,246,0.35),transparent_24%)]" />
 
           {/* Logo w prawym górnym rogu strony (fixed) */}
-          <div className="fixed right-4 top-4 z-50 flex h-14 w-14 items-center justify-center rounded-full border-2 border-amber-300/50 bg-[#061126]/90 shadow-lg shadow-amber-500/20 backdrop-blur md:right-6 md:top-6 md:h-16 md:w-16">
+          <div className="fixed right-4 top-4 z-50 flex h-14 w-14 items-center justify-center rounded-full border-2 border-amber-300/50 bg-[#061126]/45 shadow-lg shadow-amber-500/20 backdrop-blur md:right-6 md:top-6 md:h-16 md:w-16">
             <img
               src="/hopekids-coin.png"
               alt="HopeKids"
@@ -49,7 +49,7 @@ export default function HopeKidsLandingPage() {
           </div>
 
           <div className="relative z-10 mx-auto max-w-[1180px] px-4 py-4 sm:px-6 lg:px-8">
-            <header className="mb-6 flex items-center justify-between rounded-2xl border border-blue-400/20 bg-[#061126]/80 px-4 py-3 backdrop-blur">
+            <header className="mb-6 flex items-center justify-between rounded-2xl border border-blue-400/20 bg-[#061126]/45 px-4 py-3 backdrop-blur">
               <div className="flex items-center gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-full border border-amber-300/50 bg-gradient-to-br from-amber-300 to-amber-600 shadow-lg shadow-amber-500/20 overflow-hidden">
                   <img src="/hopekids-coin.png" alt="HopeKids" className="h-full w-full object-contain" />
@@ -70,7 +70,7 @@ export default function HopeKidsLandingPage() {
               </button>
             </header>
 
-            <section className="relative overflow-hidden rounded-[28px] border border-blue-300/15 bg-[linear-gradient(180deg,rgba(4,10,25,0.75),rgba(3,7,18,0.9))] shadow-2xl shadow-black/30 px-8 py-16 lg:px-12 lg:py-20">
+            <section className="relative overflow-hidden rounded-[28px] border border-blue-300/15 bg-[linear-gradient(180deg,rgba(4,10,25,0.4),rgba(3,7,18,0.55))] shadow-2xl shadow-black/30 px-8 py-16 lg:px-12 lg:py-20">
               <div className="absolute bottom-0 left-0 right-0 h-32 bg-[linear-gradient(180deg,transparent,rgba(0,0,0,0.6))]" />
               <div className="absolute right-24 top-10 h-[320px] w-[320px] rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.45),transparent_60%)] blur-2xl animate-pulse" />
 
@@ -120,7 +120,7 @@ export default function HopeKidsLandingPage() {
 
             <section className="mt-6 grid gap-4 md:grid-cols-3">
               {stats.map((item) => (
-                <div key={item.label} className="rounded-2xl border border-blue-300/20 bg-[#071226]/90 px-6 py-5 shadow-lg shadow-black/20 backdrop-blur">
+                <div key={item.label} className="rounded-2xl border border-blue-300/20 bg-[#071226]/45 px-6 py-5 shadow-lg shadow-black/20 backdrop-blur">
                   <div className="text-sm text-blue-100/72">{item.label}</div>
                   <div className="mt-3 flex items-end gap-2">
                     <span className="text-4xl font-extrabold tracking-tight">{item.value}</span>
@@ -131,9 +131,9 @@ export default function HopeKidsLandingPage() {
             </section>
 
             <section className="mt-8 grid gap-6 lg:grid-cols-[1.35fr_0.75fr]">
-              <div className="rounded-[26px] border border-blue-300/18 bg-[#061126]/88 p-6 backdrop-blur">
+              <div className="rounded-[26px] border border-blue-300/18 bg-[#061126]/45 p-6 backdrop-blur">
                 <div className="mb-5 text-center text-[34px] font-extrabold">Where HopeKids Helps</div>
-                <div className="relative h-[330px] overflow-hidden rounded-[22px] border border-white/10 bg-[radial-gradient(circle_at_50%_45%,rgba(59,130,246,0.15),transparent_35%),linear-gradient(180deg,#071427,#030a18)]">
+                <div className="relative h-[330px] overflow-hidden rounded-[22px] border border-white/10 bg-[radial-gradient(circle_at_50%_45%,rgba(59,130,246,0.12),transparent_35%),linear-gradient(180deg,rgba(7,20,39,0.5),rgba(3,10,24,0.55))]">
                   <div className="absolute left-[16%] top-[44%] h-4 w-4 rounded-full bg-orange-400 shadow-[0_0_24px_rgba(251,146,60,1)]" />
                   <div className="absolute left-[45%] top-[40%] h-4 w-4 rounded-full bg-amber-300 shadow-[0_0_24px_rgba(251,191,36,1)]" />
                   <div className="absolute left-[62%] top-[46%] h-4 w-4 rounded-full bg-amber-300 shadow-[0_0_24px_rgba(251,191,36,1)]" />
@@ -147,11 +147,11 @@ export default function HopeKidsLandingPage() {
                 </div>
               </div>
 
-              <div className="rounded-[26px] border border-blue-300/18 bg-[#061126]/88 p-6 backdrop-blur">
+              <div className="rounded-[26px] border border-blue-300/18 bg-[#061126]/45 p-6 backdrop-blur">
                 <div className="text-[32px] font-extrabold leading-tight">Trade HopeKids Helps</div>
                 <div className="mt-5 space-y-4">
-                  <div className="rounded-xl border border-white/10 bg-[#08172f] px-4 py-4 text-lg font-semibold">100000 HKIDS</div>
-                  <div className="rounded-2xl border border-blue-300/18 bg-[linear-gradient(180deg,rgba(16,63,140,0.35),rgba(9,20,40,0.75))] px-5 py-6">
+                  <div className="rounded-xl border border-white/10 bg-[#08172f]/60 px-4 py-4 text-lg font-semibold">100000 HKIDS</div>
+                  <div className="rounded-2xl border border-blue-300/18 bg-[linear-gradient(180deg,rgba(16,63,140,0.25),rgba(9,20,40,0.45))] px-5 py-6">
                     <div className="text-sm text-blue-100/72">5% goes to helping children</div>
                     <div className="mt-2 text-5xl font-extrabold">5,000 <span className="text-2xl text-blue-100/85">HKIDS</span></div>
                   </div>
@@ -163,22 +163,22 @@ export default function HopeKidsLandingPage() {
             </section>
 
             <section className="mt-8 grid gap-4 lg:grid-cols-[1fr_1fr_1fr_0.9fr]">
-              <div className="rounded-2xl border border-blue-300/18 bg-[#061126]/88 p-5 backdrop-blur">
+              <div className="rounded-2xl border border-blue-300/18 bg-[#061126]/45 p-5 backdrop-blur">
                 <div className="text-3xl">🪙</div>
                 <div className="mt-3 text-[32px] font-extrabold">Earn</div>
                 <p className="mt-2 text-blue-100/74">Trade crypto and earn profits.</p>
               </div>
-              <div className="rounded-2xl border border-blue-300/18 bg-[#061126]/88 p-5 backdrop-blur">
+              <div className="rounded-2xl border border-blue-300/18 bg-[#061126]/45 p-5 backdrop-blur">
                 <div className="text-3xl">💛</div>
                 <div className="mt-3 text-[32px] font-extrabold">Help</div>
                 <p className="mt-2 text-blue-100/74">Help children every transaction.</p>
               </div>
-              <div className="rounded-2xl border border-blue-300/18 bg-[#061126]/88 p-5 backdrop-blur">
+              <div className="rounded-2xl border border-blue-300/18 bg-[#061126]/45 p-5 backdrop-blur">
                 <div className="text-3xl">🌍</div>
                 <div className="mt-3 text-[32px] font-extrabold">Impact</div>
                 <p className="mt-2 text-blue-100/74">Make a difference worldwide.</p>
               </div>
-              <div className="rounded-2xl border border-blue-300/18 bg-[#061126]/88 p-5 backdrop-blur">
+              <div className="rounded-2xl border border-blue-300/18 bg-[#061126]/45 p-5 backdrop-blur">
                 <div className="text-sm text-blue-100/72">Market Cap</div>
                 <div className="mt-3 text-4xl font-extrabold">$3,250,000</div>
                 <div className="mt-3 text-blue-100/74">184 holders</div>
@@ -186,23 +186,23 @@ export default function HopeKidsLandingPage() {
             </section>
 
             <section className="mt-8 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-              <div className="rounded-[26px] border border-blue-300/18 bg-[#061126]/88 p-6 backdrop-blur">
+              <div className="rounded-[26px] border border-blue-300/18 bg-[#061126]/45 p-6 backdrop-blur">
                 <div className="text-[34px] font-extrabold">Transparency</div>
-                <div className="mt-5 rounded-2xl border border-white/10 bg-[#08172f] p-5">
+                <div className="mt-5 rounded-2xl border border-white/10 bg-[#08172f]/55 p-5">
                   <div className="text-xl font-bold">Public Donation Wallet</div>
                   <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                     <div className="rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-blue-100/80">xxxxxxxxxxxxxxxxxxxxxxxx</div>
-                    <button className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500">View on Solscan</button>
+                    <button className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500">View on Facebook</button>
                   </div>
                 </div>
               </div>
 
               <div className="grid gap-6 lg:grid-rows-[auto_auto]">
-                <div className="rounded-[26px] border border-blue-300/18 bg-[#061126]/88 p-6 backdrop-blur">
+                <div className="rounded-[26px] border border-blue-300/18 bg-[#061126]/45 p-6 backdrop-blur">
                   <div className="text-[34px] font-extrabold">Top Helpers</div>
                   <div className="mt-5 space-y-4">
                     {topHelpers.map((item) => (
-                      <div key={item.name} className="flex items-center justify-between rounded-2xl border border-white/10 bg-[#08172f] px-4 py-4">
+                      <div key={item.name} className="flex items-center justify-between rounded-2xl border border-white/10 bg-[#08172f]/55 px-4 py-4">
                         <div>
                           <div className="text-lg font-bold">{item.name}</div>
                           <div className="text-sm text-blue-100/65">Public supporter</div>
@@ -213,7 +213,7 @@ export default function HopeKidsLandingPage() {
                   </div>
                 </div>
 
-                <div className="rounded-[26px] border border-amber-300/18 bg-[linear-gradient(180deg,rgba(67,38,9,0.35),rgba(7,17,38,0.82))] p-6 backdrop-blur">
+                <div className="rounded-[26px] border border-amber-300/18 bg-[linear-gradient(180deg,rgba(67,38,9,0.25),rgba(7,17,38,0.5))] p-6 backdrop-blur">
                   <div className="text-sm font-bold uppercase tracking-[0.2em] text-amber-200/80">Child We Help This Month</div>
                   <div className="mt-4 flex gap-4">
                     <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-black/20 text-5xl">🧸</div>
@@ -229,7 +229,7 @@ export default function HopeKidsLandingPage() {
               </div>
             </section>
 
-            <section className="mt-8 rounded-[26px] border border-blue-300/18 bg-[#061126]/88 px-6 py-8 text-center backdrop-blur">
+            <section className="mt-8 rounded-[26px] border border-blue-300/18 bg-[#061126]/45 px-6 py-8 text-center backdrop-blur">
               <div className="text-[34px] font-extrabold">Join Our Community</div>
               <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
                 {community.map((item) => (
@@ -240,7 +240,7 @@ export default function HopeKidsLandingPage() {
               </div>
             </section>
 
-            <section className="mt-8 grid gap-6 rounded-[26px] border border-blue-300/18 bg-[#061126]/88 p-6 backdrop-blur lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+            <section className="mt-8 grid gap-6 rounded-[26px] border border-blue-300/18 bg-[#061126]/45 p-6 backdrop-blur lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
               <div className="mx-auto flex h-48 w-48 items-center justify-center rounded-full bg-[radial-gradient(circle_at_center,rgba(251,191,36,0.75),rgba(251,191,36,0.14)_42%,transparent_66%)] text-7xl">
                 💛
               </div>
