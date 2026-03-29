@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 // Adres mint tokena HKIDS na Solana – do swapu na Jupiter
 const HKIDS_MINT = '6u5PLy9ePpuGEBK3kmQ9isVDFjqSurKpvmCFzheDgQke';
@@ -6,6 +6,9 @@ const JUPITER_BUY_URL = `https://jup.ag/swap/SOL-${HKIDS_MINT}`;
 const DEXSCREENER_TOKEN_URL = `https://api.dexscreener.com/latest/dex/tokens/${HKIDS_MINT}`;
 /** Strona tokena — tam DexScreener pokazuje m.in. holdery (nie ma ich w publicznym JSON API). */
 const DEXSCREENER_TOKEN_PAGE = `https://dexscreener.com/solana/${HKIDS_MINT}`;
+
+/** Publiczny portfel darowizn (Solana). */
+const PUBLIC_DONATION_WALLET = 'GnhmPt4LBHRoABuGrSqrbPW34Mu8dXGJf1XCNc7DHRAB';
 
 const FALLBACK_MARKET_CAP = '$3,250,000';
 
@@ -32,6 +35,18 @@ function formatPriceUsd(raw) {
 }
 
 export default function HopeKidsLandingPage() {
+  const [walletCopied, setWalletCopied] = useState(false);
+
+  const copyDonationWallet = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(PUBLIC_DONATION_WALLET);
+      setWalletCopied(true);
+      window.setTimeout(() => setWalletCopied(false), 2000);
+    } catch {
+      /* brak uprawnień / niewspierany clipboard */
+    }
+  }, []);
+
   const [tokenStats, setTokenStats] = useState({
     loading: true,
     marketCapUsd: null,
@@ -305,10 +320,38 @@ export default function HopeKidsLandingPage() {
                 <div className="text-2xl font-extrabold sm:text-[34px]">Transparency</div>
                 <div className="mt-4 rounded-2xl border border-cyan-400/20 bg-[#08172f]/50 p-4 shadow-[0_0_12px_rgba(56,189,248,0.1)] sm:mt-5 sm:p-5">
                   <div className="text-lg font-bold sm:text-xl">Public Donation Wallet</div>
-                  <div className="mt-3 flex flex-col gap-3 sm:mt-4 lg:flex-row lg:items-center lg:justify-between lg:gap-4">
-                    <div className="rounded-xl border border-white/10 bg-black/20 px-3 py-2.5 text-sm text-blue-100/80 break-all sm:px-4 sm:py-3 sm:text-base">xxxxxxxxxxxxxxxxxxxxxxxx</div>
-                    <button className="rounded-xl bg-blue-600 px-4 py-3 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-blue-500 active:scale-[0.98] sm:px-5 shrink-0">View on Facebook</button>
+                  <div className="mt-3 flex flex-col gap-3 sm:mt-4 lg:flex-row lg:items-stretch lg:justify-between lg:gap-4">
+                    <div className="flex min-w-0 flex-1 items-stretch gap-2 rounded-xl border border-white/10 bg-black/20 sm:gap-3">
+                      <div className="min-w-0 flex-1 px-3 py-2.5 font-mono text-sm leading-relaxed text-blue-100/90 break-all sm:px-4 sm:py-3 sm:text-base">
+                        {PUBLIC_DONATION_WALLET}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={copyDonationWallet}
+                        aria-label={walletCopied ? 'Skopiowano' : 'Kopiuj adres portfela'}
+                        className="flex shrink-0 items-center justify-center border-l border-white/10 px-3 text-cyan-300 transition hover:bg-white/5 hover:text-cyan-200 active:scale-[0.97] sm:px-4"
+                      >
+                        {walletCopied ? (
+                          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                            <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        ) : (
+                          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                            <rect x="9" y="9" width="13" height="13" rx="2" />
+                            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                    <button className="rounded-xl bg-blue-600 px-4 py-3 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-blue-500 active:scale-[0.98] sm:px-5 lg:shrink-0">
+                      View on Facebook
+                    </button>
                   </div>
+                  {walletCopied ? (
+                    <p className="mt-2 text-sm font-medium text-emerald-300/90" role="status">
+                      Skopiowano do schowka
+                    </p>
+                  ) : null}
                 </div>
               </div>
             </section>
