@@ -25,9 +25,13 @@ alwaysApply: true
 
 ### Obowiązek po zmianach UI HopeKids
 
-1. Zaktualizuj **`hopekids-react/src/HopeKidsLandingPage.jsx`** (źródło prawdy do skopiowania).
-2. Wypchnij na produkcję: worktree lub klon na **`hopekids-landing/main`**, skopiuj plik do **`src/HopeKidsLandingPage.jsx`**, commit, potem np. **`git push hopekids-landing HEAD:main`** (albo PR/merge na `main`).
+1. Zaktualizuj **`hopekids-react/src/HopeKidsLandingPage.jsx`** (źródło prawdy do skopiowania). Przy zmianach backendu Vercel skopiuj też **`hopekids-react/api/*`** do **`api/`** w repozytorium landing (katalog obok `package.json`).
+2. Wypchnij na produkcję: worktree na **`hopekids-landing/main`**, skopiuj **`src/HopeKidsLandingPage.jsx`** i ewentualnie **`api/`**, commit, **`git push hopekids-landing HEAD:main`**.
 3. **Remote:** `hopekids-landing` → `https://github.com/Robert710aa/hopekids-landing.git`
+
+### Holdery tokena (Birdeye, klucz tylko na serwerze)
+
+- Frontend woła **`/api/token-stats`** (Vercel Serverless). Tam ustaw **`BIRDEYE_API_KEY`** w **Vercel → Settings → Environment Variables** (nie `VITE_*`). Bez klucza holdery się nie pokażą; reszta (DexScreener) działa jak wcześniej. Wzór: **`hopekids-react/.env.example`**.
 
 ## Git — uwaga praktyczna
 
