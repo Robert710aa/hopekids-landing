@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 
 const PUBLIC_DONATION_WALLET = 'GnhmPt4LBHRoABuGrSqrbPW34Mu8dXGJf1XCNc7DHRAB';
+const HOPEKIDS_TEAM_EMAIL = 'hopekids594@gmail.com';
 
 export default function HopeKidsLandingPage() {
   const [walletCopied, setWalletCopied] = useState(false);
@@ -294,6 +295,29 @@ export default function HopeKidsLandingPage() {
                   HopeKids was created to combine the power of blockchain with real help for children who need it the most.
                 </p>
               </div>
+            </section>
+
+            <section
+              className="mt-8 rounded-[26px] border border-blue-300/18 bg-[#061126]/45 p-6 backdrop-blur"
+              id="contact"
+              aria-labelledby="contact-heading"
+            >
+              <h2 id="contact-heading" className="text-[34px] font-extrabold">
+                Kontakt z zespołem
+              </h2>
+              <p className="mt-3 max-w-3xl text-lg leading-8 text-blue-100/78">
+                Pytania, współpraca lub pomoc — napisz do nas. Odpowiadamy na maile związane z HopeKids.
+              </p>
+              <a
+                href={`mailto:${HOPEKIDS_TEAM_EMAIL}`}
+                className="mt-5 inline-flex items-center gap-2 rounded-xl border border-blue-300/30 bg-[#08172f]/55 px-5 py-3 text-lg font-semibold text-cyan-200 transition hover:border-cyan-400/40 hover:bg-[#0a1f42]/80"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <path d="m22 6-10 7L2 6" />
+                </svg>
+                {HOPEKIDS_TEAM_EMAIL}
+              </a>
             </section>
 
             <footer className="py-10 text-center text-blue-100/70">
