@@ -1,16 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
 
-// Adres mint tokena HKIDS na Solana – do swapu na Jupiter
+// HKIDS token mint on Solana (Jupiter swap)
 const HKIDS_MINT = '6u5PLy9ePpuGEBK3kmQ9isVDFjqSurKpvmCFzheDgQke';
 const JUPITER_BUY_URL = `https://jup.ag/swap/SOL-${HKIDS_MINT}`;
 const DEXSCREENER_TOKEN_URL = `https://api.dexscreener.com/latest/dex/tokens/${HKIDS_MINT}`;
-/** Strona tokena — tam DexScreener pokazuje m.in. holdery (nie ma ich w publicznym JSON API). */
+/** DexScreener token page shows holders; public API JSON does not include holder count. */
 const DEXSCREENER_TOKEN_PAGE = `https://dexscreener.com/solana/${HKIDS_MINT}`;
 
-/** Publiczny portfel darowizn (Solana). */
+/** Public donation wallet (Solana) */
 const PUBLIC_DONATION_WALLET = 'GnhmPt4LBHRoABuGrSqrbPW34Mu8dXGJf1XCNc7DHRAB';
 
-/** Kontakt do zespołu HopeKids */
+/** HopeKids team inbox */
 const HOPEKIDS_TEAM_EMAIL = 'hopekids594@gmail.com';
 
 const FALLBACK_MARKET_CAP = '$3,250,000';
@@ -46,7 +46,7 @@ export default function HopeKidsLandingPage() {
       setWalletCopied(true);
       window.setTimeout(() => setWalletCopied(false), 2000);
     } catch {
-      /* brak uprawnień / niewspierany clipboard */
+      /* no permission / clipboard unsupported */
     }
   }, []);
 
@@ -84,7 +84,7 @@ export default function HopeKidsLandingPage() {
           }
         }
       } catch {
-        /* sieć / abort */
+        /* network / abort */
       }
 
       if (!cancelled) {
@@ -192,7 +192,7 @@ export default function HopeKidsLandingPage() {
                 </div>
               </div>
 
-              {/* Ikony społecznościowe na całą szerokość hero */}
+              {/* Social icons — full width under hero */}
               <div className="relative z-10 mt-8 grid w-full grid-cols-2 gap-2 sm:mt-10 sm:grid-cols-4 sm:gap-3">
                 <a
                   href="#"
@@ -287,12 +287,12 @@ export default function HopeKidsLandingPage() {
                 <div className="mt-2 space-y-0.5 text-sm text-blue-100/74 sm:mt-3">
                   {tokenStats.priceUsd ? (
                     <div>
-                      Cena: <span className="font-semibold text-blue-100/90">{tokenStats.priceUsd}</span>
+                      Price: <span className="font-semibold text-blue-100/90">{tokenStats.priceUsd}</span>
                     </div>
                   ) : null}
                   {tokenStats.liquidityUsd ? (
                     <div>
-                      Płynność (DEX):{' '}
+                      DEX liquidity:{' '}
                       <span className="font-semibold text-blue-100/90">{tokenStats.liquidityUsd}</span>
                     </div>
                   ) : null}
@@ -303,16 +303,16 @@ export default function HopeKidsLandingPage() {
                       rel="noopener noreferrer"
                       className="text-[12px] font-semibold text-cyan-300/90 underline decoration-cyan-400/35 underline-offset-2 hover:text-cyan-200"
                     >
-                      Holdery na DexScreener ↗
+                      Holders on DexScreener ↗
                     </a>
                   </div>
                   {!tokenStats.loading && (tokenStats.priceUsd || tokenStats.liquidityUsd) ? (
                     <div className="text-[11px] text-blue-100/55">
-                      Kapitalizacja / cena / płynność: API DexScreener · odświeżanie co ~90 s
+                      Market data: DexScreener API · refreshes about every 90s
                     </div>
                   ) : null}
                   {!tokenStats.loading && !tokenStats.priceUsd && !tokenStats.liquidityUsd ? (
-                    <div className="text-blue-100/60">Brak pary na DEX — kapitalizacja zastępcza powyżej</div>
+                    <div className="text-blue-100/60">No DEX pair — fallback market cap shown above</div>
                   ) : null}
                 </div>
               </div>
@@ -330,7 +330,7 @@ export default function HopeKidsLandingPage() {
                     <button
                       type="button"
                       onClick={copyDonationWallet}
-                      aria-label={walletCopied ? 'Skopiowano' : 'Kopiuj adres portfela'}
+                      aria-label={walletCopied ? 'Copied' : 'Copy wallet address'}
                       className="flex shrink-0 items-center justify-center border-l border-white/10 px-3 text-cyan-300 transition hover:bg-white/5 hover:text-cyan-200 active:scale-[0.97] sm:px-4"
                     >
                       {walletCopied ? (
@@ -347,7 +347,7 @@ export default function HopeKidsLandingPage() {
                   </div>
                   {walletCopied ? (
                     <p className="mt-2 text-sm font-medium text-emerald-300/90" role="status">
-                      Skopiowano do schowka
+                      Copied to clipboard
                     </p>
                   ) : null}
                 </div>
@@ -357,10 +357,10 @@ export default function HopeKidsLandingPage() {
             <section className="mt-6 sm:mt-8" id="contact" aria-labelledby="contact-heading">
               <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:rounded-[26px] sm:p-6">
                 <h2 id="contact-heading" className="text-2xl font-extrabold sm:text-[34px]">
-                  Kontakt z zespołem
+                  Contact the team
                 </h2>
                 <p className="mt-2 max-w-2xl text-sm text-blue-100/75 sm:text-base">
-                  Pytania, współpraca lub pomoc — napisz do nas. Odpowiadamy na maile związane z HopeKids.
+                  Questions, partnerships, or support — email us. We respond to HopeKids-related messages.
                 </p>
                 <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                   <a

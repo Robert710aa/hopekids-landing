@@ -15,7 +15,8 @@ alwaysApply: true
 
 ## HopeKids — ustalenia treści (landing)
 
-- W sekcji społeczności / linkach: **TikTok** (zamiast Telegram), **Facebook** (zamiast Solscan). Przy **Public Donation Wallet** nie ma już przycisku „View on Facebook” — tylko adres i kopiowanie.
+- **Język UI strony:** wszystkie napisy widoczne dla użytkownika **po angielsku** (`HopeKidsLandingPage.jsx`, `index.html` itd.).
+- W sekcji społeczności / linkach: **TikTok** (zamiast Telegram), **Facebook** (zamiast Solscan). Przy **Public Donation Wallet** tylko adres i kopiowanie (bez „View on Facebook”).
 
 ## Produkcja WWW (Vercel)
 
@@ -31,7 +32,7 @@ alwaysApply: true
 
 ### Holdery tokena
 
-- Publiczne **API DexScreener** nie zwraca liczby holderów w JSON (tylko m.in. marketCap, cena, płynność). Holdery są na **stronie** DexScreener — na landingu jest **link** „Holdery na DexScreener” (para lub strona tokena).
+- Publiczne **API DexScreener** nie zwraca liczby holderów w JSON. Na landingu jest link **„Holders on DexScreener”** (para lub strona tokena).
 
 ## Git — uwaga praktyczna
 

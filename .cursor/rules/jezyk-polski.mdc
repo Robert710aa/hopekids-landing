@@ -7,4 +7,5 @@ alwaysApply: true
 
 - Odpowiadaj **wyłącznie po polsku** (chyba że użytkownik wyraźnie poprosi o inny język).
 - Komunikaty, wyjaśnienia, opisy commitów i podsumowania — po polsku.
-- Nazwy techniczne w kodzie (zmienne, API, ścieżki plików) pozostaw w oryginale; komentarze w kodzie dopasuj do konwencji istniejącego pliku.
+- **HopeKids (landing):** teksty na stronie (UI) mają być **po angielsku** — patrz `projekt-wspolny-noktra.mdc`.
+- Nazwy techniczne w kodzie (zmienne, API, ścieżki plików) pozostaw w oryginale; komentarze w plikach landingu po angielsku.

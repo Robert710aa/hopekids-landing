@@ -56,7 +56,7 @@ export default function HopeKidsLandingPage() {
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,11,31,0.05),rgba(7,26,58,0.08))]" />
           <div className="absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(circle_at_72%_28%,rgba(251,146,60,0.35),transparent_20%),radial-gradient(circle_at_60%_18%,rgba(59,130,246,0.35),transparent_24%)]" />
 
-          {/* Logo w prawym górnym rogu strony (fixed) */}
+          {/* Logo — top right (fixed) */}
           <div className="fixed right-4 top-4 z-50 flex h-14 w-14 items-center justify-center rounded-full border-2 border-amber-300/50 bg-[#061126]/45 shadow-lg shadow-amber-500/20 backdrop-blur md:right-6 md:top-6 md:h-16 md:w-16">
             <img
               src="/hopekids-coin.png"
@@ -214,7 +214,7 @@ export default function HopeKidsLandingPage() {
                     <button
                       type="button"
                       onClick={copyDonationWallet}
-                      aria-label={walletCopied ? 'Skopiowano' : 'Kopiuj adres portfela'}
+                        aria-label={walletCopied ? 'Copied' : 'Copy wallet address'}
                       className="flex shrink-0 items-center justify-center border-l border-white/10 px-4 text-cyan-300 transition hover:bg-white/5 hover:text-cyan-200"
                     >
                       {walletCopied ? (
@@ -231,7 +231,7 @@ export default function HopeKidsLandingPage() {
                   </div>
                   {walletCopied ? (
                     <p className="mt-2 text-sm font-medium text-emerald-300/90" role="status">
-                      Skopiowano do schowka
+                      Copied to clipboard
                     </p>
                   ) : null}
                 </div>
@@ -298,10 +298,10 @@ export default function HopeKidsLandingPage() {
               aria-labelledby="contact-heading"
             >
               <h2 id="contact-heading" className="text-[34px] font-extrabold">
-                Kontakt z zespołem
+                Contact the team
               </h2>
               <p className="mt-3 max-w-3xl text-lg leading-8 text-blue-100/78">
-                Pytania, współpraca lub pomoc — napisz do nas. Odpowiadamy na maile związane z HopeKids.
+                Questions, partnerships, or support — email us. We respond to HopeKids-related messages.
               </p>
               <a
                 href={`mailto:${HOPEKIDS_TEAM_EMAIL}`}
