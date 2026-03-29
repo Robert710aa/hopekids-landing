@@ -1,0 +1,34 @@
+---
+description: Kontekst całego projektu — Ty + asystent, monorepo, HopeKids, Vercel
+alwaysApply: true
+---
+
+# Projekt: współpraca i pamięć kontekstu
+
+- Projekt robicie **tylko Ty i asystent (AI)** — od początku do końca. Traktuj kontekst tego repozytorium jako ciągły: domyślnie **dokańczaj zadania** (kod, commit, a gdy trzeba — **wdrożenie na `main` hopekids-landing**), zamiast zostawiać „ręczne kroki” bez potrzeby.
+- **Język:** z użytkownikiem **po polsku** (osobna reguła `jezyk-polski.mdc`).
+
+## Workspace `noktra-start-static` (monorepo)
+
+- **HopeKids (strona):** głównie `hopekids-react/` (Vite + React) — źródło UI pod kopiowanie na produkcję: **`hopekids-react/src/HopeKidsLandingPage.jsx`**. Dodatkowo w korzeniu mogą być **`HopeKidsLandingPage.jsx`**, **`index.html`** (inny entry / statyka) — po zmianach w React trzymaj spójność tam, gdzie faktycznie używane.
+- **Inne obszary** (np. MT5, boty): obowiązują wąskie reguły (np. `mt5-ea.mdc`); nie mieszaj refaktorów MT5 ze zmianami HopeKids bez potrzeby.
+
+## HopeKids — ustalenia treści (landing)
+
+- W sekcji społeczności / linkach: **TikTok** (zamiast Telegram), **Facebook** (zamiast Solscan); przycisk transparentności: **View on Facebook** (nie Solscan), o ile użytkownik nie poprosi inaczej.
+
+## Produkcja WWW (Vercel)
+
+- **Żywa strona:** Vercel podpięty pod **[Robert710aa/hopekids-landing](https://github.com/Robert710aa/hopekids-landing)** (np. hopekids-landing.vercel.app).
+- Vercel buduje gałąź **`main`** tego repozytorium — plik strony to **`src/HopeKidsLandingPage.jsx`** (Vite w korzeniu repo, nie ścieżka z monorepo).
+- **Push tylko do lokalnego monorepo / gałęzi `trim-eof-nl` nie aktualizuje Vercela**, dopóki **`main`** w **hopekids-landing** nie dostanie tych samych zmian w **`src/HopeKidsLandingPage.jsx`**.
+
+### Obowiązek po zmianach UI HopeKids
+
+1. Zaktualizuj **`hopekids-react/src/HopeKidsLandingPage.jsx`** (źródło prawdy do skopiowania).
+2. Wypchnij na produkcję: worktree lub klon na **`hopekids-landing/main`**, skopiuj plik do **`src/HopeKidsLandingPage.jsx`**, commit, potem np. **`git push hopekids-landing HEAD:main`** (albo PR/merge na `main`).
+3. **Remote:** `hopekids-landing` → `https://github.com/Robert710aa/hopekids-landing.git`
+
+## Git — uwaga praktyczna
+
+- Do **hopekids-landing** push zwykle działa (produkcja). Remoty **`HopeKinds`**, **`origin`** (np. noktra-start-static) potrafią zwracać *Repository not found* z środowiska agenta — wtedy użytkownik pushuje z własnego terminala po zalogowaniu, albo poprawia dostęp do repo.
