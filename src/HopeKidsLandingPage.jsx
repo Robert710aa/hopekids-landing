@@ -437,14 +437,14 @@ export default function HopeKidsLandingPage() {
               aria-hidden="true"
             />
             <div
-              className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,11,31,0.05),rgba(7,26,58,0.08))]"
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,11,31,0.28),rgba(7,26,58,0.4))]"
               aria-hidden="true"
             />
             <div
-              className="pointer-events-none absolute inset-x-0 top-0 h-[280px] bg-[radial-gradient(circle_at_72%_28%,rgba(251,146,60,0.35),transparent_20%),radial-gradient(circle_at_60%_18%,rgba(59,130,246,0.35),transparent_24%)]"
+              className="pointer-events-none absolute inset-x-0 top-0 h-[280px] bg-[radial-gradient(circle_at_72%_28%,rgba(251,146,60,0.22),transparent_22%),radial-gradient(circle_at_60%_18%,rgba(59,130,246,0.22),transparent_26%)]"
               aria-hidden="true"
             />
-            <div className="relative z-[1] bg-[linear-gradient(180deg,rgba(4,10,25,0.25),rgba(3,7,18,0.38))] p-5 sm:p-8">
+            <div className="relative z-[1] bg-[linear-gradient(180deg,rgba(4,10,25,0.72),rgba(3,7,18,0.88))] p-5 sm:p-8">
               <div className="flex items-start justify-between gap-4 border-b border-amber-400/25 pb-4">
                 <h2 id="hopekids-story-title" className="text-xl font-extrabold text-amber-300 sm:text-2xl">
                   The HopeKids story
