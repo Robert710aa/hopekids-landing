@@ -1,8 +1,86 @@
+import { useEffect, useState } from 'react';
+
 // Adres mint tokena HKIDS na Solana – do swapu na Jupiter
 const HKIDS_MINT = '6u5PLy9ePpuGEBK3kmQ9isVDFjqSurKpvmCFzheDgQke';
 const JUPITER_BUY_URL = `https://jup.ag/swap/SOL-${HKIDS_MINT}`;
+const DEXSCREENER_TOKEN_URL = `https://api.dexscreener.com/latest/dex/tokens/${HKIDS_MINT}`;
+
+const FALLBACK_MARKET_CAP = '$3,250,000';
+
+function pickBestPair(pairs) {
+  if (!pairs?.length) return null;
+  return [...pairs].sort((a, b) => (b.liquidity?.usd ?? 0) - (a.liquidity?.usd ?? 0))[0];
+}
+
+function formatUsdCompact(n) {
+  if (n == null || Number.isNaN(n) || !Number.isFinite(Number(n))) return null;
+  const x = Number(n);
+  if (x >= 1e9) return `$${(x / 1e9).toFixed(2)}B`;
+  if (x >= 1e6) return `$${(x / 1e6).toFixed(2)}M`;
+  if (x >= 1e3) return `$${(x / 1e3).toFixed(2)}K`;
+  return `$${x.toFixed(2)}`;
+}
+
+function formatPriceUsd(raw) {
+  const x = typeof raw === 'string' ? parseFloat(raw) : raw;
+  if (!Number.isFinite(x)) return null;
+  if (x >= 1) return `$${x.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  if (x >= 0.01) return `$${x.toFixed(4)}`;
+  return `$${x.toPrecision(4)}`;
+}
 
 export default function HopeKidsLandingPage() {
+  const [tokenStats, setTokenStats] = useState({
+    loading: true,
+    marketCapUsd: null,
+    priceUsd: null,
+    liquidityUsd: null,
+  });
+
+  useEffect(() => {
+    let cancelled = false;
+    const ac = new AbortController();
+
+    async function load() {
+      try {
+        const res = await fetch(DEXSCREENER_TOKEN_URL, { signal: ac.signal });
+        if (!res.ok) throw new Error('dexscreener http');
+        const data = await res.json();
+        const pair = pickBestPair(data.pairs);
+        const mcapRaw = pair?.marketCap ?? pair?.fdv;
+        const mcap = mcapRaw != null ? Number(mcapRaw) : null;
+        const price = pair?.priceUsd != null ? formatPriceUsd(pair.priceUsd) : null;
+        const liq = pair?.liquidity?.usd != null ? formatUsdCompact(pair.liquidity.usd) : null;
+        if (!cancelled) {
+          setTokenStats({
+            loading: false,
+            marketCapUsd: Number.isFinite(mcap) ? mcap : null,
+            priceUsd: price,
+            liquidityUsd: liq,
+          });
+        }
+      } catch (e) {
+        if (e.name === 'AbortError' || cancelled) return;
+        if (!cancelled) {
+          setTokenStats({
+            loading: false,
+            marketCapUsd: null,
+            priceUsd: null,
+            liquidityUsd: null,
+          });
+        }
+      }
+    }
+
+    load();
+    const t = setInterval(load, 90_000);
+    return () => {
+      cancelled = true;
+      ac.abort();
+      clearInterval(t);
+    };
+  }, []);
+
   const stats = [
     { label: 'Tokens Saved for Children', value: '3,245,678', suffix: 'HKIDS' },
     { label: 'Current Value', value: '$16,380', suffix: '' },
@@ -173,8 +251,32 @@ export default function HopeKidsLandingPage() {
               {/* removed: Impact card */}
               <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-5 sm:col-span-2 lg:col-span-1">
                 <div className="text-xs text-blue-100/72 sm:text-sm">Market Cap</div>
-                <div className="mt-2 text-3xl font-extrabold sm:mt-3 sm:text-4xl">$3,250,000</div>
-                <div className="mt-2 text-sm text-blue-100/74 sm:mt-3">184 holders</div>
+                <div className="mt-2 text-3xl font-extrabold tabular-nums sm:mt-3 sm:text-4xl">
+                  {tokenStats.loading
+                    ? '…'
+                    : tokenStats.marketCapUsd != null
+                      ? formatUsdCompact(tokenStats.marketCapUsd)
+                      : FALLBACK_MARKET_CAP}
+                </div>
+                <div className="mt-2 space-y-0.5 text-sm text-blue-100/74 sm:mt-3">
+                  {tokenStats.priceUsd ? (
+                    <div>
+                      Cena: <span className="font-semibold text-blue-100/90">{tokenStats.priceUsd}</span>
+                    </div>
+                  ) : null}
+                  {tokenStats.liquidityUsd ? (
+                    <div>
+                      Płynność (DEX):{' '}
+                      <span className="font-semibold text-blue-100/90">{tokenStats.liquidityUsd}</span>
+                    </div>
+                  ) : null}
+                  {!tokenStats.loading && (tokenStats.priceUsd || tokenStats.liquidityUsd) ? (
+                    <div className="text-[11px] text-blue-100/55">Źródło: DexScreener · odświeżanie co ~90 s</div>
+                  ) : null}
+                  {!tokenStats.loading && !tokenStats.priceUsd && !tokenStats.liquidityUsd ? (
+                    <div className="text-blue-100/60">Brak pary na DEX — kapitalizacja zastępcza powyżej</div>
+                  ) : null}
+                </div>
               </div>
             </section>
 
