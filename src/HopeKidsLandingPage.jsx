@@ -29,12 +29,17 @@ function formatPriceUsd(raw) {
   return `$${x.toPrecision(4)}`;
 }
 
+function formatIntPl(n) {
+  return new Intl.NumberFormat('pl-PL').format(n);
+}
+
 export default function HopeKidsLandingPage() {
   const [tokenStats, setTokenStats] = useState({
     loading: true,
     marketCapUsd: null,
     priceUsd: null,
     liquidityUsd: null,
+    holders: null,
   });
 
   useEffect(() => {
@@ -42,33 +47,53 @@ export default function HopeKidsLandingPage() {
     const ac = new AbortController();
 
     async function load() {
-      try {
-        const res = await fetch(DEXSCREENER_TOKEN_URL, { signal: ac.signal });
-        if (!res.ok) throw new Error('dexscreener http');
-        const data = await res.json();
-        const pair = pickBestPair(data.pairs);
+      const dexP = (async () => {
+        try {
+          const res = await fetch(DEXSCREENER_TOKEN_URL, { signal: ac.signal });
+          if (!res.ok) return null;
+          return await res.json();
+        } catch {
+          return null;
+        }
+      })();
+
+      const holdersP = (async () => {
+        try {
+          const res = await fetch('/api/token-stats', { signal: ac.signal });
+          if (!res.ok) return null;
+          return await res.json();
+        } catch {
+          return null;
+        }
+      })();
+
+      let mcap = null;
+      let price = null;
+      let liq = null;
+      let holders = null;
+
+      const [dexData, holderData] = await Promise.all([dexP, holdersP]);
+      if (!cancelled && dexData?.pairs) {
+        const pair = pickBestPair(dexData.pairs);
         const mcapRaw = pair?.marketCap ?? pair?.fdv;
-        const mcap = mcapRaw != null ? Number(mcapRaw) : null;
-        const price = pair?.priceUsd != null ? formatPriceUsd(pair.priceUsd) : null;
-        const liq = pair?.liquidity?.usd != null ? formatUsdCompact(pair.liquidity.usd) : null;
-        if (!cancelled) {
-          setTokenStats({
-            loading: false,
-            marketCapUsd: Number.isFinite(mcap) ? mcap : null,
-            priceUsd: price,
-            liquidityUsd: liq,
-          });
-        }
-      } catch (e) {
-        if (e.name === 'AbortError' || cancelled) return;
-        if (!cancelled) {
-          setTokenStats({
-            loading: false,
-            marketCapUsd: null,
-            priceUsd: null,
-            liquidityUsd: null,
-          });
-        }
+        const m = mcapRaw != null ? Number(mcapRaw) : null;
+        mcap = Number.isFinite(m) ? m : null;
+        price = pair?.priceUsd != null ? formatPriceUsd(pair.priceUsd) : null;
+        liq = pair?.liquidity?.usd != null ? formatUsdCompact(pair.liquidity.usd) : null;
+      }
+      if (!cancelled && holderData) {
+        const h = holderData.holder;
+        holders = typeof h === 'number' && Number.isFinite(h) ? h : null;
+      }
+
+      if (!cancelled) {
+        setTokenStats({
+          loading: false,
+          marketCapUsd: mcap,
+          priceUsd: price,
+          liquidityUsd: liq,
+          holders,
+        });
       }
     }
 
@@ -270,8 +295,20 @@ export default function HopeKidsLandingPage() {
                       <span className="font-semibold text-blue-100/90">{tokenStats.liquidityUsd}</span>
                     </div>
                   ) : null}
-                  {!tokenStats.loading && (tokenStats.priceUsd || tokenStats.liquidityUsd) ? (
-                    <div className="text-[11px] text-blue-100/55">Źródło: DexScreener · odświeżanie co ~90 s</div>
+                  {tokenStats.holders != null ? (
+                    <div>
+                      Holdery:{' '}
+                      <span className="font-semibold text-blue-100/90">
+                        {formatIntPl(tokenStats.holders)}
+                      </span>
+                    </div>
+                  ) : null}
+                  {!tokenStats.loading && (tokenStats.priceUsd || tokenStats.liquidityUsd || tokenStats.holders != null) ? (
+                    <div className="text-[11px] text-blue-100/55">
+                      {tokenStats.holders != null ? 'DexScreener · Birdeye' : 'DexScreener'}
+                      {' · '}
+                      odświeżanie co ~90 s
+                    </div>
                   ) : null}
                   {!tokenStats.loading && !tokenStats.priceUsd && !tokenStats.liquidityUsd ? (
                     <div className="text-blue-100/60">Brak pary na DEX — kapitalizacja zastępcza powyżej</div>
