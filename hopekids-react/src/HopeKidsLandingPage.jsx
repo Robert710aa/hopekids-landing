@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 const HKIDS_MINT = '6u5PLy9ePpuGEBK3kmQ9isVDFjqSurKpvmCFzheDgQke';
 const JUPITER_BUY_URL = `https://jup.ag/swap/SOL-${HKIDS_MINT}`;
 const DEXSCREENER_TOKEN_URL = `https://api.dexscreener.com/latest/dex/tokens/${HKIDS_MINT}`;
+/** Strona tokena — tam DexScreener pokazuje m.in. holdery (nie ma ich w publicznym JSON API). */
+const DEXSCREENER_TOKEN_PAGE = `https://dexscreener.com/solana/${HKIDS_MINT}`;
 
 const FALLBACK_MARKET_CAP = '$3,250,000';
 
@@ -29,17 +31,13 @@ function formatPriceUsd(raw) {
   return `$${x.toPrecision(4)}`;
 }
 
-function formatIntPl(n) {
-  return new Intl.NumberFormat('pl-PL').format(n);
-}
-
 export default function HopeKidsLandingPage() {
   const [tokenStats, setTokenStats] = useState({
     loading: true,
     marketCapUsd: null,
     priceUsd: null,
     liquidityUsd: null,
-    holders: null,
+    dexscreenerUrl: DEXSCREENER_TOKEN_PAGE,
   });
 
   useEffect(() => {
@@ -47,43 +45,28 @@ export default function HopeKidsLandingPage() {
     const ac = new AbortController();
 
     async function load() {
-      const dexP = (async () => {
-        try {
-          const res = await fetch(DEXSCREENER_TOKEN_URL, { signal: ac.signal });
-          if (!res.ok) return null;
-          return await res.json();
-        } catch {
-          return null;
-        }
-      })();
-
-      const holdersP = (async () => {
-        try {
-          const res = await fetch('/api/token-stats', { signal: ac.signal });
-          if (!res.ok) return null;
-          return await res.json();
-        } catch {
-          return null;
-        }
-      })();
-
       let mcap = null;
       let price = null;
       let liq = null;
-      let holders = null;
+      let dexUrl = DEXSCREENER_TOKEN_PAGE;
 
-      const [dexData, holderData] = await Promise.all([dexP, holdersP]);
-      if (!cancelled && dexData?.pairs) {
-        const pair = pickBestPair(dexData.pairs);
-        const mcapRaw = pair?.marketCap ?? pair?.fdv;
-        const m = mcapRaw != null ? Number(mcapRaw) : null;
-        mcap = Number.isFinite(m) ? m : null;
-        price = pair?.priceUsd != null ? formatPriceUsd(pair.priceUsd) : null;
-        liq = pair?.liquidity?.usd != null ? formatUsdCompact(pair.liquidity.usd) : null;
-      }
-      if (!cancelled && holderData) {
-        const h = holderData.holder;
-        holders = typeof h === 'number' && Number.isFinite(h) ? h : null;
+      try {
+        const res = await fetch(DEXSCREENER_TOKEN_URL, { signal: ac.signal });
+        if (res.ok) {
+          const dexData = await res.json();
+          const pairs = dexData?.pairs;
+          if (Array.isArray(pairs) && pairs.length > 0) {
+            const pair = pickBestPair(pairs);
+            const mcapRaw = pair?.marketCap ?? pair?.fdv;
+            const m = mcapRaw != null ? Number(mcapRaw) : null;
+            mcap = Number.isFinite(m) ? m : null;
+            price = pair?.priceUsd != null ? formatPriceUsd(pair.priceUsd) : null;
+            liq = pair?.liquidity?.usd != null ? formatUsdCompact(pair.liquidity.usd) : null;
+            if (pair?.url) dexUrl = pair.url;
+          }
+        }
+      } catch {
+        /* sieć / abort */
       }
 
       if (!cancelled) {
@@ -92,7 +75,7 @@ export default function HopeKidsLandingPage() {
           marketCapUsd: mcap,
           priceUsd: price,
           liquidityUsd: liq,
-          holders,
+          dexscreenerUrl: dexUrl,
         });
       }
     }
@@ -295,19 +278,19 @@ export default function HopeKidsLandingPage() {
                       <span className="font-semibold text-blue-100/90">{tokenStats.liquidityUsd}</span>
                     </div>
                   ) : null}
-                  {tokenStats.holders != null ? (
-                    <div>
-                      Holdery:{' '}
-                      <span className="font-semibold text-blue-100/90">
-                        {formatIntPl(tokenStats.holders)}
-                      </span>
-                    </div>
-                  ) : null}
-                  {!tokenStats.loading && (tokenStats.priceUsd || tokenStats.liquidityUsd || tokenStats.holders != null) ? (
+                  <div className="mt-2 pt-0.5">
+                    <a
+                      href={tokenStats.dexscreenerUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[12px] font-semibold text-cyan-300/90 underline decoration-cyan-400/35 underline-offset-2 hover:text-cyan-200"
+                    >
+                      Holdery na DexScreener ↗
+                    </a>
+                  </div>
+                  {!tokenStats.loading && (tokenStats.priceUsd || tokenStats.liquidityUsd) ? (
                     <div className="text-[11px] text-blue-100/55">
-                      {tokenStats.holders != null ? 'DexScreener · Birdeye' : 'DexScreener'}
-                      {' · '}
-                      odświeżanie co ~90 s
+                      Kapitalizacja / cena / płynność: API DexScreener · odświeżanie co ~90 s
                     </div>
                   ) : null}
                   {!tokenStats.loading && !tokenStats.priceUsd && !tokenStats.liquidityUsd ? (
