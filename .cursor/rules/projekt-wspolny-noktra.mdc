@@ -15,7 +15,7 @@ alwaysApply: true
 
 ## HopeKids — ustalenia treści (landing)
 
-- W sekcji społeczności / linkach: **TikTok** (zamiast Telegram), **Facebook** (zamiast Solscan); przycisk transparentności: **View on Facebook** (nie Solscan), o ile użytkownik nie poprosi inaczej.
+- W sekcji społeczności / linkach: **TikTok** (zamiast Telegram), **Facebook** (zamiast Solscan). Przy **Public Donation Wallet** nie ma już przycisku „View on Facebook” — tylko adres i kopiowanie.
 
 ## Produkcja WWW (Vercel)
 
