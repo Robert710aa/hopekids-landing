@@ -93,14 +93,14 @@ export default function HopeKidsLandingPage() {
                 <a
                   href="#"
                   className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)] active:scale-[0.98]"
-                  aria-label="Telegram"
+                  aria-label="TikTok"
                 >
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(56,189,248,0.18)]">
                     <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-cyan-300" fill="currentColor" aria-hidden="true">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.79-1.16 3.37-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
                     </svg>
                   </span>
-                  <span className="text-[10px] font-semibold leading-none">Telegram</span>
+                  <span className="text-[10px] font-semibold leading-none">TikTok</span>
                 </a>
 
                 <a
@@ -133,14 +133,14 @@ export default function HopeKidsLandingPage() {
                 <a
                   href="#"
                   className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)] active:scale-[0.98]"
-                  aria-label="Solscan"
+                  aria-label="Facebook"
                 >
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(59,130,246,0.18)]">
                     <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-blue-300" fill="currentColor" aria-hidden="true">
-                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                      <path d="M12 2C6.477 2 2 6.477 2 12c0 5.013 3.693 9.153 8.505 9.876V14.89H8.89v-2.89h2.615V9.846c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.986C18.307 21.153 22 17.013 22 12c0-5.523-4.477-10-10-10z" />
                     </svg>
                   </span>
-                  <span className="text-[10px] font-semibold leading-none">Solscan</span>
+                  <span className="text-[10px] font-semibold leading-none">Facebook</span>
                 </a>
               </div>
             </section>
@@ -185,7 +185,7 @@ export default function HopeKidsLandingPage() {
                   <div className="text-lg font-bold sm:text-xl">Public Donation Wallet</div>
                   <div className="mt-3 flex flex-col gap-3 sm:mt-4 lg:flex-row lg:items-center lg:justify-between lg:gap-4">
                     <div className="rounded-xl border border-white/10 bg-black/20 px-3 py-2.5 text-sm text-blue-100/80 break-all sm:px-4 sm:py-3 sm:text-base">xxxxxxxxxxxxxxxxxxxxxxxx</div>
-                    <button className="rounded-xl bg-blue-600 px-4 py-3 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-blue-500 active:scale-[0.98] sm:px-5 shrink-0">View on Solscan</button>
+                    <button className="rounded-xl bg-blue-600 px-4 py-3 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-blue-500 active:scale-[0.98] sm:px-5 shrink-0">View on Facebook</button>
                   </div>
                 </div>
               </div>
