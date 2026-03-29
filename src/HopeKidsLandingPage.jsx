@@ -1,5 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 
+/** Full story (PL) — shown in the “What is HopeKids?” modal */
+const HOPEKIDS_STORY_PARAGRAPHS_PL = [
+  'HopEKids to nie tylko projekt – to ruch, który wyrósł z miłości i nadziei, by wspierać te najmniejsze, najbardziej niewinne istoty. Każde dziecko, które staje się częścią HopEKids, jest jak promyk nadziei – choć małe, ma wielką wartość. To apel nie tylko do darczyńców, ale też do rodziców, którzy pragną przekazać swoim dzieciom wrażliwość.',
+  'Wspólnie, przez 30 dni, budujemy most w mediach społecznościowych – na Facebooku, TikToku, Twitterze – gdzie każda historia jest wołaniem o pomoc. Wybieramy to jedno dziecko, którego potrzeba nas dotknęła najbardziej, i kontaktujemy się z jego rodziną, przekazując portfel – symbol jednorazowej, osobistej pomocy.',
+  'Dodatkowo, tokeny HopEKids to nie tylko wsparcie – to narzędzie, które pozwala budować stabilność finansową. To most między naszym codziennym wsparciem a przyszłością, gdzie każda inwestycja przekłada się na realną zmianę.',
+  'To apel nie tylko do naszych serc, ale też do wizji lepszego jutra, gdzie każdy z nas, wspólnie, może zmieniać świat tych najmłodszych.',
+  'HopEKids to most, który łączy naszą wspólnotę z przyszłością – i to od nas zależy, by każde małe życie miało szansę zabłysnąć pełnią możliwości.',
+];
+
 // HKIDS token mint on Solana (Jupiter swap)
 const HKIDS_MINT = '6u5PLy9ePpuGEBK3kmQ9isVDFjqSurKpvmCFzheDgQke';
 const JUPITER_BUY_URL = `https://jup.ag/swap/SOL-${HKIDS_MINT}`;
@@ -38,6 +47,7 @@ function formatPriceUsd(raw) {
 }
 
 export default function HopeKidsLandingPage() {
+  const [storyOpen, setStoryOpen] = useState(false);
   const [walletCopied, setWalletCopied] = useState(false);
 
   const copyDonationWallet = useCallback(async () => {
@@ -49,6 +59,20 @@ export default function HopeKidsLandingPage() {
       /* no permission / clipboard unsupported */
     }
   }, []);
+
+  useEffect(() => {
+    if (!storyOpen) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') setStoryOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [storyOpen]);
 
   const [tokenStats, setTokenStats] = useState({
     loading: true,
@@ -264,11 +288,20 @@ export default function HopeKidsLandingPage() {
             {/* removed: Where HopeKids Helps / Trade cards */}
 
             <section className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-5">
-                <div className="text-2xl sm:text-3xl">🪙</div>
-                <div className="mt-2 text-2xl font-extrabold sm:mt-3 sm:text-[32px]">Earn</div>
-                <p className="mt-1 text-sm text-blue-100/74 sm:mt-2 sm:text-base">Trade crypto and earn profits.</p>
-              </div>
+              <button
+                type="button"
+                onClick={() => setStoryOpen(true)}
+                className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 text-left shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:border-cyan-400/45 hover:bg-[#071a35]/40 hover:shadow-[0_0_22px_rgba(56,189,248,0.18)] active:scale-[0.99] sm:p-5"
+              >
+                <div className="text-2xl sm:text-3xl" aria-hidden="true">
+                  ✨
+                </div>
+                <div className="mt-2 text-2xl font-extrabold sm:mt-3 sm:text-[32px]">What is HopeKids?</div>
+                <p className="mt-1 text-sm text-blue-100/74 sm:mt-2 sm:text-base">
+                  A movement of hope — tap to read our full story.
+                </p>
+                <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-cyan-300/70">Open</p>
+              </button>
               <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-5">
                 <div className="text-2xl sm:text-3xl">💛</div>
                 <div className="mt-2 text-2xl font-extrabold sm:mt-3 sm:text-[32px]">Help</div>
@@ -384,6 +417,43 @@ export default function HopeKidsLandingPage() {
           </div>
         </div>
       </div>
+
+      {storyOpen ? (
+        <div
+          className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto py-6 sm:py-10"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="hopekids-story-title"
+        >
+          <button
+            type="button"
+            aria-label="Close story"
+            className="fixed inset-0 bg-black/75 backdrop-blur-sm"
+            onClick={() => setStoryOpen(false)}
+          />
+          <div className="relative z-[1] mx-4 w-full max-w-2xl rounded-2xl border border-cyan-400/35 bg-[linear-gradient(180deg,rgba(6,18,38,0.97),rgba(3,10,24,0.98))] p-5 shadow-[0_0_40px_rgba(56,189,248,0.15)] sm:p-8">
+            <div className="flex items-start justify-between gap-4 border-b border-cyan-400/20 pb-4">
+              <h2 id="hopekids-story-title" className="text-xl font-extrabold text-amber-400 sm:text-2xl">
+                The HopeKids story
+              </h2>
+              <button
+                type="button"
+                onClick={() => setStoryOpen(false)}
+                className="shrink-0 rounded-lg border border-white/15 px-3 py-1.5 text-sm font-semibold text-blue-100 transition hover:bg-white/10"
+              >
+                Close
+              </button>
+            </div>
+            <div className="max-h-[min(70vh,540px)] overflow-y-auto pr-1 pt-5 sm:max-h-[min(75vh,620px)]">
+              <div className="space-y-4 text-sm leading-relaxed text-blue-100/88 sm:text-base">
+                {HOPEKIDS_STORY_PARAGRAPHS_PL.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }
