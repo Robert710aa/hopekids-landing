@@ -1,4 +1,20 @@
+import { useCallback, useState } from 'react';
+
+const PUBLIC_DONATION_WALLET = 'GnhmPt4LBHRoABuGrSqrbPW34Mu8dXGJf1XCNc7DHRAB';
+
 export default function HopeKidsLandingPage() {
+  const [walletCopied, setWalletCopied] = useState(false);
+
+  const copyDonationWallet = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(PUBLIC_DONATION_WALLET);
+      setWalletCopied(true);
+      window.setTimeout(() => setWalletCopied(false), 2000);
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
   const stats = [
     { label: 'Tokens Saved for Children', value: '3,245,678', suffix: 'HKIDS' },
     { label: 'Current Value', value: '$16,380', suffix: '' },
@@ -190,10 +206,38 @@ export default function HopeKidsLandingPage() {
                 <div className="text-[34px] font-extrabold">Transparency</div>
                 <div className="mt-5 rounded-2xl border border-white/10 bg-[#08172f]/55 p-5">
                   <div className="text-xl font-bold">Public Donation Wallet</div>
-                  <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                    <div className="rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-blue-100/80">xxxxxxxxxxxxxxxxxxxxxxxx</div>
-                    <button className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500">View on Facebook</button>
+                  <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-stretch lg:justify-between">
+                    <div className="flex min-w-0 flex-1 items-stretch gap-2 rounded-xl border border-white/10 bg-black/20">
+                      <div className="min-w-0 flex-1 break-all px-4 py-3 font-mono text-sm text-blue-100/90">
+                        {PUBLIC_DONATION_WALLET}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={copyDonationWallet}
+                        aria-label={walletCopied ? 'Skopiowano' : 'Kopiuj adres portfela'}
+                        className="flex shrink-0 items-center justify-center border-l border-white/10 px-4 text-cyan-300 transition hover:bg-white/5 hover:text-cyan-200"
+                      >
+                        {walletCopied ? (
+                          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                            <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        ) : (
+                          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                            <rect x="9" y="9" width="13" height="13" rx="2" />
+                            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                    <button className="rounded-xl bg-blue-600 px-5 py-3 font-bold transition hover:bg-blue-500 lg:shrink-0">
+                      View on Facebook
+                    </button>
                   </div>
+                  {walletCopied ? (
+                    <p className="mt-2 text-sm font-medium text-emerald-300/90" role="status">
+                      Skopiowano do schowka
+                    </p>
+                  ) : null}
                 </div>
               </div>
 

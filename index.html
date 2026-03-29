@@ -137,8 +137,31 @@
       <div id="transparency" class="card">
         <h2 class="card-title">Transparency</h2>
         <p class="wallet-label">Public Donation Wallet</p>
-        <code class="wallet-address">XXXXXXXXXXXXXXXXXXXXX</code>
+        <div class="donation-wallet-row" style="display:flex;align-items:stretch;border:1px solid rgba(255,255,255,0.12);border-radius:12px;overflow:hidden;background:rgba(0,0,0,0.2);margin:0.75rem 0;">
+          <code id="hopekids-donation-wallet" class="wallet-address" style="flex:1;margin:0;border:0;border-radius:0;padding:0.85rem 1rem;word-break:break-all;display:block;font-size:0.9rem;">GnhmPt4LBHRoABuGrSqrbPW34Mu8dXGJf1XCNc7DHRAB</code>
+          <button type="button" id="hopekids-copy-wallet" aria-label="Kopiuj adres portfela" style="flex-shrink:0;border:0;border-left:1px solid rgba(255,255,255,0.12);background:rgba(0,0,0,0.2);color:#7dd3fc;padding:0 1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;" title="Kopiuj">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <p id="hopekids-copy-status" style="display:none;font-size:0.85rem;color:#6ee7b7;margin:0 0 0.5rem;">Skopiowano do schowka</p>
         <a href="https://www.facebook.com" target="_blank" rel="noopener" class="btn btn-outline btn-block">View on Facebook</a>
+        <script>
+        (function () {
+          var btn = document.getElementById('hopekids-copy-wallet');
+          var code = document.getElementById('hopekids-donation-wallet');
+          var st = document.getElementById('hopekids-copy-status');
+          if (!btn || !code) return;
+          btn.addEventListener('click', function () {
+            var text = code.textContent.trim();
+            function ok() {
+              if (st) { st.style.display = 'block'; setTimeout(function () { st.style.display = 'none'; }, 2000); }
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(text).then(ok).catch(function () {});
+            }
+          });
+        })();
+        </script>
       </div>
       <div class="card">
         <h2 class="card-title">Top Helpers</h2>
