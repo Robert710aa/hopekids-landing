@@ -323,31 +323,26 @@ export default function HopeKidsLandingPage() {
                 <div className="text-2xl font-extrabold sm:text-[34px]">Transparency</div>
                 <div className="mt-4 rounded-2xl border border-cyan-400/20 bg-[#08172f]/50 p-4 shadow-[0_0_12px_rgba(56,189,248,0.1)] sm:mt-5 sm:p-5">
                   <div className="text-lg font-bold sm:text-xl">Public Donation Wallet</div>
-                  <div className="mt-3 flex flex-col gap-3 sm:mt-4 lg:flex-row lg:items-stretch lg:justify-between lg:gap-4">
-                    <div className="flex min-w-0 flex-1 items-stretch gap-2 rounded-xl border border-white/10 bg-black/20 sm:gap-3">
-                      <div className="min-w-0 flex-1 px-3 py-2.5 font-mono text-sm leading-relaxed text-blue-100/90 break-all sm:px-4 sm:py-3 sm:text-base">
-                        {PUBLIC_DONATION_WALLET}
-                      </div>
-                      <button
-                        type="button"
-                        onClick={copyDonationWallet}
-                        aria-label={walletCopied ? 'Skopiowano' : 'Kopiuj adres portfela'}
-                        className="flex shrink-0 items-center justify-center border-l border-white/10 px-3 text-cyan-300 transition hover:bg-white/5 hover:text-cyan-200 active:scale-[0.97] sm:px-4"
-                      >
-                        {walletCopied ? (
-                          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                            <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        ) : (
-                          <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                            <rect x="9" y="9" width="13" height="13" rx="2" />
-                            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
-                          </svg>
-                        )}
-                      </button>
+                  <div className="mt-3 flex min-w-0 items-stretch gap-2 rounded-xl border border-white/10 bg-black/20 sm:mt-4 sm:gap-3">
+                    <div className="min-w-0 flex-1 px-3 py-2.5 font-mono text-sm leading-relaxed text-blue-100/90 break-all sm:px-4 sm:py-3 sm:text-base">
+                      {PUBLIC_DONATION_WALLET}
                     </div>
-                    <button className="rounded-xl bg-blue-600 px-4 py-3 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-blue-500 active:scale-[0.98] sm:px-5 lg:shrink-0">
-                      View on Facebook
+                    <button
+                      type="button"
+                      onClick={copyDonationWallet}
+                      aria-label={walletCopied ? 'Skopiowano' : 'Kopiuj adres portfela'}
+                      className="flex shrink-0 items-center justify-center border-l border-white/10 px-3 text-cyan-300 transition hover:bg-white/5 hover:text-cyan-200 active:scale-[0.97] sm:px-4"
+                    >
+                      {walletCopied ? (
+                        <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                          <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      ) : (
+                        <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                          <rect x="9" y="9" width="13" height="13" rx="2" />
+                          <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                        </svg>
+                      )}
                     </button>
                   </div>
                   {walletCopied ? (
