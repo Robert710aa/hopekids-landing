@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 
-/** Full story (PL) — shown in the “What is HopeKids?” modal */
+/** Full story — shown in the “What is HopeKids?” modal */
 const HOPEKIDS_STORY_PARAGRAPHS_PL = [
-  'HopEKids to nie tylko projekt – to ruch, który wyrósł z miłości i nadziei, by wspierać te najmniejsze, najbardziej niewinne istoty. Każde dziecko, które staje się częścią HopEKids, jest jak promyk nadziei – choć małe, ma wielką wartość. To apel nie tylko do darczyńców, ale też do rodziców, którzy pragną przekazać swoim dzieciom wrażliwość.',
-  'Wspólnie, przez 30 dni, budujemy most w mediach społecznościowych – na Facebooku, TikToku, Twitterze – gdzie każda historia jest wołaniem o pomoc. Wybieramy to jedno dziecko, którego potrzeba nas dotknęła najbardziej, i kontaktujemy się z jego rodziną, przekazując portfel – symbol jednorazowej, osobistej pomocy.',
-  'Dodatkowo, tokeny HopEKids to nie tylko wsparcie – to narzędzie, które pozwala budować stabilność finansową. To most między naszym codziennym wsparciem a przyszłością, gdzie każda inwestycja przekłada się na realną zmianę.',
-  'To apel nie tylko do naszych serc, ale też do wizji lepszego jutra, gdzie każdy z nas, wspólnie, może zmieniać świat tych najmłodszych.',
-  'HopEKids to most, który łączy naszą wspólnotę z przyszłością – i to od nas zależy, by każde małe życie miało szansę zabłysnąć pełnią możliwości.',
+  'HopEKids is not just a project – it is a movement born from love and hope, created to support the smallest and most innocent among us. Every child who becomes part of HopEKids is like a ray of hope – small, yet incredibly valuable.',
+  'It is a call not only to donors, but also to parents who want to pass compassion and empathy on to their children. Together, over 30 days, we build a bridge through social media – on platforms like Facebook, TikTok, and Twitter – where every story becomes a call for help.',
+  'First, we search for children who need help the most and the fastest – those whose situations are the most difficult and urgent. Then we choose one child whose story has touched us the most, contact their family, and provide a dedicated wallet – a symbol of one-time, personal support.',
+  'Additionally, HopEKids tokens are not just about support – they are a tool that helps build financial stability. They create a bridge between everyday support and the future, where every investment leads to real change.',
+  'This is not only an appeal to our hearts, but also to a vision of a better tomorrow – where each of us, together, can change the world of these children. HopEKids is a bridge that connects our community with the future – and it is up to us to ensure that every small life has the chance to shine to its fullest potential.',
 ];
 
 // HKIDS token mint on Solana (Jupiter swap)
