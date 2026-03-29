@@ -10,6 +10,9 @@ const DEXSCREENER_TOKEN_PAGE = `https://dexscreener.com/solana/${HKIDS_MINT}`;
 /** Publiczny portfel darowizn (Solana). */
 const PUBLIC_DONATION_WALLET = 'GnhmPt4LBHRoABuGrSqrbPW34Mu8dXGJf1XCNc7DHRAB';
 
+/** Kontakt do zespołu HopeKids */
+const HOPEKIDS_TEAM_EMAIL = 'hopekids594@gmail.com';
+
 const FALLBACK_MARKET_CAP = '$3,250,000';
 
 function pickBestPair(pairs) {
@@ -352,6 +355,29 @@ export default function HopeKidsLandingPage() {
                       Skopiowano do schowka
                     </p>
                   ) : null}
+                </div>
+              </div>
+            </section>
+
+            <section className="mt-6 sm:mt-8" id="contact" aria-labelledby="contact-heading">
+              <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:rounded-[26px] sm:p-6">
+                <h2 id="contact-heading" className="text-2xl font-extrabold sm:text-[34px]">
+                  Kontakt z zespołem
+                </h2>
+                <p className="mt-2 max-w-2xl text-sm text-blue-100/75 sm:text-base">
+                  Pytania, współpraca lub pomoc — napisz do nas. Odpowiadamy na maile związane z HopeKids.
+                </p>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+                  <a
+                    href={`mailto:${HOPEKIDS_TEAM_EMAIL}`}
+                    className="inline-flex w-fit items-center gap-2 rounded-xl border border-cyan-400/30 bg-[#08172f]/60 px-4 py-3 text-base font-semibold text-cyan-200 transition hover:border-cyan-400/50 hover:bg-[#0a1f42]/80"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <path d="m22 6-10 7L2 6" />
+                    </svg>
+                    {HOPEKIDS_TEAM_EMAIL}
+                  </a>
                 </div>
               </div>
             </section>
