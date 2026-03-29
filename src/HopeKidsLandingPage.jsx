@@ -445,20 +445,20 @@ export default function HopeKidsLandingPage() {
               aria-hidden="true"
             />
             <div className="relative z-[1] bg-[linear-gradient(180deg,rgba(4,10,25,0.25),rgba(3,7,18,0.38))] p-5 sm:p-8">
-              <div className="flex items-start justify-between gap-4 border-b border-cyan-400/20 pb-4">
-                <h2 id="hopekids-story-title" className="text-xl font-extrabold text-amber-400 sm:text-2xl">
+              <div className="flex items-start justify-between gap-4 border-b border-amber-400/25 pb-4">
+                <h2 id="hopekids-story-title" className="text-xl font-extrabold text-amber-300 sm:text-2xl">
                   The HopeKids story
                 </h2>
                 <button
                   type="button"
                   onClick={() => setStoryOpen(false)}
-                  className="shrink-0 rounded-lg border border-white/15 px-3 py-1.5 text-sm font-semibold text-blue-100 transition hover:bg-white/10"
+                  className="shrink-0 rounded-lg border border-amber-400/35 px-3 py-1.5 text-sm font-semibold text-amber-200 transition hover:bg-amber-400/10 hover:text-amber-100"
                 >
                   Close
                 </button>
               </div>
               <div className="max-h-[min(70vh,540px)] overflow-y-auto pr-1 pt-5 sm:max-h-[min(75vh,620px)]">
-                <div className="space-y-4 text-sm leading-relaxed text-blue-100/88 sm:text-base">
+                <div className="space-y-4 text-sm leading-relaxed text-amber-100/95 sm:text-base">
                   {HOPEKIDS_STORY_PARAGRAPHS_PL.map((p, i) => (
                     <p key={i}>{p}</p>
                   ))}
