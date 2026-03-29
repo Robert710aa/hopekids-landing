@@ -1,14 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 
-/** Full story — shown in the “What is HopeKids?” modal */
-const HOPEKIDS_STORY_PARAGRAPHS_PL = [
-  'HopEKids is not just a project – it is a movement born from love and hope, created to support the smallest and most innocent among us. Every child who becomes part of HopEKids is like a ray of hope – small, yet incredibly valuable.',
-  'It is a call not only to donors, but also to parents who want to pass compassion and empathy on to their children. Together, over 30 days, we build a bridge through social media – on platforms like Facebook, TikTok, and Twitter – where every story becomes a call for help.',
-  'First, we search for children who need help the most and the fastest – those whose situations are the most difficult and urgent. Then we choose one child whose story has touched us the most, contact their family, and provide a dedicated wallet – a symbol of one-time, personal support.',
-  'Additionally, HopEKids tokens are not just about support – they are a tool that helps build financial stability. They create a bridge between everyday support and the future, where every investment leads to real change.',
-  'This is not only an appeal to our hearts, but also to a vision of a better tomorrow – where each of us, together, can change the world of these children. HopEKids is a bridge that connects our community with the future – and it is up to us to ensure that every small life has the chance to shine to its fullest potential.',
-];
-
 // HKIDS token mint on Solana (Jupiter swap)
 const HKIDS_MINT = '6u5PLy9ePpuGEBK3kmQ9isVDFjqSurKpvmCFzheDgQke';
 const JUPITER_BUY_URL = `https://jup.ag/swap/SOL-${HKIDS_MINT}`;
@@ -459,9 +450,60 @@ export default function HopeKidsLandingPage() {
               </div>
               <div className="max-h-[min(70vh,540px)] overflow-y-auto pr-1 pt-5 sm:max-h-[min(75vh,620px)]">
                 <div className="space-y-4 text-sm leading-relaxed text-amber-100/95 sm:text-base">
-                  {HOPEKIDS_STORY_PARAGRAPHS_PL.map((p, i) => (
-                    <p key={i}>{p}</p>
-                  ))}
+                  <p>
+                    Today, all it takes is opening social media to see something that breaks your heart. Post after post.
+                    Photo after photo. Small children who, instead of playing, laughing, and discovering the world… are
+                    fighting for their lives. Pleas for help with treatment, fundraisers, heartbreaking stories of parents
+                    who are doing everything they can — and still often feel helpless.
+                  </p>
+                  <p>You can&apos;t just scroll past this without feeling anything.</p>
+                  <p>
+                    HopeKids was born from that feeling — from pain, sadness, and at the same time, from deep hope. From
+                    the question: <em>why them?</em> Why do these innocent children, who have only just begun their lives,
+                    have to face something so cruel?
+                  </p>
+                  <p>This is a project created from the heart.</p>
+                  <p>
+                    HopeKids is not another token built for quick profit, hype, or millions. It&apos;s something completely
+                    different. It&apos;s a symbol. It&apos;s a voice for those who cannot fight for themselves. It&apos;s an
+                    attempt to do something… instead of just watching and scrolling past.
+                  </p>
+                  <p>Because the truth is — these children do not deserve what has happened to them.</p>
+                  <p>
+                    Each of us has a choice — we can walk past, or we can stop for a moment and help. Even the smallest
+                    gesture matters. For us, it may be very little… but for them, it could be a chance to live.
+                  </p>
+                  <p>
+                    HopeKids was created with the belief that together, we can change something. That even in a world full
+                    of suffering, there is still room for goodness. For people who are not indifferent.
+                  </p>
+                  <p>
+                    Because somewhere out there is a child falling asleep in pain today… And a parent quietly crying,
+                    praying that tomorrow will still come.
+                  </p>
+                  <p>
+                    And the worst part is… while you&apos;re reading this — someone is losing that fight.
+                  </p>
+                  <p>A heart stops beating.</p>
+                  <p>A child&apos;s world fades away.</p>
+                  <p>And with it… the entire universe of their parents.</p>
+                  <p>Let&apos;s not allow the only thing left behind to be a photo and a fundraising link.</p>
+                  <p>Stop for a moment.</p>
+                  <p>
+                    I know you scroll through hundreds of posts every day… but one of them could change someone&apos;s life
+                    today.
+                  </p>
+                  <p>You don&apos;t have to do everything. It&apos;s enough to do something.</p>
+                  <p>Click &ldquo;like.&rdquo;</p>
+                  <p>Share it.</p>
+                  <p>Show that you see them.</p>
+                  <p>Because for you, it&apos;s just a second. For them… it could be hope.</p>
+                  <p>Don&apos;t scroll past.</p>
+                  <p>Don&apos;t forget.</p>
+                  <p>Don&apos;t be indifferent.</p>
+                  <p>Because hope dies when people stop acting.</p>
+                  <p>And if you&apos;re still here…</p>
+                  <p>it means you can be the reason someone&apos;s story doesn&apos;t end today.</p>
                 </div>
               </div>
             </div>
