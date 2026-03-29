@@ -431,24 +431,38 @@ export default function HopeKidsLandingPage() {
             className="fixed inset-0 bg-black/75 backdrop-blur-sm"
             onClick={() => setStoryOpen(false)}
           />
-          <div className="relative z-[1] mx-4 w-full max-w-2xl rounded-2xl border border-cyan-400/35 bg-[linear-gradient(180deg,rgba(6,18,38,0.97),rgba(3,10,24,0.98))] p-5 shadow-[0_0_40px_rgba(56,189,248,0.15)] sm:p-8">
-            <div className="flex items-start justify-between gap-4 border-b border-cyan-400/20 pb-4">
-              <h2 id="hopekids-story-title" className="text-xl font-extrabold text-amber-400 sm:text-2xl">
-                The HopeKids story
-              </h2>
-              <button
-                type="button"
-                onClick={() => setStoryOpen(false)}
-                className="shrink-0 rounded-lg border border-white/15 px-3 py-1.5 text-sm font-semibold text-blue-100 transition hover:bg-white/10"
-              >
-                Close
-              </button>
-            </div>
-            <div className="max-h-[min(70vh,540px)] overflow-y-auto pr-1 pt-5 sm:max-h-[min(75vh,620px)]">
-              <div className="space-y-4 text-sm leading-relaxed text-blue-100/88 sm:text-base">
-                {HOPEKIDS_STORY_PARAGRAPHS_PL.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
+          <div className="relative z-[1] mx-4 w-full max-w-2xl overflow-hidden rounded-2xl border border-cyan-400/35 shadow-[0_0_40px_rgba(56,189,248,0.15)]">
+            <div
+              className="pointer-events-none absolute inset-0 bg-[url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06')] bg-cover bg-center"
+              aria-hidden="true"
+            />
+            <div
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,11,31,0.05),rgba(7,26,58,0.08))]"
+              aria-hidden="true"
+            />
+            <div
+              className="pointer-events-none absolute inset-x-0 top-0 h-[280px] bg-[radial-gradient(circle_at_72%_28%,rgba(251,146,60,0.35),transparent_20%),radial-gradient(circle_at_60%_18%,rgba(59,130,246,0.35),transparent_24%)]"
+              aria-hidden="true"
+            />
+            <div className="relative z-[1] bg-[linear-gradient(180deg,rgba(4,10,25,0.25),rgba(3,7,18,0.38))] p-5 sm:p-8">
+              <div className="flex items-start justify-between gap-4 border-b border-cyan-400/20 pb-4">
+                <h2 id="hopekids-story-title" className="text-xl font-extrabold text-amber-400 sm:text-2xl">
+                  The HopeKids story
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => setStoryOpen(false)}
+                  className="shrink-0 rounded-lg border border-white/15 px-3 py-1.5 text-sm font-semibold text-blue-100 transition hover:bg-white/10"
+                >
+                  Close
+                </button>
+              </div>
+              <div className="max-h-[min(70vh,540px)] overflow-y-auto pr-1 pt-5 sm:max-h-[min(75vh,620px)]">
+                <div className="space-y-4 text-sm leading-relaxed text-blue-100/88 sm:text-base">
+                  {HOPEKIDS_STORY_PARAGRAPHS_PL.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
