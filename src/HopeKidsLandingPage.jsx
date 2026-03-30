@@ -471,31 +471,21 @@ export default function HopeKidsLandingPage() {
 
             {/* removed: Where HopeKids Helps / Trade cards */}
 
-            <section className="mt-8 scroll-mt-28" aria-labelledby="how-heading">
-              <h2 id="how-heading" className="text-center text-2xl font-extrabold text-white sm:text-3xl">
-                How HopeKids Works
-              </h2>
-              <div className="mt-6 flex flex-col items-stretch gap-4 md:flex-row md:justify-center md:gap-1">
-                {[
-                  { n: '1', t: 'Buy', d: 'Get HKIDS on a DEX' },
-                  { n: '2', t: 'Trade', d: 'Swap and hold as you like' },
-                  { n: '3', t: 'Help', d: "3% flows to the children's donation wallet" },
-                ].map((step, i) => (
-                  <div key={step.n} className="flex flex-1 items-center gap-2 md:max-w-[200px] md:flex-col md:gap-0">
-                    <div className="w-full flex-1 rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-4 text-center shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:p-5">
-                      <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-400/35 to-cyan-500/35 text-lg font-bold text-white">
-                        {step.n}
-                      </div>
-                      <div className="mt-2 text-lg font-extrabold text-amber-200">{step.t}</div>
-                      <p className="mt-1 text-sm text-blue-100/75">{step.d}</p>
-                    </div>
-                    {i < 2 ? (
-                      <span className="hidden shrink-0 self-center px-1 text-2xl text-cyan-400/50 md:inline" aria-hidden="true">
-                        →
-                      </span>
-                    ) : null}
-                  </div>
-                ))}
+            <section className="mt-8 scroll-mt-28" aria-label="Trading and donations">
+              <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
+                <div className="flex h-full min-h-[140px] flex-col justify-center rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 text-center shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:min-h-[160px] sm:p-6">
+                  <div className="text-lg font-extrabold text-amber-200 sm:text-xl">Buy &amp; trade</div>
+                  <p className="mt-2 text-sm leading-relaxed text-blue-100/75 sm:text-base">
+                    Get HKIDS on a DEX. Swap and hold as you like — your activity supports the mission.
+                  </p>
+                </div>
+                <div className="flex h-full min-h-[140px] flex-col justify-center rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 text-center shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:min-h-[160px] sm:p-6">
+                  <div className="text-lg font-extrabold text-amber-200 sm:text-xl">Help children</div>
+                  <p className="mt-2 text-sm leading-relaxed text-blue-100/75 sm:text-base">
+                    <span className="font-semibold text-amber-200/95">3%</span> of each transaction goes to the public
+                    donation wallet for sick children.
+                  </p>
+                </div>
               </div>
             </section>
 
