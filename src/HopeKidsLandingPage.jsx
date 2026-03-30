@@ -23,61 +23,6 @@ const FALLBACK_MARKET_CAP = '$3,250,000';
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
 
-/** Dark night-sky mark with dim stars and a sombre expression — site logo */
-function HopeKidsNightMark({ className = 'h-12 w-12 sm:h-14 sm:w-14' }) {
-  return (
-    <svg
-      viewBox="0 0 48 48"
-      className={className}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <rect x="0.5" y="0.5" width="47" height="47" rx="13.5" fill="#05080f" stroke="rgba(100,116,139,0.35)" />
-      <circle cx="10" cy="11" r="0.9" fill="#64748b" opacity="0.5" />
-      <circle cx="38" cy="13" r="0.65" fill="#94a3b8" opacity="0.35" />
-      <circle cx="36" cy="37" r="0.55" fill="#475569" opacity="0.45" />
-      <circle cx="24" cy="8.5" r="0.75" fill="#e2e8f0" opacity="0.18" />
-      <path
-        d="M6.5 29l1.1-1.6 1.8 1.2-1.1 1.6-1.8-1.2z"
-        fill="#64748b"
-        opacity="0.28"
-      />
-      <path
-        d="M40.5 7.5l0.45 1.05h1.1l-0.9 0.65 0.35 1.05-0.95-0.55-0.95 0.55 0.35-1.05-0.9-0.65h1.1z"
-        fill="#fde68a"
-        opacity="0.2"
-      />
-      <circle cx="17" cy="22" r="1.25" fill="#334155" />
-      <circle cx="31" cy="22" r="1.25" fill="#334155" />
-      <path
-        d="M14.2 18.8c1.1-0.9 2.6-1.1 3.8-0.2"
-        stroke="#1e293b"
-        strokeWidth="1.15"
-        strokeLinecap="round"
-      />
-      <path
-        d="M30 18.6c1.2-0.9 2.7-0.7 3.8 0.2"
-        stroke="#1e293b"
-        strokeWidth="1.15"
-        strokeLinecap="round"
-      />
-      <path
-        d="M17.5 31.2c2.8 2.4 9.2 2.4 12 0"
-        stroke="#64748b"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-        opacity="0.92"
-      />
-      <path
-        d="M14.8 25.2c0.2 1.8 1.1 3.1 1.6 3.1s0.2-1.9-0.5-3.4-1.1-1.2-1.1 0.3z"
-        fill="#475569"
-        opacity="0.42"
-      />
-    </svg>
-  );
-}
-
 function pickBestPair(pairs) {
   if (!pairs?.length) return null;
   return [...pairs].sort((a, b) => (b.liquidity?.usd ?? 0) - (a.liquidity?.usd ?? 0))[0];
@@ -345,10 +290,7 @@ export default function HopeKidsLandingPage() {
               </div>
 
               <header className="sticky top-2 z-50 flex flex-wrap items-center justify-between gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3 lg:px-10">
-              <a href="#home" className="flex items-center gap-3 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-                <span className="flex shrink-0 rounded-2xl shadow-[0_0_36px_rgba(251,191,36,0.2),0_0_28px_rgba(0,0,0,0.55)] ring-2 ring-amber-400/45 ring-offset-2 ring-offset-[rgba(2,4,12,0.4)]">
-                  <HopeKidsNightMark />
-                </span>
+              <a href="#home" className="flex items-center gap-2.5 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
                 <span className="text-lg font-extrabold tracking-tight">HopeKids</span>
               </a>
               <nav
@@ -387,14 +329,9 @@ export default function HopeKidsLandingPage() {
                 className="relative z-10 border-0 bg-transparent px-4 py-7 shadow-none sm:px-6 sm:py-9 lg:px-10 lg:pb-11 lg:pt-9"
               >
                 <div className="relative z-10 mx-auto flex max-w-xl flex-col justify-center text-center sm:max-w-lg lg:mx-0 lg:max-w-[min(100%,28rem)] lg:text-left">
-                  <div className="mb-5 flex flex-col items-center gap-4 sm:mb-6 lg:flex-row lg:items-center lg:justify-start lg:gap-6">
-                    <span className="shrink-0 rounded-2xl shadow-[0_0_40px_rgba(251,191,36,0.22),0_0_32px_rgba(0,0,0,0.5)] ring-2 ring-amber-400/45 ring-offset-2 ring-offset-[rgba(3,5,12,0.5)]">
-                      <HopeKidsNightMark className="h-[4.5rem] w-[4.5rem] sm:h-20 sm:w-20 lg:h-[5.25rem] lg:w-[5.25rem]" />
-                    </span>
-                    <h1 className="hopekids-title-glare text-4xl font-extrabold drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-6xl">
-                      HopeKids
-                    </h1>
-                  </div>
+                  <h1 className="hopekids-title-glare text-4xl font-extrabold drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-6xl">
+                    HopeKids
+                  </h1>
                   <p className="mt-4 text-lg font-semibold leading-snug text-amber-50 drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)] sm:mt-5 sm:text-xl lg:text-2xl">
                     Support sick children through cryptocurrency.
                   </p>
@@ -692,11 +629,8 @@ export default function HopeKidsLandingPage() {
             </section>
 
             <footer className="border-t-4 border-orange-500 bg-black/20 py-8 text-center text-blue-100/70 sm:py-10">
-              <div className="flex flex-col items-center gap-3">
-                <HopeKidsNightMark />
-                <div className="text-2xl font-extrabold text-white sm:text-3xl">HopeKids © 2026</div>
-                <div className="text-base sm:text-lg">Trade crypto. Give hope.</div>
-              </div>
+              <div className="text-2xl font-extrabold text-white sm:text-3xl">HopeKids © 2026</div>
+              <div className="mt-1 text-base sm:mt-2 sm:text-lg">Trade crypto. Give hope.</div>
             </footer>
           </div>
         </div>
