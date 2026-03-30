@@ -233,10 +233,10 @@ export default function HopeKidsLandingPage() {
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
         }
 
-        /* Same full-page backdrop as legacy hopekids.css (.stars-bg + .gradient-bg) */
+        /* Full-page backdrop: deep night + amber hope accent + faint violet (not cyan-washed) */
         @keyframes hopekids-legacy-twinkle {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.7; }
+          50% { opacity: 0.72; }
         }
 
         .hopekids-legacy-stars {
@@ -244,11 +244,12 @@ export default function HopeKidsLandingPage() {
           inset: 0;
           z-index: 0;
           background-image:
-            radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.6), transparent),
-            radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.4), transparent),
-            radial-gradient(2px 2px at 50px 160px, rgba(255, 255, 255, 0.5), transparent),
-            radial-gradient(2px 2px at 90px 40px, rgba(255, 255, 255, 0.3), transparent),
-            radial-gradient(2px 2px at 130px 80px, rgba(255, 255, 255, 0.4), transparent);
+            radial-gradient(2px 2px at 20px 30px, rgba(255, 253, 245, 0.55), transparent),
+            radial-gradient(2px 2px at 40px 70px, rgba(252, 211, 77, 0.28), transparent),
+            radial-gradient(2px 2px at 50px 160px, rgba(255, 255, 255, 0.45), transparent),
+            radial-gradient(2px 2px at 90px 40px, rgba(253, 230, 138, 0.22), transparent),
+            radial-gradient(2px 2px at 130px 80px, rgba(255, 255, 255, 0.35), transparent),
+            radial-gradient(1.5px 1.5px at 160px 120px, rgba(255, 255, 255, 0.3), transparent);
           background-size: 200px 200px;
           animation: hopekids-legacy-twinkle 8s ease-in-out infinite;
         }
@@ -258,9 +259,11 @@ export default function HopeKidsLandingPage() {
           inset: 0;
           z-index: 0;
           background:
-            radial-gradient(ellipse 80% 50% at 70% 30%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
-            radial-gradient(ellipse 60% 40% at 20% 80%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
-            linear-gradient(180deg, #0a0e17 0%, #0f172a 40%, #0a0e17 100%);
+            radial-gradient(ellipse 95% 55% at 50% 102%, rgba(0, 0, 0, 0.45) 0%, transparent 58%),
+            radial-gradient(ellipse 72% 48% at 88% 8%, rgba(217, 119, 6, 0.09) 0%, transparent 52%),
+            radial-gradient(ellipse 58% 42% at 10% 85%, rgba(91, 33, 182, 0.07) 0%, transparent 50%),
+            radial-gradient(ellipse 50% 38% at 72% 42%, rgba(30, 27, 75, 0.12) 0%, transparent 48%),
+            linear-gradient(165deg, #070910 0%, #0c1222 36%, #090c14 72%, #06080f 100%);
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -279,7 +282,7 @@ export default function HopeKidsLandingPage() {
         }
       `}</style>
 
-      <div className="relative min-h-screen bg-[#0a0e17] text-white">
+      <div className="relative min-h-screen bg-[#070910] text-white">
         <div className="hopekids-legacy-stars pointer-events-none" aria-hidden="true" />
         <div className="hopekids-legacy-gradient pointer-events-none" aria-hidden="true" />
         <div className="relative z-10 min-h-screen overflow-x-hidden">
