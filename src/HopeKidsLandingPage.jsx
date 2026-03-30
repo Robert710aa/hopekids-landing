@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 // HKIDS token mint on Solana (Jupiter swap)
 const HKIDS_MINT = '6u5PLy9ePpuGEBK3kmQ9isVDFjqSurKpvmCFzheDgQke';
@@ -14,9 +14,6 @@ const PUBLIC_DONATION_WALLET = 'GnhmPt4LBHRoABuGrSqrbPW34Mu8dXGJf1XCNc7DHRAB';
 const HOPEKIDS_TEAM_EMAIL = 'hopekids594@gmail.com';
 
 const FALLBACK_MARKET_CAP = '$3,250,000';
-
-/** Default loop: public/hopekids-music.wav — run node scripts/generate-hopekids-ambient.js to rebuild. */
-const BACKGROUND_MUSIC_SRC = '/hopekids-music.wav';
 
 /** 30-day spotlight window; persisted so the countdown does not reset on every refresh. */
 const HELP_SPOTLIGHT_END_KEY = 'hopekids-help-spotlight-end-ms';
@@ -70,38 +67,6 @@ function formatPriceUsd(raw) {
 export default function HopeKidsLandingPage() {
   const [storyOpen, setStoryOpen] = useState(false);
   const [walletCopied, setWalletCopied] = useState(false);
-  const [musicPlaying, setMusicPlaying] = useState(false);
-  const [musicUnavailable, setMusicUnavailable] = useState(false);
-  const audioRef = useRef(null);
-
-  const toggleBackgroundMusic = useCallback(async () => {
-    const el = audioRef.current;
-    if (!el || musicUnavailable) return;
-    try {
-      if (musicPlaying) {
-        el.pause();
-        setMusicPlaying(false);
-      } else {
-        await el.play();
-        setMusicPlaying(true);
-      }
-    } catch {
-      setMusicPlaying(false);
-      setMusicUnavailable(true);
-    }
-  }, [musicPlaying, musicUnavailable]);
-
-  useEffect(() => {
-    const el = audioRef.current;
-    if (!el) return;
-    el.volume = 0.35;
-    const onError = () => {
-      setMusicUnavailable(true);
-      setMusicPlaying(false);
-    };
-    el.addEventListener('error', onError);
-    return () => el.removeEventListener('error', onError);
-  }, []);
 
   const copyDonationWallet = useCallback(async () => {
     try {
@@ -631,37 +596,6 @@ export default function HopeKidsLandingPage() {
             </footer>
           </div>
         </div>
-      </div>
-
-      <audio ref={audioRef} src={BACKGROUND_MUSIC_SRC} loop playsInline preload="none" />
-
-      <div className="fixed bottom-5 right-4 z-[90] sm:bottom-6 sm:right-6">
-        <button
-          type="button"
-          onClick={toggleBackgroundMusic}
-          disabled={musicUnavailable}
-          aria-pressed={musicPlaying}
-          aria-label={musicUnavailable ? 'Background music unavailable' : musicPlaying ? 'Pause background music' : 'Play background music'}
-          title={
-            musicUnavailable
-              ? 'Add hopekids-music.wav to public or set BACKGROUND_MUSIC_SRC'
-              : musicPlaying
-                ? 'Pause music'
-                : 'Play music'
-          }
-          className="flex items-center gap-2 rounded-full border border-cyan-400/35 bg-[#071226]/90 px-3 py-2 text-sm font-semibold text-cyan-100 shadow-[0_0_20px_rgba(56,189,248,0.2)] backdrop-blur transition hover:border-cyan-400/55 hover:bg-[#0a1f42]/95 disabled:cursor-not-allowed disabled:opacity-45 sm:px-4"
-        >
-          {musicUnavailable ? (
-            <span className="text-xs sm:text-sm">No track</span>
-          ) : (
-            <>
-              <span className="text-base" aria-hidden="true">
-                {musicPlaying ? '⏸' : '▶'}
-              </span>
-              <span className="hidden sm:inline">{musicPlaying ? 'Pause' : 'Play'}</span>
-            </>
-          )}
-        </button>
       </div>
 
       {storyOpen ? (
