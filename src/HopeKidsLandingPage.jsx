@@ -256,42 +256,16 @@ export default function HopeKidsLandingPage() {
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
         }
 
-        @keyframes hopekids-heartline-scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-
-        @keyframes hopekids-heartline-pulse {
-          0%, 100% { opacity: 0.5; filter: drop-shadow(0 0 2px rgba(239, 68, 68, 0.35)); }
-          9% { opacity: 1; filter: drop-shadow(0 0 10px rgba(248, 113, 113, 0.95)); }
-          18% { opacity: 0.52; filter: drop-shadow(0 0 3px rgba(220, 38, 38, 0.45)); }
-          27% { opacity: 0.98; filter: drop-shadow(0 0 8px rgba(252, 165, 165, 0.9)); }
-          38% { opacity: 0.5; }
-        }
-
-        .hopekids-heartline-scroll {
-          animation: hopekids-heartline-scroll 14s linear infinite;
-        }
-
-        .hopekids-heartline-pulse {
-          animation: hopekids-heartline-pulse 1.2s ease-in-out infinite;
-        }
-
         @media (prefers-reduced-motion: reduce) {
           .hopekids-title-glare,
           .hopekids-aurora-a,
           .hopekids-aurora-b,
           .hopekids-hero-sheen,
-          .hopekids-star,
-          .hopekids-heartline-scroll,
-          .hopekids-heartline-pulse {
+          .hopekids-star {
             animation: none !important;
           }
           .hopekids-title-glare {
             background-position: 50% 50%;
-          }
-          .hopekids-heartline-pulse {
-            opacity: 0.75;
           }
         }
       `}</style>
@@ -312,43 +286,6 @@ export default function HopeKidsLandingPage() {
 
           <div className="relative z-10 mx-auto max-w-[1180px] px-4 py-4 sm:px-6 lg:px-8">
             <section className="relative overflow-hidden rounded-2xl sm:rounded-[28px] border border-cyan-400/25 bg-[linear-gradient(180deg,rgba(4,10,25,0.25),rgba(3,7,18,0.38))] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.3),0_0_20px_rgba(56,189,248,0.1)] px-4 py-10 sm:px-6 sm:py-14 lg:px-12 lg:py-20">
-              <div
-                className="pointer-events-none absolute inset-x-0 top-0 z-[6] h-[26px] overflow-hidden rounded-t-2xl border-b border-red-500/25 bg-[linear-gradient(180deg,rgba(45,8,16,0.9),rgba(8,12,28,0.45))] sm:rounded-t-[28px] hopekids-heartline-pulse"
-                aria-hidden="true"
-              >
-                <div className="hopekids-heartline-scroll flex h-full w-[200%] will-change-transform">
-                  <svg
-                    className="h-full w-1/2 shrink-0 text-red-500"
-                    viewBox="0 0 300 28"
-                    preserveAspectRatio="none"
-                  >
-                    <path
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      vectorEffect="non-scaling-stroke"
-                      d="M0,14 L34,14 L38,14 L40,1.5 L43,25.5 L45,4 L49,14 L62,14 L68,14 C72,9 80,4 90,5 C98,3 104,9 106,12 C107,15 108,20 110,24.5 C112,20 113,15 114,12 C116,9 124,3 134,5 C142,7 146,14 146,14 L162,14 L166,14 L168,1.5 L171,25.5 L173,4 L177,14 L194,14 L198,14 L200,1.5 L203,25.5 L205,4 L209,14 L300,14"
-                    />
-                  </svg>
-                  <svg
-                    className="h-full w-1/2 shrink-0 text-red-500"
-                    viewBox="0 0 300 28"
-                    preserveAspectRatio="none"
-                  >
-                    <path
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      vectorEffect="non-scaling-stroke"
-                      d="M0,14 L34,14 L38,14 L40,1.5 L43,25.5 L45,4 L49,14 L62,14 L68,14 C72,9 80,4 90,5 C98,3 104,9 106,12 C107,15 108,20 110,24.5 C112,20 113,15 114,12 C116,9 124,3 134,5 C142,7 146,14 146,14 L162,14 L166,14 L168,1.5 L171,25.5 L173,4 L177,14 L194,14 L198,14 L200,1.5 L203,25.5 L205,4 L209,14 L300,14"
-                    />
-                  </svg>
-                </div>
-              </div>
               <div
                 className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl sm:rounded-[28px]"
                 aria-hidden="true"
