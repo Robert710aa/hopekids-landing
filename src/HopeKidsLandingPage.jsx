@@ -281,36 +281,13 @@ export default function HopeKidsLandingPage() {
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
         }
 
-        /* Starfield overlay — base gradient is on html (see index.css) */
-        @keyframes hopekids-sky-twinkle {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.78; }
-        }
-
-        /* Stars only — planet + space gradient lives on html (index.css) so it always shows */
-        .hopekids-sky-stars {
-          position: fixed;
-          inset: 0;
-          z-index: 0;
-          background-image:
-            radial-gradient(1.5px 1.5px at 52px 40px, rgba(255, 255, 255, 0.42), transparent),
-            radial-gradient(1px 1px at 128px 96px, rgba(253, 230, 138, 0.38), transparent),
-            radial-gradient(1.5px 1.5px at 210px 56px, rgba(255, 255, 255, 0.34), transparent),
-            radial-gradient(1px 1px at 288px 168px, rgba(255, 255, 255, 0.28), transparent),
-            radial-gradient(1.5px 1.5px at 88px 220px, rgba(251, 191, 36, 0.3), transparent),
-            radial-gradient(1px 1px at 248px 248px, rgba(226, 232, 240, 0.22), transparent);
-          background-size: 320px 320px;
-          animation: hopekids-sky-twinkle 12s ease-in-out infinite;
-        }
-
         @media (prefers-reduced-motion: reduce) {
           .hopekids-title-glare,
           .hopekids-aurora-a,
           .hopekids-aurora-b,
           .hopekids-hero-sheen,
           .hopekids-cinema-sheen,
-          .hopekids-star,
-          .hopekids-sky-stars {
+          .hopekids-star {
             animation: none !important;
           }
           .hopekids-title-glare {
@@ -320,7 +297,6 @@ export default function HopeKidsLandingPage() {
       `}</style>
 
       <div className="relative min-h-screen bg-transparent text-white">
-        <div className="hopekids-sky-stars pointer-events-none" aria-hidden="true" />
         <div className="relative z-10 min-h-screen overflow-x-hidden">
           <div className="mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
             {/* Full-bleed artwork: entire upper panel = one scene (nav + hero on top of art) */}
