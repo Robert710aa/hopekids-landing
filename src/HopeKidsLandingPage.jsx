@@ -173,7 +173,7 @@ export default function HopeKidsLandingPage() {
                   <p className="mt-4 max-w-xl text-blue-200 sm:mt-6 sm:text-base">
                     Każda transakcja zapisuje tokeny, aby pomóc dzieciom.
                     <br />
-                    5% każdej transakcji trafia do publicznego portfela darowizn.
+                    3% każdej transakcji trafia do publicznego portfela darowizn.
                   </p>
 
                   <div className="mt-6 flex justify-center sm:mt-8 lg:justify-start">
