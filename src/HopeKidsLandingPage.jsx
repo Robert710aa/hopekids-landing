@@ -535,7 +535,7 @@ export default function HopeKidsLandingPage() {
 
             {/* removed: Where HopeKids Helps / Trade cards */}
 
-            <section className="mt-8 scroll-mt-28" aria-label="Fundraising, donations, and supporting the project">
+            <section className="mt-8 scroll-mt-28" aria-label="Fundraiser spotlight and supporting the project">
               <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
                 <div className="flex h-full min-h-[200px] flex-col justify-center gap-4 rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:min-h-[220px] sm:flex-row sm:items-center sm:gap-5 sm:p-6">
                   <div className="flex shrink-0 flex-col items-center sm:items-start">
@@ -575,14 +575,9 @@ export default function HopeKidsLandingPage() {
                     </div>
                   </div>
                 </div>
-                <div className="flex h-full min-h-[280px] flex-col justify-center rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 text-center shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:min-h-0 sm:p-6 sm:text-left">
-                  <div className="text-lg font-extrabold text-amber-200 sm:text-xl">Help children</div>
-                  <p className="mt-2 text-sm leading-relaxed text-blue-100/75 sm:text-base">
-                    <span className="font-semibold text-amber-200/95">3%</span> of each transaction goes to the public
-                    donation wallet for sick children.
-                  </p>
-                  <div className="mt-5 border-t border-cyan-400/20 pt-4">
-                    <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-cyan-200/90">Support the project</p>
+                <div className="flex h-full min-h-[200px] flex-col justify-center rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 text-center shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:min-h-0 sm:p-6 sm:text-left">
+                  <div>
+                    <p className="text-lg font-extrabold text-amber-200 sm:text-xl">Support the project</p>
                     <ul className="mx-auto mt-3 max-w-md space-y-2.5 text-left text-sm leading-snug text-blue-100/82 sm:mx-0">
                       <li className="flex gap-2.5">
                         <span
