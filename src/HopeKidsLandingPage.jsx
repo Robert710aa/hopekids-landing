@@ -172,7 +172,7 @@ export default function HopeKidsLandingPage() {
                     3% of every transaction goes to the public donation wallet.
                   </p>
 
-                  <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4 sm:justify-center lg:justify-start">
+                  <div className="mt-6 flex justify-center sm:mt-8 lg:justify-start">
                     <a
                       href={JUPITER_BUY_URL}
                       target="_blank"
@@ -181,10 +181,6 @@ export default function HopeKidsLandingPage() {
                     >
                       Buy Token
                     </a>
-
-                    <button className="rounded-xl border border-white/30 px-5 py-3 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-white/10 active:scale-[0.98] sm:px-6">
-                      View Donation Wallet
-                    </button>
                   </div>
                 </div>
 
