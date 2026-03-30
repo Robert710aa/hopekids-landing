@@ -264,7 +264,7 @@ export default function HopeKidsLandingPage() {
 
           <div className="relative z-10 mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
             {/* Full-bleed artwork: entire upper panel = one scene (nav + hero on top of art) */}
-            <div className="relative min-h-[min(92vh,900px)] overflow-hidden rounded-2xl border border-amber-500/25 shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(88vh,820px)] sm:rounded-[28px]">
+            <div className="relative min-h-[min(78vh,720px)] overflow-hidden rounded-2xl border border-amber-500/25 shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(74vh,640px)] sm:rounded-[28px]">
               <img
                 src={HERO_ILLUSTRATION_SRC}
                 alt=""
@@ -289,7 +289,7 @@ export default function HopeKidsLandingPage() {
                 <div className="hopekids-cinema-sheen absolute inset-0 opacity-[0.18]" />
               </div>
 
-              <header className="sticky top-2 z-50 flex flex-wrap items-center justify-between gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3.5 lg:px-10">
+              <header className="sticky top-2 z-50 flex flex-wrap items-center justify-between gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3 lg:px-10">
               <a href="#home" className="flex items-center gap-2.5 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-400/50 bg-[#0a101c]/90 shadow-[0_0_24px_rgba(251,191,36,0.35)] backdrop-blur-sm">
                   <svg viewBox="0 0 32 32" className="h-6 w-6 text-amber-200" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
@@ -333,7 +333,7 @@ export default function HopeKidsLandingPage() {
               <section
                 id="home"
                 aria-label="HopeKids introduction"
-                className="relative z-10 border-0 bg-transparent px-4 py-10 shadow-none sm:px-6 sm:py-12 lg:px-10 lg:pb-16 lg:pt-12"
+                className="relative z-10 border-0 bg-transparent px-4 py-7 shadow-none sm:px-6 sm:py-9 lg:px-10 lg:pb-11 lg:pt-9"
               >
                 <div className="relative z-10 mx-auto flex max-w-xl flex-col justify-center text-center sm:max-w-lg lg:mx-0 lg:max-w-[min(100%,28rem)] lg:text-left">
                   <h1 className="hopekids-title-glare text-4xl font-extrabold drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-6xl">
