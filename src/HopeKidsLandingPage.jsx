@@ -228,55 +228,9 @@ export default function HopeKidsLandingPage() {
           animation: hopekids-hero-sheen-move 18s ease-in-out infinite;
         }
 
-        .hopekids-cinema-star {
-          animation: hopekids-star-twinkle 3.2s ease-in-out infinite;
-          box-shadow: 0 0 10px rgba(253, 224, 71, 0.55), 0 0 20px rgba(251, 191, 36, 0.25);
-        }
-
         .hopekids-star {
           animation: hopekids-star-twinkle 3.2s ease-in-out infinite;
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
-        }
-
-        /* Hero illustration: fade into panel (text column + outer card edge) */
-        .hk-hero-art-blend {
-          -webkit-mask-image: linear-gradient(
-            90deg,
-            transparent 0%,
-            rgba(0, 0, 0, 0.88) 14%,
-            #000 92%,
-            transparent 100%
-          );
-          mask-image: linear-gradient(
-            90deg,
-            transparent 0%,
-            rgba(0, 0, 0, 0.88) 14%,
-            #000 92%,
-            transparent 100%
-          );
-          -webkit-mask-size: 100% 100%;
-          mask-size: 100% 100%;
-          -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-        }
-
-        @media (min-width: 1024px) {
-          .hk-hero-art-blend {
-            -webkit-mask-image: linear-gradient(
-              90deg,
-              transparent 0%,
-              rgba(0, 0, 0, 0.94) 5%,
-              #000 90%,
-              transparent 100%
-            );
-            mask-image: linear-gradient(
-              90deg,
-              transparent 0%,
-              rgba(0, 0, 0, 0.94) 5%,
-              #000 90%,
-              transparent 100%
-            );
-          }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -285,8 +239,7 @@ export default function HopeKidsLandingPage() {
           .hopekids-aurora-b,
           .hopekids-hero-sheen,
           .hopekids-cinema-sheen,
-          .hopekids-star,
-          .hopekids-cinema-star {
+          .hopekids-star {
             animation: none !important;
           }
           .hopekids-title-glare {
@@ -310,51 +263,35 @@ export default function HopeKidsLandingPage() {
           />
 
           <div className="relative z-10 mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
-            {/* Single upper panel: navigation + hero — full cinema treatment */}
-            <div className="relative overflow-hidden rounded-2xl sm:rounded-[28px] border border-amber-500/20 bg-[radial-gradient(ellipse_120%_70%_at_14%_28%,rgba(251,191,36,0.18),transparent_50%),radial-gradient(ellipse_80%_55%_at_92%_6%,rgba(37,56,97,0.5),transparent_42%),radial-gradient(ellipse_100%_50%_at_50%_100%,rgba(2,6,15,0.92),transparent_55%),linear-gradient(168deg,#030508_0%,#0b1424_42%,#050810_100%)] shadow-[0_0_80px_rgba(251,191,36,0.08),0_30px_70px_-20px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,250,235,0.06)]">
+            {/* Full-bleed artwork: entire upper panel = one scene (nav + hero on top of art) */}
+            <div className="relative min-h-[min(92vh,900px)] overflow-hidden rounded-2xl border border-amber-500/25 shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(88vh,820px)] sm:rounded-[28px]">
+              <img
+                src={HERO_ILLUSTRATION_SRC}
+                alt=""
+                className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[52%_center] sm:object-[48%_center] lg:object-[46%_center]"
+                loading="eager"
+                decoding="async"
+                aria-hidden="true"
+              />
+              {/* Readability: dark veil on left (copy + nav), lighter toward art on the right */}
+              <div
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(105deg,rgba(3,5,12,0.93)_0%,rgba(3,8,20,0.72)_28%,rgba(5,10,22,0.35)_52%,transparent_76%)] sm:bg-[linear-gradient(105deg,rgba(3,5,12,0.94)_0%,rgba(3,8,20,0.68)_26%,rgba(5,12,28,0.28)_50%,transparent_74%)]"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,4,10,0.82)_0%,transparent_35%,transparent_58%,rgba(2,4,10,0.55)_100%)]"
+                aria-hidden="true"
+              />
               <div
                 className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl sm:rounded-[28px]"
                 aria-hidden="true"
               >
-                <div className="hopekids-cinema-sheen absolute inset-0 opacity-[0.5]" />
+                <div className="hopekids-cinema-sheen absolute inset-0 opacity-[0.18]" />
               </div>
-              <div
-                className="pointer-events-none absolute left-6 top-5 flex gap-4 sm:left-8 sm:top-6"
-                aria-hidden="true"
-              >
-                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-amber-100" style={{ animationDelay: '0s' }} />
-                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-yellow-200" style={{ animationDelay: '0.35s' }} />
-                <span className="hopekids-cinema-star h-1.5 w-1.5 rounded-full bg-amber-200" style={{ animationDelay: '0.7s' }} />
-              </div>
-              <div
-                className="pointer-events-none absolute right-14 top-6 flex gap-3 sm:right-20 sm:top-7"
-                aria-hidden="true"
-              >
-                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-stone-200/90" style={{ animationDelay: '0.2s' }} />
-                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-amber-100" style={{ animationDelay: '0.9s' }} />
-              </div>
-              <div
-                className="pointer-events-none absolute left-8 top-[38%] flex gap-5 sm:left-10 lg:top-[40%]"
-                aria-hidden="true"
-              >
-                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-amber-100" style={{ animationDelay: '0.15s' }} />
-                <span className="hopekids-cinema-star h-1.5 w-1.5 rounded-full bg-yellow-200" style={{ animationDelay: '0.55s' }} />
-                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-amber-200" style={{ animationDelay: '1.1s' }} />
-                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-stone-100" style={{ animationDelay: '1.65s' }} />
-              </div>
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-[linear-gradient(180deg,transparent,rgba(2,4,10,0.72))]" aria-hidden="true" />
-              <div
-                className="pointer-events-none absolute left-[4%] top-[12%] h-[min(420px,55%)] w-[min(420px,90vw)] rounded-full bg-[radial-gradient(circle,rgba(251,191,36,0.16),transparent_62%)] blur-3xl"
-                aria-hidden="true"
-              />
-              <div
-                className="pointer-events-none absolute right-[2%] top-[2%] h-[220px] w-[220px] rounded-full bg-[radial-gradient(circle,rgba(30,58,95,0.38),transparent_58%)] blur-3xl sm:h-[260px] sm:w-[260px]"
-                aria-hidden="true"
-              />
 
-              <header className="sticky top-2 z-50 flex flex-wrap items-center justify-between gap-3 border-b border-amber-500/10 bg-[rgba(3,6,14,0.45)] px-4 py-3 backdrop-blur-xl sm:px-6 sm:py-3.5 lg:px-10">
-              <a href="#home" className="flex items-center gap-2.5 text-white">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-400/40 bg-[#0c1828] shadow-[0_0_22px_rgba(251,191,36,0.22)]">
+              <header className="sticky top-2 z-50 flex flex-wrap items-center justify-between gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3.5 lg:px-10">
+              <a href="#home" className="flex items-center gap-2.5 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-400/50 bg-[#0a101c]/90 shadow-[0_0_24px_rgba(251,191,36,0.35)] backdrop-blur-sm">
                   <svg viewBox="0 0 32 32" className="h-6 w-6 text-amber-200" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                     <circle cx="13" cy="12" r="3" />
                     <circle cx="21" cy="12" r="3" />
@@ -363,20 +300,23 @@ export default function HopeKidsLandingPage() {
                 </span>
                 <span className="text-lg font-extrabold tracking-tight">HopeKids</span>
               </a>
-              <nav className="hidden flex-wrap items-center gap-5 text-sm font-semibold text-stone-300/90 md:flex" aria-label="Primary">
-                <a href="#home" className="transition hover:text-white">
+              <nav
+                className="hidden flex-wrap items-center gap-5 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] md:flex"
+                aria-label="Primary"
+              >
+                <a href="#home" className="transition hover:text-amber-50">
                   Home
                 </a>
-                <a href="#mission" className="transition hover:text-white">
+                <a href="#mission" className="transition hover:text-amber-50">
                   Mission
                 </a>
-                <a href="#tokenomics" className="transition hover:text-white">
+                <a href="#tokenomics" className="transition hover:text-amber-50">
                   Tokenomics
                 </a>
-                <a href="#donations" className="transition hover:text-white">
+                <a href="#donations" className="transition hover:text-amber-50">
                   Donations
                 </a>
-                <a href="#community" className="transition hover:text-white">
+                <a href="#community" className="transition hover:text-amber-50">
                   Community
                 </a>
               </nav>
@@ -392,15 +332,17 @@ export default function HopeKidsLandingPage() {
 
               <section
                 id="home"
-                className="relative z-10 border-0 bg-transparent px-4 py-8 shadow-none sm:px-6 sm:py-10 lg:px-10 lg:py-12"
+                aria-label="HopeKids introduction"
+                className="relative z-10 border-0 bg-transparent px-4 py-10 shadow-none sm:px-6 sm:py-12 lg:px-10 lg:pb-16 lg:pt-12"
               >
-                <div className="relative z-10 grid items-stretch gap-8 lg:grid-cols-2 lg:gap-6">
-                <div className="flex flex-col justify-center text-center lg:text-left">
-                  <h1 className="hopekids-title-glare text-4xl font-extrabold sm:text-5xl lg:text-6xl">HopeKids</h1>
-                  <p className="mt-4 text-lg font-semibold leading-snug text-amber-50/95 sm:mt-5 sm:text-xl lg:text-2xl">
+                <div className="relative z-10 mx-auto flex max-w-xl flex-col justify-center text-center sm:max-w-lg lg:mx-0 lg:max-w-[min(100%,28rem)] lg:text-left">
+                  <h1 className="hopekids-title-glare text-4xl font-extrabold drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-6xl">
+                    HopeKids
+                  </h1>
+                  <p className="mt-4 text-lg font-semibold leading-snug text-amber-50 drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)] sm:mt-5 sm:text-xl lg:text-2xl">
                     Support sick children through cryptocurrency.
                   </p>
-                  <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-stone-300/90 sm:mt-5 sm:text-base lg:mx-0">
+                  <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-stone-200/95 drop-shadow-[0_1px_12px_rgba(0,0,0,0.8)] sm:mt-5 sm:text-base lg:mx-0">
                     Każda transakcja zapisuje tokeny, aby pomóc dzieciom.{' '}
                     <span className="font-semibold text-amber-200">5%</span> każdej transakcji trafia do publicznego
                     portfela darowizn.
@@ -425,20 +367,6 @@ export default function HopeKidsLandingPage() {
                       View Donation Wallet
                     </a>
                   </div>
-                </div>
-
-                <div className="relative flex w-full">
-                  {/* Bleed into panel padding + soft masks so art merges with card (dark edges → panel bg) */}
-                  <div className="relative z-10 min-h-[min(52vh,380px)] w-full flex-1 overflow-hidden rounded-xl sm:rounded-2xl lg:-mb-12 lg:-mr-10 lg:-mt-6 lg:min-h-[min(64vh,520px)] lg:rounded-br-[26px] lg:rounded-tr-[26px] lg:rounded-bl-none lg:rounded-tl-none">
-                    <img
-                      src={HERO_ILLUSTRATION_SRC}
-                      alt="HopeKids hero illustration"
-                      className="hk-hero-art-blend absolute inset-0 h-full w-full object-cover object-[68%_center] sm:object-[65%_center] lg:object-[62%_center]"
-                      loading="eager"
-                      decoding="async"
-                    />
-                  </div>
-                </div>
                 </div>
               </section>
             </div>
