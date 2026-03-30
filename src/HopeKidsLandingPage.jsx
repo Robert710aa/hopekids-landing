@@ -24,6 +24,69 @@ const FALLBACK_MARKET_CAP = '$3,250,000';
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
 
+/** Example spotlight in Buy & trade panel — replace image in public/ or name as needed. */
+const SPOTLIGHT_CHILD_IMAGE_SRC = '/hopekids-spotlight-child.jpg';
+const SPOTLIGHT_CHILD_NAME = 'Sofia M.';
+
+const SPOTLIGHT_WINDOW_MS = 30 * 24 * 60 * 60 * 1000;
+const SPOTLIGHT_DEADLINE_STORAGE_KEY = 'hopekids-spotlight-deadline-ms';
+
+function ensureSpotlightDeadlineMs() {
+  if (typeof window === 'undefined') return Date.now() + SPOTLIGHT_WINDOW_MS;
+  try {
+    const raw = window.localStorage.getItem(SPOTLIGHT_DEADLINE_STORAGE_KEY);
+    if (raw) {
+      const t = parseInt(raw, 10);
+      if (Number.isFinite(t)) {
+        if (t > Date.now()) return t;
+        const next = Date.now() + SPOTLIGHT_WINDOW_MS;
+        window.localStorage.setItem(SPOTLIGHT_DEADLINE_STORAGE_KEY, String(next));
+        return next;
+      }
+    }
+    const end = Date.now() + SPOTLIGHT_WINDOW_MS;
+    window.localStorage.setItem(SPOTLIGHT_DEADLINE_STORAGE_KEY, String(end));
+    return end;
+  } catch {
+    return Date.now() + SPOTLIGHT_WINDOW_MS;
+  }
+}
+
+function useSpotlightCountdown() {
+  const [endMs, setEndMs] = useState(() => Date.now() + SPOTLIGHT_WINDOW_MS);
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    setEndMs(ensureSpotlightDeadlineMs());
+  }, []);
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      const t = Date.now();
+      setNow(t);
+      setEndMs((prev) => {
+        if (t >= prev) {
+          const next = t + SPOTLIGHT_WINDOW_MS;
+          try {
+            window.localStorage.setItem(SPOTLIGHT_DEADLINE_STORAGE_KEY, String(next));
+          } catch {
+            /* private mode */
+          }
+          return next;
+        }
+        return prev;
+      });
+    }, 1000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const remaining = Math.max(0, endMs - now);
+  const hours = Math.floor(remaining / 3_600_000);
+  const minutes = Math.floor((remaining % 3_600_000) / 60_000);
+  const seconds = Math.floor((remaining % 60_000) / 1000);
+  return { hours, minutes, seconds, remaining };
+}
+
 /** Earth seen from space — pairs with public/favicon.svg */
 function HopeKidsBrandMark({ className = 'h-9 w-9 sm:h-10 sm:w-10' }) {
   const uid = useId().replace(/:/g, '');
@@ -140,6 +203,7 @@ function formatPriceUsd(raw) {
 export default function HopeKidsLandingPage() {
   const [storyOpen, setStoryOpen] = useState(false);
   const [walletCopied, setWalletCopied] = useState(false);
+  const spotlightCountdown = useSpotlightCountdown();
 
   const copyDonationWallet = useCallback(async () => {
     try {
@@ -473,11 +537,42 @@ export default function HopeKidsLandingPage() {
 
             <section className="mt-8 scroll-mt-28" aria-label="Trading and donations">
               <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
-                <div className="flex h-full min-h-[140px] flex-col justify-center rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 text-center shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:min-h-[160px] sm:p-6">
-                  <div className="text-lg font-extrabold text-amber-200 sm:text-xl">Buy &amp; trade</div>
-                  <p className="mt-2 text-sm leading-relaxed text-blue-100/75 sm:text-base">
-                    Get HKIDS on a DEX. Swap and hold as you like — your activity supports the mission.
-                  </p>
+                <div className="flex h-full min-h-[200px] flex-col justify-center gap-4 rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:min-h-[220px] sm:flex-row sm:items-center sm:gap-5 sm:p-6">
+                  <div className="flex shrink-0 flex-col items-center sm:items-start">
+                    <img
+                      src={SPOTLIGHT_CHILD_IMAGE_SRC}
+                      alt="Example HopeKids spotlight child (illustrative photo)"
+                      width={144}
+                      height={144}
+                      className="h-28 w-28 rounded-xl object-cover shadow-[0_8px_24px_rgba(0,0,0,0.4)] ring-2 ring-cyan-400/35 sm:h-32 sm:w-32"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <p className="mt-2 text-center text-sm font-semibold text-amber-100/95 sm:text-left">{SPOTLIGHT_CHILD_NAME}</p>
+                  </div>
+                  <div className="min-w-0 flex-1 text-center sm:text-left">
+                    <div className="text-lg font-extrabold text-amber-200 sm:text-xl">Buy &amp; trade</div>
+                    <p className="mt-2 text-sm leading-relaxed text-blue-100/75 sm:text-base">
+                      Get HKIDS on a DEX. Swap and hold as you like — your activity supports the mission.
+                    </p>
+                    <div
+                      className="mt-4 rounded-xl border border-cyan-500/25 bg-black/25 px-3 py-2.5 sm:px-4"
+                      role="timer"
+                      aria-live="polite"
+                      aria-label="Time remaining in this 30-day support window"
+                    >
+                      <p className="text-[10px] font-semibold uppercase tracking-wider text-cyan-200/80">Support window</p>
+                      <p className="mt-1 font-mono text-lg tabular-nums text-cyan-100 sm:text-xl">
+                        <span className="font-extrabold text-amber-200">{spotlightCountdown.hours}</span>
+                        <span className="text-blue-100/60">h </span>
+                        <span className="font-extrabold text-amber-200">{String(spotlightCountdown.minutes).padStart(2, '0')}</span>
+                        <span className="text-blue-100/60">m </span>
+                        <span className="font-extrabold text-amber-200">{String(spotlightCountdown.seconds).padStart(2, '0')}</span>
+                        <span className="text-blue-100/60">s</span>
+                      </p>
+                      <p className="mt-0.5 text-[11px] text-blue-100/55">30-day cycle · hours shown first</p>
+                    </div>
+                  </div>
                 </div>
                 <div className="flex h-full min-h-[140px] flex-col justify-center rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 text-center shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:min-h-[160px] sm:p-6">
                   <div className="text-lg font-extrabold text-amber-200 sm:text-xl">Help children</div>
