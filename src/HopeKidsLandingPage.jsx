@@ -233,13 +233,44 @@ export default function HopeKidsLandingPage() {
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
         }
 
+        /* Same full-page backdrop as legacy hopekids.css (.stars-bg + .gradient-bg) */
+        @keyframes hopekids-legacy-twinkle {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.7; }
+        }
+
+        .hopekids-legacy-stars {
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          background-image:
+            radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.6), transparent),
+            radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.4), transparent),
+            radial-gradient(2px 2px at 50px 160px, rgba(255, 255, 255, 0.5), transparent),
+            radial-gradient(2px 2px at 90px 40px, rgba(255, 255, 255, 0.3), transparent),
+            radial-gradient(2px 2px at 130px 80px, rgba(255, 255, 255, 0.4), transparent);
+          background-size: 200px 200px;
+          animation: hopekids-legacy-twinkle 8s ease-in-out infinite;
+        }
+
+        .hopekids-legacy-gradient {
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          background:
+            radial-gradient(ellipse 80% 50% at 70% 30%, rgba(34, 211, 238, 0.08) 0%, transparent 50%),
+            radial-gradient(ellipse 60% 40% at 20% 80%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
+            linear-gradient(180deg, #0a0e17 0%, #0f172a 40%, #0a0e17 100%);
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .hopekids-title-glare,
           .hopekids-aurora-a,
           .hopekids-aurora-b,
           .hopekids-hero-sheen,
           .hopekids-cinema-sheen,
-          .hopekids-star {
+          .hopekids-star,
+          .hopekids-legacy-stars {
             animation: none !important;
           }
           .hopekids-title-glare {
@@ -248,21 +279,11 @@ export default function HopeKidsLandingPage() {
         }
       `}</style>
 
-      <div className="min-h-screen text-white bg-[url('https://images.unsplash.com/photo-1462331940025-896dfbfc877a?auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center bg-fixed">
-        <div className="relative overflow-hidden min-h-screen">
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,4,10,0.94),rgba(6,12,24,0.88))]" />
-          <div className="absolute inset-x-0 top-0 h-[480px] bg-[radial-gradient(ellipse_70%_50%_at_20%_20%,rgba(251,191,36,0.08),transparent_50%),radial-gradient(ellipse_55%_45%_at_85%_12%,rgba(30,58,95,0.2),transparent_45%)]" />
-
-          <div
-            className="pointer-events-none absolute -left-24 top-[18%] h-72 w-72 rounded-full bg-amber-400/12 blur-3xl hopekids-aurora-a"
-            aria-hidden="true"
-          />
-          <div
-            className="pointer-events-none absolute -right-20 bottom-[22%] h-80 w-80 rounded-full bg-indigo-900/25 blur-3xl hopekids-aurora-b"
-            aria-hidden="true"
-          />
-
-          <div className="relative z-10 mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
+      <div className="relative min-h-screen bg-[#0a0e17] text-white">
+        <div className="hopekids-legacy-stars pointer-events-none" aria-hidden="true" />
+        <div className="hopekids-legacy-gradient pointer-events-none" aria-hidden="true" />
+        <div className="relative z-10 min-h-screen overflow-x-hidden">
+          <div className="mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
             {/* Full-bleed artwork: entire upper panel = one scene (nav + hero on top of art) */}
             <div className="relative min-h-[min(78vh,720px)] overflow-hidden rounded-2xl border border-amber-500/25 shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(74vh,640px)] sm:rounded-[28px]">
               <img
