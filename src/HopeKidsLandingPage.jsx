@@ -23,7 +23,7 @@ const FALLBACK_MARKET_CAP = '$3,250,000';
 /** Drop your photo in public/ as hopekids-hero-child.jpg (child holding or presenting the token). */
 const HERO_CHILD_IMAGE_PRIMARY = '/hopekids-hero-child.jpg';
 const HERO_CHILD_IMAGE_FALLBACK =
-  'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=900&q=80';
+  'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=900&q=80';
 
 function pickBestPair(pairs) {
   if (!pairs?.length) return null;
@@ -184,6 +184,20 @@ export default function HopeKidsLandingPage() {
         @keyframes hopekids-hero-sheen-move {
           0%, 100% { background-position: 130% 50%; }
           50% { background-position: -30% 50%; }
+        }
+
+        @keyframes hopekids-fairy-token {
+          0%, 100% { transform: rotate(-11deg) translateY(0); }
+          50% { transform: rotate(-14deg) translateY(-7px); }
+        }
+
+        .hopekids-fairy-sparkle {
+          animation: hopekids-star-twinkle 2.6s ease-in-out infinite;
+          box-shadow: 0 0 14px rgba(253, 224, 71, 0.9), 0 0 28px rgba(251, 191, 36, 0.45);
+        }
+
+        .hopekids-fairy-token {
+          animation: hopekids-fairy-token 5.5s ease-in-out infinite;
         }
 
         .hopekids-title-glare {
@@ -352,74 +366,74 @@ export default function HopeKidsLandingPage() {
                   </div>
                 </div>
 
-                <div className="relative flex min-h-[280px] justify-center lg:min-h-[380px] lg:justify-end">
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center lg:inset-x-auto lg:right-0 lg:w-full lg:max-w-[440px]" aria-hidden="true">
-                    <svg viewBox="0 0 400 260" className="h-[220px] w-full max-w-[400px] sm:h-[260px]" preserveAspectRatio="xMidYMax meet">
-                      <defs>
-                        <linearGradient id="hkPlanet" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#fb923c" stopOpacity="0.95" />
-                          <stop offset="50%" stopColor="#ea580c" stopOpacity="0.85" />
-                          <stop offset="100%" stopColor="#c2410c" stopOpacity="0.75" />
-                        </linearGradient>
-                        <linearGradient id="hkNight" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#0f172a" stopOpacity="0.2" />
-                          <stop offset="100%" stopColor="#020617" stopOpacity="0.85" />
-                        </linearGradient>
-                      </defs>
-                      <ellipse cx="200" cy="310" rx="340" ry="240" fill="url(#hkPlanet)" />
-                      <ellipse cx="200" cy="310" rx="340" ry="240" fill="url(#hkNight)" />
-                      <g fill="#0c1929" opacity="0.92">
-                        <rect x="48" y="168" width="14" height="52" />
-                        <rect x="66" y="152" width="18" height="68" />
-                        <rect x="88" y="178" width="12" height="42" />
-                        <rect x="104" y="140" width="22" height="80" />
-                        <rect x="132" y="160" width="16" height="60" />
-                        <rect x="154" y="128" width="26" height="92" />
-                        <rect x="186" y="172" width="14" height="48" />
-                        <rect x="206" y="148" width="20" height="72" />
-                        <rect x="232" y="168" width="16" height="52" />
-                        <rect x="254" y="138" width="24" height="82" />
-                        <rect x="284" y="176" width="12" height="44" />
-                        <rect x="302" y="156" width="18" height="64" />
-                        <rect x="326" y="182" width="10" height="38" />
-                      </g>
-                      <g fill="#fbbf24" opacity="0.35">
-                        <rect x="70" y="158" width="3" height="3" />
-                        <rect x="112" y="148" width="3" height="3" />
-                        <rect x="162" y="134" width="3" height="3" />
-                        <rect x="220" y="154" width="3" height="3" />
-                        <rect x="268" y="146" width="3" height="3" />
-                      </g>
-                    </svg>
+                <div className="relative flex min-h-[300px] justify-center lg:min-h-[400px] lg:justify-end">
+                  {/* Fairy-tale orange / peach glow — no city block, no square frame */}
+                  <div
+                    className="pointer-events-none absolute inset-[-8%] -z-0 bg-[radial-gradient(ellipse_90%_80%_at_50%_48%,rgba(255,247,237,0.75)_0%,rgba(254,215,170,0.55)_22%,rgba(251,146,60,0.45)_45%,rgba(249,115,22,0.22)_65%,transparent_88%)] sm:inset-[-12%]"
+                    aria-hidden="true"
+                  />
+                  <div
+                    className="pointer-events-none absolute left-[8%] top-[18%] z-[5] h-2 w-2 rounded-full bg-amber-100 hopekids-fairy-sparkle"
+                    style={{ animationDelay: '0s' }}
+                    aria-hidden="true"
+                  />
+                  <div
+                    className="pointer-events-none absolute right-[12%] top-[28%] z-[5] h-1.5 w-1.5 rounded-full bg-yellow-50 hopekids-fairy-sparkle"
+                    style={{ animationDelay: '0.4s' }}
+                    aria-hidden="true"
+                  />
+                  <div
+                    className="pointer-events-none absolute left-[22%] bottom-[32%] z-[5] h-1 w-1 rounded-full bg-orange-100 hopekids-fairy-sparkle"
+                    style={{ animationDelay: '0.9s' }}
+                    aria-hidden="true"
+                  />
+                  <div
+                    className="pointer-events-none absolute right-[20%] top-[12%] z-[5] text-lg text-amber-200/90 drop-shadow-[0_0_8px_rgba(251,191,36,0.8)]"
+                    style={{ animation: 'hopekids-star-twinkle 3.4s ease-in-out infinite', animationDelay: '0.2s' }}
+                    aria-hidden="true"
+                  >
+                    ✦
+                  </div>
+                  <div
+                    className="pointer-events-none absolute left-[18%] top-[38%] z-[5] text-sm text-orange-100/80 drop-shadow-[0_0_6px_rgba(254,215,170,0.7)]"
+                    style={{ animation: 'hopekids-star-twinkle 2.8s ease-in-out infinite', animationDelay: '0.7s' }}
+                    aria-hidden="true"
+                  >
+                    ✧
                   </div>
 
-                  <figure className="relative z-10 mx-auto w-full max-w-[min(100%,380px)] lg:mx-0">
-                    <div className="relative aspect-[3/4] w-full overflow-hidden rounded-3xl border border-cyan-400/30 shadow-[0_0_44px_rgba(56,189,248,0.2)] ring-1 ring-white/10">
-                      <img
-                        src={heroChildImgSrc}
-                        alt="HopeKids supports children — our token fuels transparent help"
-                        onError={() => setHeroChildImgSrc(HERO_CHILD_IMAGE_FALLBACK)}
-                        className="h-full w-full object-cover object-[center_22%]"
-                      />
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#020617]/95 via-[#020617]/15 to-[#020617]/30" />
-                      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[#0f172a]/90 to-transparent" />
-                      {/* HKIDS coin overlaid like held toward the viewer */}
+                  <figure className="relative z-10 mx-auto w-full max-w-[min(100%,300px)] sm:max-w-[320px] lg:mx-0">
+                    <div className="relative mx-auto w-full">
+                      {/* Organic fairy portrait — ellipse clip, no cyan square / card */}
+                      <div className="relative mx-auto aspect-[3/4] w-full overflow-hidden shadow-[0_28px_80px_-8px_rgba(251,146,60,0.5),0_0_80px_rgba(253,186,116,0.35)] [clip-path:ellipse(49%_48%_at_50%_44%)] sm:[clip-path:ellipse(47%_46%_at_50%_43%)]">
+                        <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-amber-100/35 via-orange-200/15 to-amber-400/30 mix-blend-soft-light" />
+                        <div className="pointer-events-none absolute inset-0 z-[2] bg-[radial-gradient(ellipse_80%_55%_at_50%_28%,rgba(255,253,245,0.5),transparent_60%)]" />
+                        <div className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-t from-orange-500/25 via-transparent to-amber-300/10" />
+                        <img
+                          src={heroChildImgSrc}
+                          alt="HopeKids supports children — our token fuels transparent help"
+                          onError={() => setHeroChildImgSrc(HERO_CHILD_IMAGE_FALLBACK)}
+                          className="relative z-0 h-full w-full object-cover object-[center_24%] [filter:saturate(1.18)_brightness(1.06)_contrast(0.97)]"
+                        />
+                      </div>
+                      {/* HopeKids token in hand — lower front, tilted like offering */}
                       <div
-                        className="absolute bottom-[5%] left-1/2 z-10 w-[min(42vw,148px)] -translate-x-1/2 sm:bottom-[7%] sm:w-[158px] lg:bottom-[8%] lg:w-[172px] animate-[float_6s_ease-in-out_infinite]"
+                        className="hopekids-fairy-token pointer-events-none absolute bottom-[10%] left-[56%] z-20 w-[min(34vw,118px)] sm:bottom-[12%] sm:left-[57%] sm:w-[132px] lg:bottom-[13%] lg:w-[142px]"
+                        style={{ transformOrigin: '60% 85%' }}
                         aria-hidden="true"
                       >
-                        <div className="relative aspect-square overflow-hidden rounded-full border-2 border-amber-400/60 bg-slate-950/50 shadow-[0_0_40px_rgba(251,191,36,0.55),0_16px_48px_rgba(0,0,0,0.5)] ring-2 ring-amber-200/25 backdrop-blur-[2px]">
-                          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,190,80,0.35),transparent_65%)] blur-xl" />
+                        <div className="relative aspect-square overflow-hidden rounded-full border-[3px] border-amber-100/90 bg-gradient-to-br from-amber-50/30 to-orange-200/20 shadow-[0_0_0_3px_rgba(251,191,36,0.35),0_12px_40px_rgba(234,88,12,0.45),0_0_50px_rgba(253,224,71,0.35)]">
+                          <div className="absolute inset-[-20%] rounded-full bg-[radial-gradient(circle,rgba(255,237,213,0.7),transparent_68%)] blur-md" />
                           <img
                             src="/hopekids-coin.png"
                             alt=""
-                            className="relative z-[1] h-full w-full scale-[1.12] object-cover drop-shadow-[0_0_24px_rgba(255,190,80,0.5)]"
+                            className="relative z-[1] h-full w-full scale-[1.1] object-cover drop-shadow-[0_4px_20px_rgba(180,83,9,0.45)]"
                           />
-                          <div className="pointer-events-none absolute left-1/2 top-[-22%] z-[2] h-[150%] w-[22%] -translate-x-1/2 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.42),transparent)] blur-sm [animation:shineSweep_6s_ease-in-out_infinite]" />
+                          <div className="pointer-events-none absolute left-1/2 top-[-18%] z-[2] h-[140%] w-[24%] -translate-x-1/2 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.55),transparent)] blur-sm [animation:shineSweep_6s_ease-in-out_infinite]" />
                         </div>
                       </div>
                     </div>
-                    <figcaption className="sr-only">Child and HopeKids token — every trade supports the public donation wallet</figcaption>
+                    <figcaption className="sr-only">Child holding the HopeKids token — fairy-tale warmth; every trade supports the donation wallet</figcaption>
                   </figure>
                 </div>
               </div>
