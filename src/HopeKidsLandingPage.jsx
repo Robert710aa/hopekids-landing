@@ -341,30 +341,16 @@ export default function HopeKidsLandingPage() {
                   </div>
                 </div>
 
-                <div className="relative flex min-h-[240px] w-full justify-center lg:min-h-0 lg:items-center lg:justify-end">
-                  <figure className="relative z-10 w-full max-w-[min(100%,560px)] lg:max-w-none">
-                    <div className="relative h-[min(72vh,580px)] w-full min-h-[260px] overflow-hidden rounded-2xl shadow-[0_0_100px_rgba(251,191,36,0.2),0_28px_64px_-8px_rgba(0,0,0,0.85)] ring-1 ring-amber-400/20 sm:min-h-[300px]">
-                      <img
-                        src={HERO_ILLUSTRATION_SRC}
-                        alt="HopeKids — golden hope token, child in care, magical trail linking support to children"
-                        className="h-full w-full object-cover object-[center_40%] sm:object-[center_42%]"
-                        loading="eager"
-                        decoding="async"
-                      />
-                      {/* Soften duplicate headline/CTA baked into the artwork — real copy is in the left column */}
-                      <div
-                        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-[30%] bg-gradient-to-t from-[#020617] via-[#020617]/90 to-transparent"
-                        aria-hidden="true"
-                      />
-                      <div
-                        className="pointer-events-none absolute inset-0 z-[1] rounded-2xl shadow-[inset_0_0_120px_rgba(0,0,0,0.35)]"
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <figcaption className="sr-only">
-                      HopeKids hero art: glowing token, hospital and space, child with teddy bear, trail of light
-                    </figcaption>
-                  </figure>
+                <div className="relative flex min-h-[200px] w-full justify-center lg:min-h-0 lg:items-center lg:justify-end">
+                  <div className="relative z-10 w-full lg:max-w-none">
+                    <img
+                      src={HERO_ILLUSTRATION_SRC}
+                      alt="HopeKids hero illustration"
+                      className="block h-auto w-full max-h-[min(85vh,720px)] object-contain object-center"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  </div>
                 </div>
               </div>
             </section>
