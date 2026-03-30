@@ -23,6 +23,61 @@ const FALLBACK_MARKET_CAP = '$3,250,000';
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
 
+/** Dark night-sky mark with dim stars and a sombre expression — secondary brand accent */
+function HopeKidsNightMark({ className = 'h-10 w-10 sm:h-11 sm:w-11' }) {
+  return (
+    <svg
+      viewBox="0 0 48 48"
+      className={className}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <rect x="0.5" y="0.5" width="47" height="47" rx="13.5" fill="#05080f" stroke="rgba(100,116,139,0.35)" />
+      <circle cx="10" cy="11" r="0.9" fill="#64748b" opacity="0.5" />
+      <circle cx="38" cy="13" r="0.65" fill="#94a3b8" opacity="0.35" />
+      <circle cx="36" cy="37" r="0.55" fill="#475569" opacity="0.45" />
+      <circle cx="24" cy="8.5" r="0.75" fill="#e2e8f0" opacity="0.18" />
+      <path
+        d="M6.5 29l1.1-1.6 1.8 1.2-1.1 1.6-1.8-1.2z"
+        fill="#64748b"
+        opacity="0.28"
+      />
+      <path
+        d="M40.5 7.5l0.45 1.05h1.1l-0.9 0.65 0.35 1.05-0.95-0.55-0.95 0.55 0.35-1.05-0.9-0.65h1.1z"
+        fill="#fde68a"
+        opacity="0.2"
+      />
+      <circle cx="17" cy="22" r="1.25" fill="#334155" />
+      <circle cx="31" cy="22" r="1.25" fill="#334155" />
+      <path
+        d="M14.2 18.8c1.1-0.9 2.6-1.1 3.8-0.2"
+        stroke="#1e293b"
+        strokeWidth="1.15"
+        strokeLinecap="round"
+      />
+      <path
+        d="M30 18.6c1.2-0.9 2.7-0.7 3.8 0.2"
+        stroke="#1e293b"
+        strokeWidth="1.15"
+        strokeLinecap="round"
+      />
+      <path
+        d="M17.5 31.2c2.8 2.4 9.2 2.4 12 0"
+        stroke="#64748b"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        opacity="0.92"
+      />
+      <path
+        d="M14.8 25.2c0.2 1.8 1.1 3.1 1.6 3.1s0.2-1.9-0.5-3.4-1.1-1.2-1.1 0.3z"
+        fill="#475569"
+        opacity="0.42"
+      />
+    </svg>
+  );
+}
+
 function pickBestPair(pairs) {
   if (!pairs?.length) return null;
   return [...pairs].sort((a, b) => (b.liquidity?.usd ?? 0) - (a.liquidity?.usd ?? 0))[0];
@@ -290,13 +345,9 @@ export default function HopeKidsLandingPage() {
               </div>
 
               <header className="sticky top-2 z-50 flex flex-wrap items-center justify-between gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3 lg:px-10">
-              <a href="#home" className="flex items-center gap-2.5 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-400/50 bg-[#0a101c]/90 shadow-[0_0_24px_rgba(251,191,36,0.35)] backdrop-blur-sm">
-                  <svg viewBox="0 0 32 32" className="h-6 w-6 text-amber-200" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                    <circle cx="13" cy="12" r="3" />
-                    <circle cx="21" cy="12" r="3" />
-                    <path d="M10 22c2-3.5 6-5 12-3" strokeLinecap="round" />
-                  </svg>
+              <a href="#home" className="flex items-center gap-3 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+                <span className="flex shrink-0 rounded-2xl shadow-[0_0_28px_rgba(0,0,0,0.55)] ring-1 ring-slate-500/25">
+                  <HopeKidsNightMark />
                 </span>
                 <span className="text-lg font-extrabold tracking-tight">HopeKids</span>
               </a>
@@ -636,8 +687,11 @@ export default function HopeKidsLandingPage() {
             </section>
 
             <footer className="border-t-4 border-orange-500 bg-black/20 py-8 text-center text-blue-100/70 sm:py-10">
-              <div className="text-2xl font-extrabold text-white sm:text-3xl">HopeKids © 2026</div>
-              <div className="mt-1 text-base sm:mt-2 sm:text-lg">Trade crypto. Give hope.</div>
+              <div className="flex flex-col items-center gap-3">
+                <HopeKidsNightMark className="h-12 w-12 opacity-[0.92] sm:h-14 sm:w-14" />
+                <div className="text-2xl font-extrabold text-white sm:text-3xl">HopeKids © 2026</div>
+                <div className="text-base sm:text-lg">Trade crypto. Give hope.</div>
+              </div>
             </footer>
           </div>
         </div>
