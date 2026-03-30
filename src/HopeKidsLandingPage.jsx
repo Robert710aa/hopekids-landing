@@ -281,35 +281,13 @@ export default function HopeKidsLandingPage() {
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
         }
 
-        /* Page backdrop: soft aurora mesh + sparse elegant stars */
+        /* Starfield overlay — base gradient is on html (see index.css) */
         @keyframes hopekids-sky-twinkle {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.78; }
         }
 
-        .hopekids-sky-base {
-          position: fixed;
-          inset: 0;
-          z-index: 0;
-          background:
-            radial-gradient(ellipse 120% 80% at 50% -20%, rgba(30, 58, 138, 0.22) 0%, transparent 52%),
-            radial-gradient(ellipse 90% 65% at 100% 5%, rgba(251, 191, 36, 0.14) 0%, transparent 48%),
-            radial-gradient(ellipse 85% 70% at -5% 88%, rgba(76, 29, 149, 0.14) 0%, transparent 46%),
-            radial-gradient(ellipse 100% 40% at 50% 110%, rgba(0, 0, 0, 0.5) 0%, transparent 48%),
-            linear-gradient(175deg, #020617 0%, #0c1929 38%, #071018 100%);
-        }
-
-        /* Big Earth limb + atmosphere — clearly reads as “planet from orbit” */
-        .hopekids-sky-earth {
-          position: fixed;
-          inset: 0;
-          z-index: 0;
-          background:
-            radial-gradient(ellipse 145% 95% at 50% 132%, rgba(56, 189, 248, 0.55) 0%, rgba(34, 197, 94, 0.22) 15%, rgba(2, 132, 199, 0.4) 32%, rgba(8, 47, 73, 0.35) 48%, transparent 62%),
-            radial-gradient(ellipse 85% 70% at 112% 42%, rgba(125, 211, 252, 0.28) 0%, rgba(14, 165, 233, 0.12) 35%, transparent 58%),
-            radial-gradient(ellipse 60% 50% at -5% 55%, rgba(16, 185, 129, 0.1) 0%, transparent 55%);
-        }
-
+        /* Stars only — planet + space gradient lives on html (index.css) so it always shows */
         .hopekids-sky-stars {
           position: fixed;
           inset: 0;
@@ -341,9 +319,7 @@ export default function HopeKidsLandingPage() {
         }
       `}</style>
 
-      <div className="relative min-h-screen bg-[#020617] text-white">
-        <div className="hopekids-sky-base pointer-events-none" aria-hidden="true" />
-        <div className="hopekids-sky-earth pointer-events-none" aria-hidden="true" />
+      <div className="relative min-h-screen bg-transparent text-white">
         <div className="hopekids-sky-stars pointer-events-none" aria-hidden="true" />
         <div className="relative z-10 min-h-screen overflow-x-hidden">
           <div className="mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
