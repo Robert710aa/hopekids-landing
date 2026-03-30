@@ -6,8 +6,6 @@ const JUPITER_BUY_URL = `https://jup.ag/swap/SOL-${HKIDS_MINT}`;
 const DEXSCREENER_TOKEN_URL = `https://api.dexscreener.com/latest/dex/tokens/${HKIDS_MINT}`;
 /** DexScreener token page shows holders; public API JSON does not include holder count. */
 const DEXSCREENER_TOKEN_PAGE = `https://dexscreener.com/solana/${HKIDS_MINT}`;
-const SOLSCAN_TOKEN_URL = `https://solscan.io/token/${HKIDS_MINT}`;
-
 /** Social links — replace # with official profiles when ready */
 const SOCIAL_TWITTER_URL = '#';
 const SOCIAL_INSTAGRAM_URL = '#';
@@ -18,8 +16,6 @@ const PUBLIC_DONATION_WALLET = 'GnhmPt4LBHRoABuGrSqrbPW34Mu8dXGJf1XCNc7DHRAB';
 
 /** HopeKids team inbox */
 const HOPEKIDS_TEAM_EMAIL = 'hopekids594@gmail.com';
-
-const FALLBACK_MARKET_CAP = '$3,250,000';
 
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
@@ -183,23 +179,6 @@ function pickBestPair(pairs) {
   return [...pairs].sort((a, b) => (b.liquidity?.usd ?? 0) - (a.liquidity?.usd ?? 0))[0];
 }
 
-function formatUsdCompact(n) {
-  if (n == null || Number.isNaN(n) || !Number.isFinite(Number(n))) return null;
-  const x = Number(n);
-  if (x >= 1e9) return `$${(x / 1e9).toFixed(2)}B`;
-  if (x >= 1e6) return `$${(x / 1e6).toFixed(2)}M`;
-  if (x >= 1e3) return `$${(x / 1e3).toFixed(2)}K`;
-  return `$${x.toFixed(2)}`;
-}
-
-function formatPriceUsd(raw) {
-  const x = typeof raw === 'string' ? parseFloat(raw) : raw;
-  if (!Number.isFinite(x)) return null;
-  if (x >= 1) return `$${x.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-  if (x >= 0.01) return `$${x.toFixed(4)}`;
-  return `$${x.toPrecision(4)}`;
-}
-
 export default function HopeKidsLandingPage() {
   const [storyOpen, setStoryOpen] = useState(false);
   const [walletCopied, setWalletCopied] = useState(false);
@@ -229,22 +208,13 @@ export default function HopeKidsLandingPage() {
     };
   }, [storyOpen]);
 
-  const [tokenStats, setTokenStats] = useState({
-    loading: true,
-    marketCapUsd: null,
-    priceUsd: null,
-    liquidityUsd: null,
-    dexscreenerUrl: DEXSCREENER_TOKEN_PAGE,
-  });
+  const [dexscreenerUrl, setDexscreenerUrl] = useState(DEXSCREENER_TOKEN_PAGE);
 
   useEffect(() => {
     let cancelled = false;
     const ac = new AbortController();
 
     async function load() {
-      let mcap = null;
-      let price = null;
-      let liq = null;
       let dexUrl = DEXSCREENER_TOKEN_PAGE;
 
       try {
@@ -254,11 +224,6 @@ export default function HopeKidsLandingPage() {
           const pairs = dexData?.pairs;
           if (Array.isArray(pairs) && pairs.length > 0) {
             const pair = pickBestPair(pairs);
-            const mcapRaw = pair?.marketCap ?? pair?.fdv;
-            const m = mcapRaw != null ? Number(mcapRaw) : null;
-            mcap = Number.isFinite(m) ? m : null;
-            price = pair?.priceUsd != null ? formatPriceUsd(pair.priceUsd) : null;
-            liq = pair?.liquidity?.usd != null ? formatUsdCompact(pair.liquidity.usd) : null;
             if (pair?.url) dexUrl = pair.url;
           }
         }
@@ -266,15 +231,7 @@ export default function HopeKidsLandingPage() {
         /* network / abort */
       }
 
-      if (!cancelled) {
-        setTokenStats({
-          loading: false,
-          marketCapUsd: mcap,
-          priceUsd: price,
-          liquidityUsd: liq,
-          dexscreenerUrl: dexUrl,
-        });
-      }
+      if (!cancelled) setDexscreenerUrl(dexUrl);
     }
 
     load();
@@ -469,7 +426,7 @@ export default function HopeKidsLandingPage() {
                   <span className="hidden md:inline">TikTok</span>
                 </a>
                 <a
-                  href={tokenStats.dexscreenerUrl}
+                  href={dexscreenerUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 transition hover:text-amber-50"
@@ -645,85 +602,6 @@ export default function HopeKidsLandingPage() {
               </div>
             </section>
 
-            <section id="tokenomics" className="mt-10 scroll-mt-28" aria-labelledby="tok-heading">
-              <h2 id="tok-heading" className="sr-only">
-                Tokenomics and roadmap
-              </h2>
-              <div className="grid gap-6 lg:grid-cols-2">
-                <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/35 p-5 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-6">
-                  <div className="text-xl font-extrabold text-white">Tokenomics</div>
-                  <p className="mt-3 text-sm text-blue-100/75">Total supply</p>
-                  <p className="text-xl font-extrabold tabular-nums text-cyan-100 sm:text-2xl">1,000,000,000,000 HKIDS</p>
-                  <div className="mt-6 grid grid-cols-3 gap-2">
-                    <div className="rounded-xl border border-amber-400/30 bg-black/25 px-1 py-3 text-center sm:px-2">
-                      <div className="text-lg font-extrabold text-amber-300">3%</div>
-                      <div className="text-[10px] font-medium leading-tight text-blue-100/70">Children wallet</div>
-                    </div>
-                    <div className="rounded-xl border border-cyan-400/30 bg-black/25 px-1 py-3 text-center sm:px-2">
-                      <div className="text-lg font-extrabold text-cyan-200">2%</div>
-                      <div className="text-[10px] font-medium leading-tight text-blue-100/70">Marketing</div>
-                    </div>
-                    <div className="rounded-xl border border-violet-400/30 bg-black/25 px-1 py-3 text-center sm:px-2">
-                      <div className="text-lg font-extrabold text-violet-200">1%</div>
-                      <div className="text-[10px] font-medium leading-tight text-blue-100/70">Development</div>
-                    </div>
-                  </div>
-                  <div className="mt-4 rounded-xl border border-white/10 bg-black/20 p-3 text-sm text-blue-100/85">
-                    <span className="text-blue-100/55">Live market cap: </span>
-                    {tokenStats.loading
-                      ? '…'
-                      : tokenStats.marketCapUsd != null
-                        ? formatUsdCompact(tokenStats.marketCapUsd)
-                        : FALLBACK_MARKET_CAP}
-                    {tokenStats.priceUsd ? (
-                      <span className="mt-1 block text-xs text-blue-100/60">Price: {tokenStats.priceUsd}</span>
-                    ) : null}
-                    <a
-                      href={tokenStats.dexscreenerUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-2 inline-block text-xs font-semibold text-cyan-300/90 underline hover:text-cyan-200"
-                    >
-                      DexScreener ↗
-                    </a>
-                  </div>
-                  <a
-                    href={SOLSCAN_TOKEN_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-flex rounded-xl border border-cyan-400/40 bg-blue-600/90 px-4 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(37,99,235,0.35)] transition hover:bg-blue-500"
-                  >
-                    View on Solscan
-                  </a>
-                </div>
-                <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/35 p-5 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-6">
-                  <div className="text-xl font-extrabold text-white">Roadmap</div>
-                  <ul className="relative mt-6 space-y-6 border-l border-cyan-500/35 pl-6">
-                    <li className="relative">
-                      <span className="absolute -left-[29px] top-1.5 h-3 w-3 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400 shadow-[0_0_10px_rgba(56,189,248,0.75)]" />
-                      <div className="font-bold text-amber-200/95">Wallet address</div>
-                      <p className="break-all font-mono text-xs text-blue-100/70 sm:text-sm">{PUBLIC_DONATION_WALLET}</p>
-                    </li>
-                    <li className="relative">
-                      <span className="absolute -left-[29px] top-1.5 h-3 w-3 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400 shadow-[0_0_10px_rgba(56,189,248,0.75)]" />
-                      <div className="font-bold text-amber-200/95">2026</div>
-                      <p className="text-sm text-blue-100/72">Website + donation system</p>
-                    </li>
-                    <li className="relative">
-                      <span className="absolute -left-[29px] top-1.5 h-3 w-3 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400 shadow-[0_0_10px_rgba(56,189,248,0.75)]" />
-                      <div className="font-bold text-amber-200/95">2026</div>
-                      <p className="text-sm text-blue-100/72">Community growth</p>
-                    </li>
-                    <li className="relative">
-                      <span className="absolute -left-[29px] top-1.5 h-3 w-3 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400 shadow-[0_0_10px_rgba(56,189,248,0.75)]" />
-                      <div className="font-bold text-amber-200/95">2027</div>
-                      <p className="text-sm text-blue-100/72">Global charity partnerships</p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
             <section id="mission" className="mt-8 scroll-mt-28">
               <button
                 type="button"
@@ -822,7 +700,7 @@ export default function HopeKidsLandingPage() {
                   <span className="text-[11px] font-semibold">TikTok</span>
                 </a>
                 <a
-                  href={tokenStats.dexscreenerUrl}
+                  href={dexscreenerUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
