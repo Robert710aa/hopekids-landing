@@ -72,6 +72,49 @@ function HopeKidsBrandMark({ className = 'h-9 w-9 sm:h-10 sm:w-10' }) {
   );
 }
 
+function IconTwitterX({ className = 'h-5 w-5' }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+function IconInstagram({ className = 'h-5 w-5' }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="3.5" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function IconTikTok({ className = 'h-5 w-5' }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
+    </svg>
+  );
+}
+
+/** DexScreener-style mark: emerald tile + chart stroke (brand-adjacent, not official artwork). */
+function IconDexScreener({ className = 'h-5 w-5' }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <rect width="24" height="24" rx="5" fill="#10b981" />
+      <path
+        d="M6 16l4-4.5 3 2.5 5-6"
+        fill="none"
+        stroke="#ecfdf5"
+        strokeWidth="1.85"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 function pickBestPair(pairs) {
   if (!pairs?.length) return null;
   return [...pairs].sort((a, b) => (b.liquidity?.usd ?? 0) - (a.liquidity?.usd ?? 0))[0];
@@ -334,40 +377,48 @@ export default function HopeKidsLandingPage() {
                 <span className="text-lg font-extrabold tracking-tight">HopeKids</span>
               </a>
               <nav
-                className="hidden flex-wrap items-center gap-4 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] lg:gap-5 md:flex"
+                className="hidden flex-wrap items-center gap-3 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] lg:gap-4 md:flex"
                 aria-label="Social and charts"
               >
                 <a
                   href={SOCIAL_TWITTER_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition hover:text-amber-50"
+                  className="inline-flex items-center gap-2 transition hover:text-amber-50"
+                  aria-label="Twitter"
                 >
-                  Twitter
+                  <IconTwitterX className="h-5 w-5 shrink-0 text-slate-100" />
+                  <span className="hidden md:inline">Twitter</span>
                 </a>
                 <a
                   href={SOCIAL_INSTAGRAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition hover:text-amber-50"
+                  className="inline-flex items-center gap-2 transition hover:text-amber-50"
+                  aria-label="Instagram"
                 >
-                  Instagram
+                  <IconInstagram className="h-5 w-5 shrink-0 text-pink-200" />
+                  <span className="hidden md:inline">Instagram</span>
                 </a>
                 <a
                   href={SOCIAL_TIKTOK_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition hover:text-amber-50"
+                  className="inline-flex items-center gap-2 transition hover:text-amber-50"
+                  aria-label="TikTok"
                 >
-                  TikTok
+                  <IconTikTok className="h-5 w-5 shrink-0 text-cyan-200" />
+                  <span className="hidden md:inline">TikTok</span>
                 </a>
                 <a
                   href={tokenStats.dexscreenerUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition hover:text-amber-50"
+                  className="inline-flex items-center gap-2 transition hover:text-amber-50"
+                  aria-label="DexScreener"
                 >
-                  DexScreener
+                  <IconDexScreener className="h-5 w-5 shrink-0" />
+                  <span className="hidden md:inline">DexScreener</span>
                 </a>
               </nav>
               <a
@@ -614,9 +665,7 @@ export default function HopeKidsLandingPage() {
                   aria-label="Twitter"
                 >
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/8 shadow-[0_0_12px_rgba(148,163,184,0.2)]">
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-slate-100" fill="currentColor" aria-hidden="true">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                    </svg>
+                    <IconTwitterX className="h-4 w-4 text-slate-100" />
                   </span>
                   <span className="text-[11px] font-semibold">Twitter</span>
                 </a>
@@ -628,11 +677,7 @@ export default function HopeKidsLandingPage() {
                   aria-label="Instagram"
                 >
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500/20 shadow-[0_0_12px_rgba(236,72,153,0.25)]">
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-pink-200" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <rect x="3" y="3" width="18" height="18" rx="5" />
-                      <circle cx="12" cy="12" r="3.5" />
-                      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-                    </svg>
+                    <IconInstagram className="h-4 w-4 text-pink-200" />
                   </span>
                   <span className="text-[11px] font-semibold">Instagram</span>
                 </a>
@@ -644,9 +689,7 @@ export default function HopeKidsLandingPage() {
                   aria-label="TikTok"
                 >
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-cyan-500/15 shadow-[0_0_12px_rgba(6,182,212,0.3)]">
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-cyan-200" fill="currentColor" aria-hidden="true">
-                      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
-                    </svg>
+                    <IconTikTok className="h-4 w-4 text-cyan-200" />
                   </span>
                   <span className="text-[11px] font-semibold">TikTok</span>
                 </a>
@@ -658,10 +701,7 @@ export default function HopeKidsLandingPage() {
                   aria-label="DexScreener"
                 >
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/15 shadow-[0_0_12px_rgba(52,211,153,0.25)]">
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-200" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <path d="M4 16l5-5 4 4 7-7" />
-                      <path d="M20 7v6h-6" />
-                    </svg>
+                    <IconDexScreener className="h-4 w-4" />
                   </span>
                   <span className="text-[11px] font-semibold">DexScreener</span>
                 </a>
