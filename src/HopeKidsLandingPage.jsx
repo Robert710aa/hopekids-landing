@@ -8,9 +8,10 @@ const DEXSCREENER_TOKEN_URL = `https://api.dexscreener.com/latest/dex/tokens/${H
 const DEXSCREENER_TOKEN_PAGE = `https://dexscreener.com/solana/${HKIDS_MINT}`;
 const SOLSCAN_TOKEN_URL = `https://solscan.io/token/${HKIDS_MINT}`;
 
-/** Community links — replace # when official URLs are ready */
-const SOCIAL_TELEGRAM_URL = '#';
-const SOCIAL_X_URL = '#';
+/** Social links — replace # with official profiles when ready */
+const SOCIAL_TWITTER_URL = '#';
+const SOCIAL_INSTAGRAM_URL = '#';
+const SOCIAL_TIKTOK_URL = '#';
 
 /** Public donation wallet (Solana) */
 const PUBLIC_DONATION_WALLET = 'GnhmPt4LBHRoABuGrSqrbPW34Mu8dXGJf1XCNc7DHRAB';
@@ -333,23 +334,40 @@ export default function HopeKidsLandingPage() {
                 <span className="text-lg font-extrabold tracking-tight">HopeKids</span>
               </a>
               <nav
-                className="hidden flex-wrap items-center gap-5 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] md:flex"
-                aria-label="Primary"
+                className="hidden flex-wrap items-center gap-4 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] lg:gap-5 md:flex"
+                aria-label="Social and charts"
               >
-                <a href="#home" className="transition hover:text-amber-50">
-                  Home
+                <a
+                  href={SOCIAL_TWITTER_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition hover:text-amber-50"
+                >
+                  Twitter
                 </a>
-                <a href="#mission" className="transition hover:text-amber-50">
-                  Mission
+                <a
+                  href={SOCIAL_INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition hover:text-amber-50"
+                >
+                  Instagram
                 </a>
-                <a href="#tokenomics" className="transition hover:text-amber-50">
-                  Tokenomics
+                <a
+                  href={SOCIAL_TIKTOK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition hover:text-amber-50"
+                >
+                  TikTok
                 </a>
-                <a href="#donations" className="transition hover:text-amber-50">
-                  Donations
-                </a>
-                <a href="#community" className="transition hover:text-amber-50">
-                  Community
+                <a
+                  href={tokenStats.dexscreenerUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition hover:text-amber-50"
+                >
+                  DexScreener
                 </a>
               </nav>
               <a
@@ -585,25 +603,15 @@ export default function HopeKidsLandingPage() {
                 Community
               </h2>
               <p className="mx-auto mt-2 max-w-lg text-center text-sm text-blue-100/75">
-                Join the conversation — Telegram, X, charts, and on-chain proof.
+                Follow on Twitter, Instagram, and TikTok — live charts on DexScreener.
               </p>
               <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
                 <a
-                  href={SOCIAL_TELEGRAM_URL}
+                  href={SOCIAL_TWITTER_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
-                  aria-label="Telegram"
-                >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-500/25 shadow-[0_0_14px_rgba(14,165,233,0.35)]">
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-sky-200" fill="currentColor" aria-hidden="true">
-                      <path d="M21.5 4.5L2.5 11.2c-1.1.4-1.1 1.1-.2 1.5l4.7 1.5 1.8 5.5c.2.6.9.7 1.3.3l2.4-2.2 5 3.7c.6.4 1.2.2 1.4-.5l3.5-16.5c.2-.9-.3-1.3-1-.9zM17.8 7.3l-9.8 9.1c-.2.2-.4.5-.4.8l-.3 2.8c0 .3-.3.4-.5.2l-1.1-3.8 10.1-9.4c.4-.4-.1-.7-.3-.5z" />
-                    </svg>
-                  </span>
-                  <span className="text-[11px] font-semibold">Telegram</span>
-                </a>
-                <a
-                  href={SOCIAL_X_URL}
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
-                  aria-label="Twitter / X"
+                  aria-label="Twitter"
                 >
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/8 shadow-[0_0_12px_rgba(148,163,184,0.2)]">
                     <svg viewBox="0 0 24 24" className="h-4 w-4 text-slate-100" fill="currentColor" aria-hidden="true">
@@ -611,6 +619,36 @@ export default function HopeKidsLandingPage() {
                     </svg>
                   </span>
                   <span className="text-[11px] font-semibold">Twitter</span>
+                </a>
+                <a
+                  href={SOCIAL_INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
+                  aria-label="Instagram"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500/20 shadow-[0_0_12px_rgba(236,72,153,0.25)]">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-pink-200" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <rect x="3" y="3" width="18" height="18" rx="5" />
+                      <circle cx="12" cy="12" r="3.5" />
+                      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                    </svg>
+                  </span>
+                  <span className="text-[11px] font-semibold">Instagram</span>
+                </a>
+                <a
+                  href={SOCIAL_TIKTOK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
+                  aria-label="TikTok"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-cyan-500/15 shadow-[0_0_12px_rgba(6,182,212,0.3)]">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-cyan-200" fill="currentColor" aria-hidden="true">
+                      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
+                    </svg>
+                  </span>
+                  <span className="text-[11px] font-semibold">TikTok</span>
                 </a>
                 <a
                   href={tokenStats.dexscreenerUrl}
@@ -626,20 +664,6 @@ export default function HopeKidsLandingPage() {
                     </svg>
                   </span>
                   <span className="text-[11px] font-semibold">DexScreener</span>
-                </a>
-                <a
-                  href={SOLSCAN_TOKEN_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
-                  aria-label="Solscan"
-                >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-violet-500/15 shadow-[0_0_12px_rgba(167,139,250,0.25)]">
-                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-violet-200" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                    </svg>
-                  </span>
-                  <span className="text-[11px] font-semibold">Solscan</span>
                 </a>
               </div>
             </section>
