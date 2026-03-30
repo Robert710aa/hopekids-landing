@@ -310,7 +310,49 @@ export default function HopeKidsLandingPage() {
           />
 
           <div className="relative z-10 mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
-            <header className="sticky top-2 z-40 mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-amber-500/15 bg-[#05060d]/82 px-3 py-2.5 shadow-[0_8px_40px_rgba(0,0,0,0.5),0_0_24px_rgba(251,191,36,0.06)] backdrop-blur-xl sm:px-5">
+            {/* Single upper panel: navigation + hero — full cinema treatment */}
+            <div className="relative overflow-hidden rounded-2xl sm:rounded-[28px] border border-amber-500/20 bg-[radial-gradient(ellipse_120%_70%_at_14%_28%,rgba(251,191,36,0.18),transparent_50%),radial-gradient(ellipse_80%_55%_at_92%_6%,rgba(37,56,97,0.5),transparent_42%),radial-gradient(ellipse_100%_50%_at_50%_100%,rgba(2,6,15,0.92),transparent_55%),linear-gradient(168deg,#030508_0%,#0b1424_42%,#050810_100%)] shadow-[0_0_80px_rgba(251,191,36,0.08),0_30px_70px_-20px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,250,235,0.06)]">
+              <div
+                className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl sm:rounded-[28px]"
+                aria-hidden="true"
+              >
+                <div className="hopekids-cinema-sheen absolute inset-0 opacity-[0.5]" />
+              </div>
+              <div
+                className="pointer-events-none absolute left-6 top-5 flex gap-4 sm:left-8 sm:top-6"
+                aria-hidden="true"
+              >
+                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-amber-100" style={{ animationDelay: '0s' }} />
+                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-yellow-200" style={{ animationDelay: '0.35s' }} />
+                <span className="hopekids-cinema-star h-1.5 w-1.5 rounded-full bg-amber-200" style={{ animationDelay: '0.7s' }} />
+              </div>
+              <div
+                className="pointer-events-none absolute right-14 top-6 flex gap-3 sm:right-20 sm:top-7"
+                aria-hidden="true"
+              >
+                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-stone-200/90" style={{ animationDelay: '0.2s' }} />
+                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-amber-100" style={{ animationDelay: '0.9s' }} />
+              </div>
+              <div
+                className="pointer-events-none absolute left-8 top-[38%] flex gap-5 sm:left-10 lg:top-[40%]"
+                aria-hidden="true"
+              >
+                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-amber-100" style={{ animationDelay: '0.15s' }} />
+                <span className="hopekids-cinema-star h-1.5 w-1.5 rounded-full bg-yellow-200" style={{ animationDelay: '0.55s' }} />
+                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-amber-200" style={{ animationDelay: '1.1s' }} />
+                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-stone-100" style={{ animationDelay: '1.65s' }} />
+              </div>
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-[linear-gradient(180deg,transparent,rgba(2,4,10,0.72))]" aria-hidden="true" />
+              <div
+                className="pointer-events-none absolute left-[4%] top-[12%] h-[min(420px,55%)] w-[min(420px,90vw)] rounded-full bg-[radial-gradient(circle,rgba(251,191,36,0.16),transparent_62%)] blur-3xl"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute right-[2%] top-[2%] h-[220px] w-[220px] rounded-full bg-[radial-gradient(circle,rgba(30,58,95,0.38),transparent_58%)] blur-3xl sm:h-[260px] sm:w-[260px]"
+                aria-hidden="true"
+              />
+
+              <header className="sticky top-2 z-50 flex flex-wrap items-center justify-between gap-3 border-b border-amber-500/10 bg-[rgba(3,6,14,0.45)] px-4 py-3 backdrop-blur-xl sm:px-6 sm:py-3.5 lg:px-10">
               <a href="#home" className="flex items-center gap-2.5 text-white">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-400/40 bg-[#0c1828] shadow-[0_0_22px_rgba(251,191,36,0.22)]">
                   <svg viewBox="0 0 32 32" className="h-6 w-6 text-amber-200" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
@@ -346,32 +388,13 @@ export default function HopeKidsLandingPage() {
               >
                 Buy $HOPEKIDS
               </a>
-            </header>
+              </header>
 
-            <section
-              id="home"
-              className="relative overflow-hidden rounded-2xl sm:rounded-[28px] border border-amber-500/20 bg-[radial-gradient(ellipse_120%_90%_at_14%_42%,rgba(251,191,36,0.16),transparent_52%),radial-gradient(ellipse_85%_65%_at_92%_8%,rgba(37,56,97,0.45),transparent_45%),radial-gradient(ellipse_100%_55%_at_50%_108%,rgba(2,6,15,0.95),transparent_52%),linear-gradient(168deg,#030508_0%,#0b1424_38%,#050810_100%)] shadow-[0_0_80px_rgba(251,191,36,0.07),0_30px_70px_-20px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,250,235,0.06)] px-4 py-10 sm:px-6 sm:py-14 lg:px-12 lg:py-16"
-            >
-              <div
-                className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl sm:rounded-[28px]"
-                aria-hidden="true"
+              <section
+                id="home"
+                className="relative z-10 border-0 bg-transparent px-4 py-8 shadow-none sm:px-6 sm:py-10 lg:px-10 lg:py-12"
               >
-                <div className="hopekids-cinema-sheen absolute inset-0 opacity-[0.55]" />
-              </div>
-              <div
-                className="pointer-events-none absolute left-8 top-12 flex gap-5 sm:left-10 sm:top-16"
-                aria-hidden="true"
-              >
-                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-amber-100" style={{ animationDelay: '0s' }} />
-                <span className="hopekids-cinema-star h-1.5 w-1.5 rounded-full bg-yellow-200" style={{ animationDelay: '0.6s' }} />
-                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-amber-200" style={{ animationDelay: '1.1s' }} />
-                <span className="hopekids-cinema-star h-1 w-1 rounded-full bg-stone-100" style={{ animationDelay: '1.8s' }} />
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 h-44 bg-[linear-gradient(180deg,transparent,rgba(2,4,10,0.65))]" />
-              <div className="pointer-events-none absolute left-[8%] top-[32%] h-[320px] w-[320px] rounded-full bg-[radial-gradient(circle,rgba(251,191,36,0.14),transparent_62%)] blur-3xl" />
-              <div className="pointer-events-none absolute right-[5%] top-[6%] h-[200px] w-[200px] rounded-full bg-[radial-gradient(circle,rgba(30,58,95,0.35),transparent_58%)] blur-3xl" />
-
-              <div className="relative z-10 grid items-stretch gap-8 lg:grid-cols-2 lg:gap-6">
+                <div className="relative z-10 grid items-stretch gap-8 lg:grid-cols-2 lg:gap-6">
                 <div className="flex flex-col justify-center text-center lg:text-left">
                   <h1 className="hopekids-title-glare text-4xl font-extrabold sm:text-5xl lg:text-6xl">HopeKids</h1>
                   <p className="mt-4 text-lg font-semibold leading-snug text-amber-50/95 sm:mt-5 sm:text-xl lg:text-2xl">
@@ -406,7 +429,7 @@ export default function HopeKidsLandingPage() {
 
                 <div className="relative flex w-full">
                   {/* Bleed into panel padding + soft masks so art merges with card (dark edges → panel bg) */}
-                  <div className="relative z-10 min-h-[min(52vh,380px)] w-full flex-1 overflow-hidden rounded-2xl sm:rounded-[22px] lg:-mb-14 lg:-mr-12 lg:-mt-10 lg:min-h-[min(64vh,520px)] lg:rounded-br-[28px] lg:rounded-tr-[28px] lg:rounded-bl-none lg:rounded-tl-none">
+                  <div className="relative z-10 min-h-[min(52vh,380px)] w-full flex-1 overflow-hidden rounded-xl sm:rounded-2xl lg:-mb-12 lg:-mr-10 lg:-mt-6 lg:min-h-[min(64vh,520px)] lg:rounded-br-[26px] lg:rounded-tr-[26px] lg:rounded-bl-none lg:rounded-tl-none">
                     <img
                       src={HERO_ILLUSTRATION_SRC}
                       alt="HopeKids hero illustration"
@@ -416,8 +439,9 @@ export default function HopeKidsLandingPage() {
                     />
                   </div>
                 </div>
-              </div>
-            </section>
+                </div>
+              </section>
+            </div>
 
             <section className="mt-6 grid gap-4 md:grid-cols-3">
               {stats.map((item) => (
