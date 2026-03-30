@@ -15,6 +15,33 @@ const HOPEKIDS_TEAM_EMAIL = 'hopekids594@gmail.com';
 
 const FALLBACK_MARKET_CAP = '$3,250,000';
 
+/** 30-day spotlight window; persisted so the countdown does not reset on every refresh. */
+const HELP_SPOTLIGHT_END_KEY = 'hopekids-help-spotlight-end-ms';
+const HELP_SPOTLIGHT_DURATION_MS = 30 * 24 * 60 * 60 * 1000;
+
+/** Demo spotlight child — replace image/name when using a real campaign. */
+const HELP_SPOTLIGHT_CHILD = {
+  name: 'Maja',
+  image:
+    'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=320&h=320&q=80',
+};
+
+function readOrInitSpotlightEndMs() {
+  const now = Date.now();
+  if (typeof window === 'undefined') return now + HELP_SPOTLIGHT_DURATION_MS;
+  try {
+    const raw = window.localStorage.getItem(HELP_SPOTLIGHT_END_KEY);
+    let end = raw ? parseInt(raw, 10) : NaN;
+    if (!Number.isFinite(end) || end <= now) {
+      end = now + HELP_SPOTLIGHT_DURATION_MS;
+      window.localStorage.setItem(HELP_SPOTLIGHT_END_KEY, String(end));
+    }
+    return end;
+  } catch {
+    return now + HELP_SPOTLIGHT_DURATION_MS;
+  }
+}
+
 function pickBestPair(pairs) {
   if (!pairs?.length) return null;
   return [...pairs].sort((a, b) => (b.liquidity?.usd ?? 0) - (a.liquidity?.usd ?? 0))[0];
@@ -120,6 +147,24 @@ export default function HopeKidsLandingPage() {
       ac.abort();
       clearInterval(t);
     };
+  }, []);
+
+  const [helpCountdown, setHelpCountdown] = useState({ h: 0, m: 0, s: 0 });
+
+  useEffect(() => {
+    const endMs = readOrInitSpotlightEndMs();
+    const tick = () => {
+      const msLeft = Math.max(0, endMs - Date.now());
+      const totalSec = Math.floor(msLeft / 1000);
+      setHelpCountdown({
+        h: Math.floor(totalSec / 3600),
+        m: Math.floor((totalSec % 3600) / 60),
+        s: totalSec % 60,
+      });
+    };
+    tick();
+    const id = window.setInterval(tick, 1000);
+    return () => window.clearInterval(id);
   }, []);
 
   const stats = [
@@ -292,9 +337,49 @@ export default function HopeKidsLandingPage() {
                 <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-cyan-300/70">Open</p>
               </button>
               <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-5">
-                <div className="text-2xl sm:text-3xl">💛</div>
-                <div className="mt-2 text-2xl font-extrabold sm:mt-3 sm:text-[32px]">Help</div>
-                <p className="mt-1 text-sm text-blue-100/74 sm:mt-2 sm:text-base">Help children every transaction.</p>
+                <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
+                  <div className="relative shrink-0">
+                    <img
+                      src={HELP_SPOTLIGHT_CHILD.image}
+                      alt={HELP_SPOTLIGHT_CHILD.name}
+                      width={112}
+                      height={112}
+                      className="h-28 w-28 rounded-2xl object-cover ring-2 ring-amber-400/35 shadow-[0_0_24px_rgba(251,191,36,0.2)]"
+                    />
+                    <span
+                      className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-full bg-amber-400/90 text-lg shadow-md"
+                      aria-hidden="true"
+                    >
+                      💛
+                    </span>
+                  </div>
+                  <div className="min-w-0 flex-1 text-center sm:text-left">
+                    <div className="text-2xl font-extrabold sm:text-[28px]">Help</div>
+                    <p className="mt-1 text-lg font-semibold text-amber-200/95">{HELP_SPOTLIGHT_CHILD.name}</p>
+                    <p className="mt-1 text-sm text-blue-100/74 sm:text-base">
+                      Help children with every transaction — this month we highlight {HELP_SPOTLIGHT_CHILD.name}.
+                    </p>
+                    <div
+                      className="mt-4 rounded-xl border border-cyan-400/25 bg-[#08172f]/55 px-3 py-3 shadow-[inset_0_0_20px_rgba(56,189,248,0.06)]"
+                      aria-live="polite"
+                    >
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-cyan-300/75">
+                        30-day window · time left (hours)
+                      </p>
+                      <p className="mt-2 font-mono text-3xl font-extrabold tabular-nums tracking-tight text-cyan-100 sm:text-4xl">
+                        {helpCountdown.h}
+                        <span className="text-lg font-bold text-cyan-200/80 sm:text-xl">h</span>{' '}
+                        {String(helpCountdown.m).padStart(2, '0')}
+                        <span className="text-lg font-bold text-cyan-200/80 sm:text-xl">m</span>{' '}
+                        {String(helpCountdown.s).padStart(2, '0')}
+                        <span className="text-lg font-bold text-cyan-200/80 sm:text-xl">s</span>
+                      </p>
+                      <p className="mt-1 text-xs text-blue-100/55">
+                        Counts down from 30 days (720h) to 0 for this spotlight.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
               {/* removed: Impact card */}
               <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-5 sm:col-span-2 lg:col-span-1">
