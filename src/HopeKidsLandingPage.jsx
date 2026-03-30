@@ -15,8 +15,8 @@ const HOPEKIDS_TEAM_EMAIL = 'hopekids594@gmail.com';
 
 const FALLBACK_MARKET_CAP = '$3,250,000';
 
-/** Optional loop — add a royalty-cleared MP3 as public/hopekids-music.mp3 */
-const BACKGROUND_MUSIC_SRC = '/hopekids-music.mp3';
+/** Default loop: public/hopekids-music.wav — run node scripts/generate-hopekids-ambient.js to rebuild. */
+const BACKGROUND_MUSIC_SRC = '/hopekids-music.wav';
 
 /** 30-day spotlight window; persisted so the countdown does not reset on every refresh. */
 const HELP_SPOTLIGHT_END_KEY = 'hopekids-help-spotlight-end-ms';
@@ -644,7 +644,7 @@ export default function HopeKidsLandingPage() {
           aria-label={musicUnavailable ? 'Background music unavailable' : musicPlaying ? 'Pause background music' : 'Play background music'}
           title={
             musicUnavailable
-              ? 'Add hopekids-music.mp3 to the site public folder'
+              ? 'Add hopekids-music.wav to public or set BACKGROUND_MUSIC_SRC'
               : musicPlaying
                 ? 'Pause music'
                 : 'Play music'
