@@ -430,9 +430,9 @@ export default function HopeKidsLandingPage() {
                     Support sick children through cryptocurrency.
                   </p>
                   <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-stone-200/95 drop-shadow-[0_1px_12px_rgba(0,0,0,0.8)] sm:mt-5 sm:text-base lg:mx-0">
-                    Każda transakcja zapisuje tokeny, aby pomóc dzieciom.{' '}
-                    <span className="font-semibold text-amber-200">5%</span> każdej transakcji trafia do publicznego
-                    portfela darowizn.
+                    When you buy or trade HKIDS, part of every swap supports sick children.{' '}
+                    <span className="font-semibold text-amber-200">3%</span> of each transaction goes to the public
+                    donation wallet.
                   </p>
                   <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap lg:justify-start">
                     <a
@@ -481,9 +481,9 @@ export default function HopeKidsLandingPage() {
               </h2>
               <div className="mt-6 flex flex-col items-stretch gap-4 md:flex-row md:justify-center md:gap-1">
                 {[
-                  { n: '1', t: 'Buy', d: 'Kup HKIDS na DEX' },
-                  { n: '2', t: 'Trade', d: 'Handluj i zarabiaj' },
-                  { n: '3', t: 'Help', d: '5% trafia do portfela dzieci' },
+                  { n: '1', t: 'Buy', d: 'Get HKIDS on a DEX' },
+                  { n: '2', t: 'Trade', d: 'Swap and hold as you like' },
+                  { n: '3', t: 'Help', d: "3% flows to the children's donation wallet" },
                 ].map((step, i) => (
                   <div key={step.n} className="flex flex-1 items-center gap-2 md:max-w-[200px] md:flex-col md:gap-0">
                     <div className="w-full flex-1 rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-4 text-center shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:p-5">
@@ -514,7 +514,7 @@ export default function HopeKidsLandingPage() {
                   <p className="text-xl font-extrabold tabular-nums text-cyan-100 sm:text-2xl">1,000,000,000,000 HKIDS</p>
                   <div className="mt-6 grid grid-cols-3 gap-2">
                     <div className="rounded-xl border border-amber-400/30 bg-black/25 px-1 py-3 text-center sm:px-2">
-                      <div className="text-lg font-extrabold text-amber-300">5%</div>
+                      <div className="text-lg font-extrabold text-amber-300">3%</div>
                       <div className="text-[10px] font-medium leading-tight text-blue-100/70">Children wallet</div>
                     </div>
                     <div className="rounded-xl border border-cyan-400/30 bg-black/25 px-1 py-3 text-center sm:px-2">
