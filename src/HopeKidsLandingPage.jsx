@@ -193,6 +193,81 @@ export default function HopeKidsLandingPage() {
           70% { opacity: 0; }
           100% { transform: translateX(220%) rotate(18deg); opacity: 0; }
         }
+
+        @keyframes hopekids-title-shimmer {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+
+        @keyframes hopekids-aurora-drift {
+          0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.45; }
+          50% { transform: translate(6%, -8%) scale(1.08); opacity: 0.8; }
+        }
+
+        @keyframes hopekids-star-twinkle {
+          0%, 100% { opacity: 0.25; transform: scale(1); }
+          50% { opacity: 0.95; transform: scale(1.35); }
+        }
+
+        @keyframes hopekids-hero-sheen-move {
+          0%, 100% { background-position: 130% 50%; }
+          50% { background-position: -30% 50%; }
+        }
+
+        .hopekids-title-glare {
+          background: linear-gradient(
+            105deg,
+            #fcd34d 0%,
+            #fbbf24 20%,
+            #fef3c7 45%,
+            #f59e0b 55%,
+            #fcd34d 100%
+          );
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation: hopekids-title-shimmer 8s ease-in-out infinite;
+        }
+
+        .hopekids-aurora-a {
+          animation: hopekids-aurora-drift 20s ease-in-out infinite;
+        }
+
+        .hopekids-aurora-b {
+          animation: hopekids-aurora-drift 26s ease-in-out infinite reverse;
+          animation-delay: -8s;
+        }
+
+        .hopekids-hero-sheen {
+          background: linear-gradient(
+            118deg,
+            transparent 0%,
+            rgba(56, 189, 248, 0.12) 42%,
+            rgba(251, 191, 36, 0.06) 50%,
+            transparent 58%
+          );
+          background-size: 240% 240%;
+          animation: hopekids-hero-sheen-move 14s ease-in-out infinite;
+        }
+
+        .hopekids-star {
+          animation: hopekids-star-twinkle 3.2s ease-in-out infinite;
+          box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .hopekids-title-glare,
+          .hopekids-aurora-a,
+          .hopekids-aurora-b,
+          .hopekids-hero-sheen,
+          .hopekids-star {
+            animation: none !important;
+          }
+          .hopekids-title-glare {
+            background-position: 50% 50%;
+          }
+        }
       `}</style>
 
       <div className="min-h-screen text-white bg-[url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06')] bg-cover bg-center bg-fixed">
@@ -200,14 +275,38 @@ export default function HopeKidsLandingPage() {
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,11,31,0.05),rgba(7,26,58,0.08))]" />
           <div className="absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(circle_at_72%_28%,rgba(251,146,60,0.35),transparent_20%),radial-gradient(circle_at_60%_18%,rgba(59,130,246,0.35),transparent_24%)]" />
 
+          <div
+            className="pointer-events-none absolute -left-24 top-[18%] h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl hopekids-aurora-a"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute -right-20 bottom-[22%] h-80 w-80 rounded-full bg-amber-400/18 blur-3xl hopekids-aurora-b"
+            aria-hidden="true"
+          />
+
           <div className="relative z-10 mx-auto max-w-[1180px] px-4 py-4 sm:px-6 lg:px-8">
             <section className="relative overflow-hidden rounded-2xl sm:rounded-[28px] border border-cyan-400/25 bg-[linear-gradient(180deg,rgba(4,10,25,0.25),rgba(3,7,18,0.38))] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.3),0_0_20px_rgba(56,189,248,0.1)] px-4 py-10 sm:px-6 sm:py-14 lg:px-12 lg:py-20">
+              <div
+                className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl sm:rounded-[28px]"
+                aria-hidden="true"
+              >
+                <div className="hopekids-hero-sheen absolute inset-0 opacity-50" />
+              </div>
+              <div
+                className="pointer-events-none absolute left-8 top-12 flex gap-5 sm:left-10 sm:top-16"
+                aria-hidden="true"
+              >
+                <span className="hopekids-star h-1 w-1 rounded-full bg-cyan-200" style={{ animationDelay: '0s' }} />
+                <span className="hopekids-star h-1.5 w-1.5 rounded-full bg-amber-200" style={{ animationDelay: '0.6s' }} />
+                <span className="hopekids-star h-1 w-1 rounded-full bg-cyan-100" style={{ animationDelay: '1.1s' }} />
+                <span className="hopekids-star h-1 w-1 rounded-full bg-amber-100" style={{ animationDelay: '1.8s' }} />
+              </div>
               <div className="absolute bottom-0 left-0 right-0 h-32 bg-[linear-gradient(180deg,transparent,rgba(0,0,0,0.35))]" />
               <div className="absolute right-24 top-10 h-[320px] w-[320px] rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.45),transparent_60%)] blur-2xl animate-pulse" />
 
               <div className="relative z-10 grid items-center gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-10">
                 <div className="text-center lg:text-left">
-                  <h1 className="text-4xl font-extrabold text-amber-400 sm:text-5xl">HopeKids</h1>
+                  <h1 className="hopekids-title-glare text-4xl font-extrabold sm:text-5xl">HopeKids</h1>
 
                   <p className="mt-4 text-lg font-semibold text-blue-100 sm:mt-6 sm:text-2xl">
                     Handluj kryptowalutami. Daj nadzieję.
@@ -226,9 +325,13 @@ export default function HopeKidsLandingPage() {
                       href={JUPITER_BUY_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex justify-center rounded-xl bg-blue-600 px-5 py-3 font-bold transition-all duration-200 hover:scale-[1.03] hover:bg-blue-500 active:scale-[0.98] sm:px-6"
+                      className="group relative inline-flex justify-center overflow-hidden rounded-xl bg-blue-600 px-5 py-3 font-bold shadow-[0_0_24px_rgba(37,99,235,0.35)] transition-all duration-200 hover:scale-[1.03] hover:bg-blue-500 hover:shadow-[0_0_32px_rgba(56,189,248,0.45)] active:scale-[0.98] sm:px-6"
                     >
-                      Buy Token
+                      <span
+                        className="pointer-events-none absolute inset-0 -translate-x-full skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
+                        aria-hidden="true"
+                      />
+                      <span className="relative z-[1]">Buy Token</span>
                     </a>
                   </div>
                 </div>
@@ -309,7 +412,10 @@ export default function HopeKidsLandingPage() {
 
             <section className="mt-6 grid gap-4 md:grid-cols-3">
               {stats.map((item) => (
-                <div key={item.label} className="rounded-2xl border border-cyan-400/25 bg-[#071226]/28 px-4 py-4 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.2),0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:px-6 sm:py-5">
+                <div
+                  key={item.label}
+                  className="rounded-2xl border border-cyan-400/25 bg-[#071226]/28 px-4 py-4 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.2),0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_14px_32px_-8px_rgba(0,0,0,0.25),0_0_28px_rgba(56,189,248,0.2)] sm:px-6 sm:py-5"
+                >
                   <div className="text-xs text-blue-100/72 sm:text-sm">{item.label}</div>
                   <div className="mt-2 flex items-end gap-2 sm:mt-3">
                     <span className="text-2xl font-extrabold tracking-tight sm:text-4xl">{item.value}</span>
