@@ -219,6 +219,47 @@ export default function HopeKidsLandingPage() {
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
         }
 
+        /* Hero illustration: fade into panel (text column + outer card edge) */
+        .hk-hero-art-blend {
+          -webkit-mask-image: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(0, 0, 0, 0.88) 14%,
+            #000 92%,
+            transparent 100%
+          );
+          mask-image: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(0, 0, 0, 0.88) 14%,
+            #000 92%,
+            transparent 100%
+          );
+          -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+        }
+
+        @media (min-width: 1024px) {
+          .hk-hero-art-blend {
+            -webkit-mask-image: linear-gradient(
+              90deg,
+              transparent 0%,
+              rgba(0, 0, 0, 0.94) 5%,
+              #000 90%,
+              transparent 100%
+            );
+            mask-image: linear-gradient(
+              90deg,
+              transparent 0%,
+              rgba(0, 0, 0, 0.94) 5%,
+              #000 90%,
+              transparent 100%
+            );
+          }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .hopekids-title-glare,
           .hopekids-aurora-a,
@@ -308,8 +349,8 @@ export default function HopeKidsLandingPage() {
               <div className="absolute bottom-0 left-0 right-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(0,0,0,0.45))]" />
               <div className="absolute right-10 top-8 h-[280px] w-[280px] rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.35),transparent_58%)] blur-2xl animate-pulse" />
 
-              <div className="relative z-10 grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-                <div className="text-center lg:text-left">
+              <div className="relative z-10 grid items-stretch gap-8 lg:grid-cols-2 lg:gap-6">
+                <div className="flex flex-col justify-center text-center lg:text-left">
                   <h1 className="hopekids-title-glare text-4xl font-extrabold sm:text-5xl lg:text-6xl">HopeKids</h1>
                   <p className="mt-4 text-lg font-semibold leading-snug text-blue-50 sm:mt-5 sm:text-xl lg:text-2xl">
                     Support sick children through cryptocurrency.
@@ -341,12 +382,13 @@ export default function HopeKidsLandingPage() {
                   </div>
                 </div>
 
-                <div className="relative flex min-h-[200px] w-full justify-center lg:min-h-0 lg:items-center lg:justify-end">
-                  <div className="relative z-10 w-full lg:max-w-none">
+                <div className="relative flex w-full">
+                  {/* Bleed into panel padding + soft masks so art merges with card (dark edges → panel bg) */}
+                  <div className="relative z-10 min-h-[min(52vh,380px)] w-full flex-1 overflow-hidden rounded-2xl sm:rounded-[22px] lg:-mb-14 lg:-mr-12 lg:-mt-10 lg:min-h-[min(64vh,520px)] lg:rounded-br-[28px] lg:rounded-tr-[28px] lg:rounded-bl-none lg:rounded-tl-none">
                     <img
                       src={HERO_ILLUSTRATION_SRC}
                       alt="HopeKids hero illustration"
-                      className="block h-auto w-full max-h-[min(85vh,720px)] object-contain object-center"
+                      className="hk-hero-art-blend absolute inset-0 h-full w-full object-cover object-[68%_center] sm:object-[65%_center] lg:object-[62%_center]"
                       loading="eager"
                       decoding="async"
                     />
