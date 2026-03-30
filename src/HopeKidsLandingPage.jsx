@@ -24,7 +24,7 @@ const FALLBACK_MARKET_CAP = '$3,250,000';
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
 
-/** Example spotlight in Buy & trade panel — replace image in public/ or name as needed. */
+/** Example spotlight in Fundraiser panel — replace image in public/ or name as needed. */
 const SPOTLIGHT_CHILD_IMAGE_SRC = '/hopekids-spotlight-child.jpg';
 const SPOTLIGHT_CHILD_NAME = 'Sofia M.';
 
@@ -551,9 +551,10 @@ export default function HopeKidsLandingPage() {
                     <p className="mt-2 text-center text-sm font-semibold text-amber-100/95 sm:text-left">{SPOTLIGHT_CHILD_NAME}</p>
                   </div>
                   <div className="min-w-0 flex-1 text-center sm:text-left">
-                    <div className="text-lg font-extrabold text-amber-200 sm:text-xl">Buy &amp; trade</div>
+                    <div className="text-lg font-extrabold text-amber-200 sm:text-xl">Fundraiser</div>
                     <p className="mt-2 text-sm leading-relaxed text-blue-100/75 sm:text-base">
-                      Get HKIDS on a DEX. Swap and hold as you like — your activity supports the mission.
+                      A HopeKids fundraiser for children who need care. Share the page, donate to the public wallet, or get
+                      HKIDS — every contribution supports the mission.
                     </p>
                     <div
                       className="mt-4 rounded-xl border border-cyan-500/25 bg-black/25 px-3 py-2.5 sm:px-4"
