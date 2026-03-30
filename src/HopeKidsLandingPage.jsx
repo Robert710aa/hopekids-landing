@@ -20,6 +20,11 @@ const HOPEKIDS_TEAM_EMAIL = 'hopekids594@gmail.com';
 
 const FALLBACK_MARKET_CAP = '$3,250,000';
 
+/** Drop your photo in public/ as hopekids-hero-child.jpg (child holding or presenting the token). */
+const HERO_CHILD_IMAGE_PRIMARY = '/hopekids-hero-child.jpg';
+const HERO_CHILD_IMAGE_FALLBACK =
+  'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=900&q=80';
+
 function pickBestPair(pairs) {
   if (!pairs?.length) return null;
   return [...pairs].sort((a, b) => (b.liquidity?.usd ?? 0) - (a.liquidity?.usd ?? 0))[0];
@@ -45,6 +50,7 @@ function formatPriceUsd(raw) {
 export default function HopeKidsLandingPage() {
   const [storyOpen, setStoryOpen] = useState(false);
   const [walletCopied, setWalletCopied] = useState(false);
+  const [heroChildImgSrc, setHeroChildImgSrc] = useState(HERO_CHILD_IMAGE_PRIMARY);
 
   const copyDonationWallet = useCallback(async () => {
     try {
@@ -340,7 +346,7 @@ export default function HopeKidsLandingPage() {
                   </div>
                 </div>
 
-                <div className="relative flex min-h-[260px] justify-center lg:min-h-[320px] lg:justify-end">
+                <div className="relative flex min-h-[280px] justify-center lg:min-h-[380px] lg:justify-end">
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center lg:inset-x-auto lg:right-0 lg:w-full lg:max-w-[440px]" aria-hidden="true">
                     <svg viewBox="0 0 400 260" className="h-[220px] w-full max-w-[400px] sm:h-[260px]" preserveAspectRatio="xMidYMax meet">
                       <defs>
@@ -380,20 +386,35 @@ export default function HopeKidsLandingPage() {
                       </g>
                     </svg>
                   </div>
-                  <div className="relative z-10 flex animate-[float_6s_ease-in-out_infinite] items-center justify-center pt-4">
-                    <div className="relative flex h-[200px] w-[200px] items-center justify-center sm:h-[260px] sm:w-[260px] lg:h-[300px] lg:w-[300px]">
-                      <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,166,0,0.4),transparent_62%)] blur-3xl" />
-                      <div className="relative z-10 h-[170px] w-[170px] overflow-hidden rounded-full sm:h-[210px] sm:w-[210px] lg:h-[250px] lg:w-[250px]">
-                        <div className="pointer-events-none absolute inset-[-18px] rounded-full bg-[radial-gradient(circle,rgba(255,190,80,0.4),transparent_62%)] blur-2xl" />
-                        <img
-                          src="/hopekids-coin.png"
-                          alt="HopeKids Coin"
-                          className="relative z-10 h-full w-full scale-[1.18] object-cover drop-shadow-[0_0_48px_rgba(255,190,80,0.6)]"
-                        />
-                        <div className="pointer-events-none absolute left-1/2 top-[-25%] h-[160%] w-[18%] -translate-x-1/2 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.45),transparent)] blur-md [animation:shineSweep_6s_ease-in-out_infinite]" />
+
+                  <figure className="relative z-10 mx-auto w-full max-w-[min(100%,380px)] lg:mx-0">
+                    <div className="relative aspect-[3/4] w-full overflow-hidden rounded-3xl border border-cyan-400/30 shadow-[0_0_44px_rgba(56,189,248,0.2)] ring-1 ring-white/10">
+                      <img
+                        src={heroChildImgSrc}
+                        alt="HopeKids supports children — our token fuels transparent help"
+                        onError={() => setHeroChildImgSrc(HERO_CHILD_IMAGE_FALLBACK)}
+                        className="h-full w-full object-cover object-[center_22%]"
+                      />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#020617]/95 via-[#020617]/15 to-[#020617]/30" />
+                      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[#0f172a]/90 to-transparent" />
+                      {/* HKIDS coin overlaid like held toward the viewer */}
+                      <div
+                        className="absolute bottom-[5%] left-1/2 z-10 w-[min(42vw,148px)] -translate-x-1/2 sm:bottom-[7%] sm:w-[158px] lg:bottom-[8%] lg:w-[172px] animate-[float_6s_ease-in-out_infinite]"
+                        aria-hidden="true"
+                      >
+                        <div className="relative aspect-square overflow-hidden rounded-full border-2 border-amber-400/60 bg-slate-950/50 shadow-[0_0_40px_rgba(251,191,36,0.55),0_16px_48px_rgba(0,0,0,0.5)] ring-2 ring-amber-200/25 backdrop-blur-[2px]">
+                          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,190,80,0.35),transparent_65%)] blur-xl" />
+                          <img
+                            src="/hopekids-coin.png"
+                            alt=""
+                            className="relative z-[1] h-full w-full scale-[1.12] object-cover drop-shadow-[0_0_24px_rgba(255,190,80,0.5)]"
+                          />
+                          <div className="pointer-events-none absolute left-1/2 top-[-22%] z-[2] h-[150%] w-[22%] -translate-x-1/2 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.42),transparent)] blur-sm [animation:shineSweep_6s_ease-in-out_infinite]" />
+                        </div>
                       </div>
                     </div>
-                  </div>
+                    <figcaption className="sr-only">Child and HopeKids token — every trade supports the public donation wallet</figcaption>
+                  </figure>
                 </div>
               </div>
             </section>
