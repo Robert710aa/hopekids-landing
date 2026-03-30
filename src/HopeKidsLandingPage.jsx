@@ -688,7 +688,7 @@ export default function HopeKidsLandingPage() {
 
             <footer className="border-t-4 border-orange-500 bg-black/20 py-8 text-center text-blue-100/70 sm:py-10">
               <div className="flex flex-col items-center gap-3">
-                <HopeKidsNightMark className="h-12 w-12 opacity-[0.92] sm:h-14 sm:w-14" />
+                <HopeKidsNightMark />
                 <div className="text-2xl font-extrabold text-white sm:text-3xl">HopeKids © 2026</div>
                 <div className="text-base sm:text-lg">Trade crypto. Give hope.</div>
               </div>
