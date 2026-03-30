@@ -6,6 +6,11 @@ const JUPITER_BUY_URL = `https://jup.ag/swap/SOL-${HKIDS_MINT}`;
 const DEXSCREENER_TOKEN_URL = `https://api.dexscreener.com/latest/dex/tokens/${HKIDS_MINT}`;
 /** DexScreener token page shows holders; public API JSON does not include holder count. */
 const DEXSCREENER_TOKEN_PAGE = `https://dexscreener.com/solana/${HKIDS_MINT}`;
+const SOLSCAN_TOKEN_URL = `https://solscan.io/token/${HKIDS_MINT}`;
+
+/** Community links — replace # when official URLs are ready */
+const SOCIAL_TELEGRAM_URL = '#';
+const SOCIAL_X_URL = '#';
 
 /** Public donation wallet (Solana) */
 const PUBLIC_DONATION_WALLET = 'GnhmPt4LBHRoABuGrSqrbPW34Mu8dXGJf1XCNc7DHRAB';
@@ -14,33 +19,6 @@ const PUBLIC_DONATION_WALLET = 'GnhmPt4LBHRoABuGrSqrbPW34Mu8dXGJf1XCNc7DHRAB';
 const HOPEKIDS_TEAM_EMAIL = 'hopekids594@gmail.com';
 
 const FALLBACK_MARKET_CAP = '$3,250,000';
-
-/** 30-day spotlight window; persisted so the countdown does not reset on every refresh. */
-const HELP_SPOTLIGHT_END_KEY = 'hopekids-help-spotlight-end-ms';
-const HELP_SPOTLIGHT_DURATION_MS = 30 * 24 * 60 * 60 * 1000;
-
-/** Demo spotlight child — replace image/name when using a real campaign. */
-const HELP_SPOTLIGHT_CHILD = {
-  name: 'Maja',
-  image:
-    'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=320&h=320&q=80',
-};
-
-function readOrInitSpotlightEndMs() {
-  const now = Date.now();
-  if (typeof window === 'undefined') return now + HELP_SPOTLIGHT_DURATION_MS;
-  try {
-    const raw = window.localStorage.getItem(HELP_SPOTLIGHT_END_KEY);
-    let end = raw ? parseInt(raw, 10) : NaN;
-    if (!Number.isFinite(end) || end <= now) {
-      end = now + HELP_SPOTLIGHT_DURATION_MS;
-      window.localStorage.setItem(HELP_SPOTLIGHT_END_KEY, String(end));
-    }
-    return end;
-  } catch {
-    return now + HELP_SPOTLIGHT_DURATION_MS;
-  }
-}
 
 function pickBestPair(pairs) {
   if (!pairs?.length) return null;
@@ -149,28 +127,10 @@ export default function HopeKidsLandingPage() {
     };
   }, []);
 
-  const [helpCountdown, setHelpCountdown] = useState({ h: 0, m: 0, s: 0 });
-
-  useEffect(() => {
-    const endMs = readOrInitSpotlightEndMs();
-    const tick = () => {
-      const msLeft = Math.max(0, endMs - Date.now());
-      const totalSec = Math.floor(msLeft / 1000);
-      setHelpCountdown({
-        h: Math.floor(totalSec / 3600),
-        m: Math.floor((totalSec % 3600) / 60),
-        s: totalSec % 60,
-      });
-    };
-    tick();
-    const id = window.setInterval(tick, 1000);
-    return () => window.clearInterval(id);
-  }, []);
-
   const stats = [
-    { label: 'Tokens Saved for Children', value: '3,245,678', suffix: 'HKIDS' },
-    { label: 'Current Value', value: '$16,380', suffix: '' },
-    { label: 'Total Transactions Helping Children', value: '15,284', suffix: '' },
+    { label: 'Tokens Saved for Children', value: '2,350,000', suffix: 'HKIDS' },
+    { label: 'Current Value', value: '$14,200', suffix: '' },
+    { label: 'Total Transactions Helping Children', value: '9,482', suffix: '' },
   ];
 
   return (
@@ -270,9 +230,9 @@ export default function HopeKidsLandingPage() {
         }
       `}</style>
 
-      <div className="min-h-screen text-white bg-[url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06')] bg-cover bg-center bg-fixed">
+      <div className="min-h-screen text-white bg-[url('https://images.unsplash.com/photo-1462331940025-896dfbfc877a?auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center bg-fixed">
         <div className="relative overflow-hidden min-h-screen">
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,11,31,0.05),rgba(7,26,58,0.08))]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,18,0.92),rgba(8,20,45,0.82))]" />
           <div className="absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(circle_at_72%_28%,rgba(251,146,60,0.35),transparent_20%),radial-gradient(circle_at_60%_18%,rgba(59,130,246,0.35),transparent_24%)]" />
 
           <div
@@ -284,13 +244,54 @@ export default function HopeKidsLandingPage() {
             aria-hidden="true"
           />
 
-          <div className="relative z-10 mx-auto max-w-[1180px] px-4 py-4 sm:px-6 lg:px-8">
-            <section className="relative overflow-hidden rounded-2xl sm:rounded-[28px] border border-cyan-400/25 bg-[linear-gradient(180deg,rgba(4,10,25,0.25),rgba(3,7,18,0.38))] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.3),0_0_20px_rgba(56,189,248,0.1)] px-4 py-10 sm:px-6 sm:py-14 lg:px-12 lg:py-20">
+          <div className="relative z-10 mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
+            <header className="sticky top-2 z-40 mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/10 bg-[#050a18]/80 px-3 py-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:px-5">
+              <a href="#home" className="flex items-center gap-2.5 text-white">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-amber-400/40 bg-[#0c1828] shadow-[0_0_22px_rgba(251,191,36,0.22)]">
+                  <svg viewBox="0 0 32 32" className="h-6 w-6 text-amber-200" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                    <circle cx="13" cy="12" r="3" />
+                    <circle cx="21" cy="12" r="3" />
+                    <path d="M10 22c2-3.5 6-5 12-3" strokeLinecap="round" />
+                  </svg>
+                </span>
+                <span className="text-lg font-extrabold tracking-tight">HopeKids</span>
+              </a>
+              <nav className="hidden flex-wrap items-center gap-5 text-sm font-semibold text-blue-100/85 md:flex" aria-label="Primary">
+                <a href="#home" className="transition hover:text-white">
+                  Home
+                </a>
+                <a href="#mission" className="transition hover:text-white">
+                  Mission
+                </a>
+                <a href="#tokenomics" className="transition hover:text-white">
+                  Tokenomics
+                </a>
+                <a href="#donations" className="transition hover:text-white">
+                  Donations
+                </a>
+                <a href="#community" className="transition hover:text-white">
+                  Community
+                </a>
+              </nav>
+              <a
+                href={JUPITER_BUY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl bg-blue-600 px-3 py-2 text-xs font-bold text-white shadow-lg transition hover:bg-blue-500 sm:px-4 sm:text-sm"
+              >
+                Buy HKIDS
+              </a>
+            </header>
+
+            <section
+              id="home"
+              className="relative overflow-hidden rounded-2xl sm:rounded-[28px] border border-cyan-400/25 bg-[linear-gradient(180deg,rgba(4,12,28,0.55),rgba(3,8,20,0.72))] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.45),0_0_24px_rgba(56,189,248,0.12)] px-4 py-10 sm:px-6 sm:py-14 lg:px-12 lg:py-16"
+            >
               <div
                 className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl sm:rounded-[28px]"
                 aria-hidden="true"
               >
-                <div className="hopekids-hero-sheen absolute inset-0 opacity-50" />
+                <div className="hopekids-hero-sheen absolute inset-0 opacity-40" />
               </div>
               <div
                 className="pointer-events-none absolute left-8 top-12 flex gap-5 sm:left-10 sm:top-16"
@@ -301,112 +302,99 @@ export default function HopeKidsLandingPage() {
                 <span className="hopekids-star h-1 w-1 rounded-full bg-cyan-100" style={{ animationDelay: '1.1s' }} />
                 <span className="hopekids-star h-1 w-1 rounded-full bg-amber-100" style={{ animationDelay: '1.8s' }} />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 h-32 bg-[linear-gradient(180deg,transparent,rgba(0,0,0,0.35))]" />
-              <div className="absolute right-24 top-10 h-[320px] w-[320px] rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.45),transparent_60%)] blur-2xl animate-pulse" />
+              <div className="absolute bottom-0 left-0 right-0 h-40 bg-[linear-gradient(180deg,transparent,rgba(0,0,0,0.45))]" />
+              <div className="absolute right-10 top-8 h-[280px] w-[280px] rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.35),transparent_58%)] blur-2xl animate-pulse" />
 
-              <div className="relative z-10 grid items-center gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-10">
+              <div className="relative z-10 grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
                 <div className="text-center lg:text-left">
-                  <h1 className="hopekids-title-glare text-4xl font-extrabold sm:text-5xl">HopeKids</h1>
-
-                  <p className="mt-4 text-lg font-semibold text-blue-100 sm:mt-6 sm:text-2xl">
-                    Handluj kryptowalutami. Daj nadzieję.
+                  <h1 className="hopekids-title-glare text-4xl font-extrabold sm:text-5xl lg:text-6xl">HopeKids</h1>
+                  <p className="mt-4 text-lg font-semibold leading-snug text-blue-50 sm:mt-5 sm:text-xl lg:text-2xl">
+                    Trade crypto. Give hope.
                     <br />
-                    Pomóż dzieciom.
+                    Help children.
                   </p>
-
-                  <p className="mt-4 max-w-xl text-blue-200 sm:mt-6 sm:text-base">
-                    Każda transakcja zapisuje tokeny, aby pomóc dzieciom.
-                    <br />
-                    3% każdej transakcji trafia do publicznego portfela darowizn.
+                  <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-blue-100/88 sm:mt-5 sm:text-base lg:mx-0">
+                    Każda transakcja zapisuje tokeny, aby pomóc dzieciom.{' '}
+                    <span className="font-semibold text-amber-200">5%</span> każdej transakcji trafia do publicznego
+                    portfela darowizn.
                   </p>
-
-                  <div className="mt-6 flex justify-center sm:mt-8 lg:justify-start">
+                  <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap lg:justify-start">
                     <a
                       href={JUPITER_BUY_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group relative inline-flex justify-center overflow-hidden rounded-xl bg-blue-600 px-5 py-3 font-bold shadow-[0_0_24px_rgba(37,99,235,0.35)] transition-all duration-200 hover:scale-[1.03] hover:bg-blue-500 hover:shadow-[0_0_32px_rgba(56,189,248,0.45)] active:scale-[0.98] sm:px-6"
+                      className="group relative inline-flex w-full min-w-[200px] justify-center overflow-hidden rounded-xl bg-blue-600 px-6 py-3.5 text-base font-bold shadow-[0_0_28px_rgba(37,99,235,0.4)] transition-all duration-200 hover:scale-[1.02] hover:bg-blue-500 sm:w-auto"
                     >
                       <span
-                        className="pointer-events-none absolute inset-0 -translate-x-full skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
+                        className="pointer-events-none absolute inset-0 -translate-x-full skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
                         aria-hidden="true"
                       />
                       <span className="relative z-[1]">Buy Token</span>
                     </a>
+                    <a
+                      href="#donations"
+                      className="inline-flex w-full min-w-[200px] items-center justify-center rounded-xl border-2 border-amber-400/55 bg-amber-500/10 px-6 py-3.5 text-base font-bold text-amber-100 backdrop-blur transition hover:border-amber-300/70 hover:bg-amber-500/20 sm:w-auto"
+                    >
+                      View Donation Wallet
+                    </a>
                   </div>
                 </div>
 
-                <div className="flex justify-center lg:justify-end animate-[float_6s_ease-in-out_infinite]">
-                  <div className="relative flex h-[220px] w-[220px] items-center justify-center sm:h-[280px] sm:w-[280px] lg:h-[360px] lg:w-[360px]">
-                    <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,166,0,0.32),transparent_62%)] blur-3xl" />
-                    <div className="absolute right-2 top-2 h-[180px] w-[180px] rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.28),transparent_65%)] blur-2xl sm:right-4 sm:top-4 sm:h-[240px] sm:w-[240px] lg:right-6 lg:top-4 lg:h-[300px] lg:w-[300px]" />
-                    <div className="relative z-10 h-[180px] w-[180px] overflow-hidden rounded-full bg-transparent sm:h-[220px] sm:w-[220px] lg:h-[260px] lg:w-[260px]">
-                      <div className="pointer-events-none absolute inset-[-18px] rounded-full bg-[radial-gradient(circle,rgba(255,190,80,0.35),transparent_62%)] blur-2xl" />
-                      <img
-                        src="/hopekids-coin.png"
-                        alt="HopeKids Coin"
-                        className="relative z-10 h-full w-full object-cover scale-[1.18] drop-shadow-[0_0_40px_rgba(255,190,80,0.55)]"
-                      />
-                      <div className="pointer-events-none absolute left-1/2 top-[-25%] h-[160%] w-[18%] -translate-x-1/2 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent)] blur-md [animation:shineSweep_6s_ease-in-out_infinite]" />
+                <div className="relative flex min-h-[260px] justify-center lg:min-h-[320px] lg:justify-end">
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center lg:inset-x-auto lg:right-0 lg:w-full lg:max-w-[440px]" aria-hidden="true">
+                    <svg viewBox="0 0 400 260" className="h-[220px] w-full max-w-[400px] sm:h-[260px]" preserveAspectRatio="xMidYMax meet">
+                      <defs>
+                        <linearGradient id="hkPlanet" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#fb923c" stopOpacity="0.95" />
+                          <stop offset="50%" stopColor="#ea580c" stopOpacity="0.85" />
+                          <stop offset="100%" stopColor="#c2410c" stopOpacity="0.75" />
+                        </linearGradient>
+                        <linearGradient id="hkNight" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stopColor="#0f172a" stopOpacity="0.2" />
+                          <stop offset="100%" stopColor="#020617" stopOpacity="0.85" />
+                        </linearGradient>
+                      </defs>
+                      <ellipse cx="200" cy="310" rx="340" ry="240" fill="url(#hkPlanet)" />
+                      <ellipse cx="200" cy="310" rx="340" ry="240" fill="url(#hkNight)" />
+                      <g fill="#0c1929" opacity="0.92">
+                        <rect x="48" y="168" width="14" height="52" />
+                        <rect x="66" y="152" width="18" height="68" />
+                        <rect x="88" y="178" width="12" height="42" />
+                        <rect x="104" y="140" width="22" height="80" />
+                        <rect x="132" y="160" width="16" height="60" />
+                        <rect x="154" y="128" width="26" height="92" />
+                        <rect x="186" y="172" width="14" height="48" />
+                        <rect x="206" y="148" width="20" height="72" />
+                        <rect x="232" y="168" width="16" height="52" />
+                        <rect x="254" y="138" width="24" height="82" />
+                        <rect x="284" y="176" width="12" height="44" />
+                        <rect x="302" y="156" width="18" height="64" />
+                        <rect x="326" y="182" width="10" height="38" />
+                      </g>
+                      <g fill="#fbbf24" opacity="0.35">
+                        <rect x="70" y="158" width="3" height="3" />
+                        <rect x="112" y="148" width="3" height="3" />
+                        <rect x="162" y="134" width="3" height="3" />
+                        <rect x="220" y="154" width="3" height="3" />
+                        <rect x="268" y="146" width="3" height="3" />
+                      </g>
+                    </svg>
+                  </div>
+                  <div className="relative z-10 flex animate-[float_6s_ease-in-out_infinite] items-center justify-center pt-4">
+                    <div className="relative flex h-[200px] w-[200px] items-center justify-center sm:h-[260px] sm:w-[260px] lg:h-[300px] lg:w-[300px]">
+                      <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(255,166,0,0.4),transparent_62%)] blur-3xl" />
+                      <div className="relative z-10 h-[170px] w-[170px] overflow-hidden rounded-full sm:h-[210px] sm:w-[210px] lg:h-[250px] lg:w-[250px]">
+                        <div className="pointer-events-none absolute inset-[-18px] rounded-full bg-[radial-gradient(circle,rgba(255,190,80,0.4),transparent_62%)] blur-2xl" />
+                        <img
+                          src="/hopekids-coin.png"
+                          alt="HopeKids Coin"
+                          className="relative z-10 h-full w-full scale-[1.18] object-cover drop-shadow-[0_0_48px_rgba(255,190,80,0.6)]"
+                        />
+                        <div className="pointer-events-none absolute left-1/2 top-[-25%] h-[160%] w-[18%] -translate-x-1/2 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.45),transparent)] blur-md [animation:shineSweep_6s_ease-in-out_infinite]" />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Social icons — full width under hero */}
-              <div className="relative z-10 mt-8 grid w-full grid-cols-2 gap-2 sm:mt-10 sm:grid-cols-4 sm:gap-3">
-                <a
-                  href="#"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)] active:scale-[0.98]"
-                  aria-label="TikTok"
-                >
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(56,189,248,0.18)]">
-                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-cyan-300" fill="currentColor" aria-hidden="true">
-                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
-                    </svg>
-                  </span>
-                  <span className="text-[10px] font-semibold leading-none">TikTok</span>
-                </a>
-
-                <a
-                  href="#"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)] active:scale-[0.98]"
-                  aria-label="Twitter / X"
-                >
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(148,163,184,0.16)]">
-                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-slate-200" fill="currentColor" aria-hidden="true">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
-                  </span>
-                  <span className="text-[10px] font-semibold leading-none">Twitter</span>
-                </a>
-
-                <a
-                  href="#"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)] active:scale-[0.98]"
-                  aria-label="DexScreener"
-                >
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(34,211,238,0.14)]">
-                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-emerald-200" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <path d="M4 16l5-5 4 4 7-7" />
-                      <path d="M20 7v6h-6" />
-                    </svg>
-                  </span>
-                  <span className="text-[10px] font-semibold leading-none">DexScreener</span>
-                </a>
-
-                <a
-                  href="#"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-lg border border-cyan-400/25 bg-[#061126]/28 px-1.5 py-2 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/40 hover:bg-[#071a35]/35 hover:shadow-[0_0_18px_rgba(56,189,248,0.18)] active:scale-[0.98]"
-                  aria-label="Instagram"
-                >
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/5 shadow-[0_0_12px_rgba(236,72,153,0.2)]">
-                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-pink-300" fill="currentColor" aria-hidden="true">
-                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                    </svg>
-                  </span>
-                  <span className="text-[10px] font-semibold leading-none">Instagram</span>
-                </a>
               </div>
             </section>
 
@@ -427,111 +415,131 @@ export default function HopeKidsLandingPage() {
 
             {/* removed: Where HopeKids Helps / Trade cards */}
 
-            <section className="mt-6 grid grid-cols-1 gap-4 sm:mt-8 sm:grid-cols-2 lg:grid-cols-3">
-              <button
-                type="button"
-                onClick={() => setStoryOpen(true)}
-                className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 text-left shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:border-cyan-400/45 hover:bg-[#071a35]/40 hover:shadow-[0_0_22px_rgba(56,189,248,0.18)] active:scale-[0.99] sm:p-5"
-              >
-                <div className="text-2xl sm:text-3xl" aria-hidden="true">
-                  ✨
-                </div>
-                <div className="mt-2 text-2xl font-extrabold sm:mt-3 sm:text-[32px]">What is HopeKids?</div>
-                <p className="mt-1 text-sm text-blue-100/74 sm:mt-2 sm:text-base">
-                  A movement of hope — tap to read our full story.
-                </p>
-                <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-cyan-300/70">Open</p>
-              </button>
-              <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-5">
-                <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
-                  <div className="relative shrink-0">
-                    <img
-                      src={HELP_SPOTLIGHT_CHILD.image}
-                      alt={HELP_SPOTLIGHT_CHILD.name}
-                      width={112}
-                      height={112}
-                      className="h-28 w-28 rounded-2xl object-cover ring-2 ring-amber-400/35 shadow-[0_0_24px_rgba(251,191,36,0.2)]"
-                    />
-                    <span
-                      className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-full bg-amber-400/90 text-lg shadow-md"
-                      aria-hidden="true"
-                    >
-                      💛
-                    </span>
-                  </div>
-                  <div className="min-w-0 flex-1 text-center sm:text-left">
-                    <div className="text-2xl font-extrabold sm:text-[28px]">Help</div>
-                    <p className="mt-1 text-lg font-semibold text-amber-200/95">{HELP_SPOTLIGHT_CHILD.name}</p>
-                    <p className="mt-1 text-sm text-blue-100/74 sm:text-base">
-                      Help children with every transaction — this month we highlight {HELP_SPOTLIGHT_CHILD.name}.
-                    </p>
-                    <div
-                      className="mt-4 rounded-xl border border-cyan-400/25 bg-[#08172f]/55 px-3 py-3 shadow-[inset_0_0_20px_rgba(56,189,248,0.06)]"
-                      aria-live="polite"
-                    >
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-cyan-300/75">
-                        30-day window · time left (hours)
-                      </p>
-                      <p className="mt-2 font-mono text-3xl font-extrabold tabular-nums tracking-tight text-cyan-100 sm:text-4xl">
-                        {helpCountdown.h}
-                        <span className="text-lg font-bold text-cyan-200/80 sm:text-xl">h</span>{' '}
-                        {String(helpCountdown.m).padStart(2, '0')}
-                        <span className="text-lg font-bold text-cyan-200/80 sm:text-xl">m</span>{' '}
-                        {String(helpCountdown.s).padStart(2, '0')}
-                        <span className="text-lg font-bold text-cyan-200/80 sm:text-xl">s</span>
-                      </p>
-                      <p className="mt-1 text-xs text-blue-100/55">
-                        Counts down from 30 days (720h) to 0 for this spotlight.
-                      </p>
+            <section className="mt-8 scroll-mt-28" aria-labelledby="how-heading">
+              <h2 id="how-heading" className="text-center text-2xl font-extrabold text-white sm:text-3xl">
+                How HopeKids Works
+              </h2>
+              <div className="mt-6 flex flex-col items-stretch gap-4 md:flex-row md:justify-center md:gap-1">
+                {[
+                  { n: '1', t: 'Buy', d: 'Kup HKIDS na DEX' },
+                  { n: '2', t: 'Trade', d: 'Handluj i zarabiaj' },
+                  { n: '3', t: 'Help', d: '5% trafia do portfela dzieci' },
+                ].map((step, i) => (
+                  <div key={step.n} className="flex flex-1 items-center gap-2 md:max-w-[200px] md:flex-col md:gap-0">
+                    <div className="w-full flex-1 rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-4 text-center shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:p-5">
+                      <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-amber-400/35 to-cyan-500/35 text-lg font-bold text-white">
+                        {step.n}
+                      </div>
+                      <div className="mt-2 text-lg font-extrabold text-amber-200">{step.t}</div>
+                      <p className="mt-1 text-sm text-blue-100/75">{step.d}</p>
                     </div>
+                    {i < 2 ? (
+                      <span className="hidden shrink-0 self-center px-1 text-2xl text-cyan-400/50 md:inline" aria-hidden="true">
+                        →
+                      </span>
+                    ) : null}
                   </div>
-                </div>
+                ))}
               </div>
-              {/* removed: Impact card */}
-              <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-5 sm:col-span-2 lg:col-span-1">
-                <div className="text-xs text-blue-100/72 sm:text-sm">Market Cap</div>
-                <div className="mt-2 text-3xl font-extrabold tabular-nums sm:mt-3 sm:text-4xl">
-                  {tokenStats.loading
-                    ? '…'
-                    : tokenStats.marketCapUsd != null
-                      ? formatUsdCompact(tokenStats.marketCapUsd)
-                      : FALLBACK_MARKET_CAP}
-                </div>
-                <div className="mt-2 space-y-0.5 text-sm text-blue-100/74 sm:mt-3">
-                  {tokenStats.priceUsd ? (
-                    <div>
-                      Price: <span className="font-semibold text-blue-100/90">{tokenStats.priceUsd}</span>
+            </section>
+
+            <section id="tokenomics" className="mt-10 scroll-mt-28" aria-labelledby="tok-heading">
+              <h2 id="tok-heading" className="sr-only">
+                Tokenomics and roadmap
+              </h2>
+              <div className="grid gap-6 lg:grid-cols-2">
+                <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/35 p-5 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-6">
+                  <div className="text-xl font-extrabold text-white">Tokenomics</div>
+                  <p className="mt-3 text-sm text-blue-100/75">Total supply</p>
+                  <p className="text-xl font-extrabold tabular-nums text-cyan-100 sm:text-2xl">1,000,000,000,000 HKIDS</p>
+                  <div className="mt-6 grid grid-cols-3 gap-2">
+                    <div className="rounded-xl border border-amber-400/30 bg-black/25 px-1 py-3 text-center sm:px-2">
+                      <div className="text-lg font-extrabold text-amber-300">5%</div>
+                      <div className="text-[10px] font-medium leading-tight text-blue-100/70">Children wallet</div>
                     </div>
-                  ) : null}
-                  {tokenStats.liquidityUsd ? (
-                    <div>
-                      DEX liquidity:{' '}
-                      <span className="font-semibold text-blue-100/90">{tokenStats.liquidityUsd}</span>
+                    <div className="rounded-xl border border-cyan-400/30 bg-black/25 px-1 py-3 text-center sm:px-2">
+                      <div className="text-lg font-extrabold text-cyan-200">2%</div>
+                      <div className="text-[10px] font-medium leading-tight text-blue-100/70">Marketing</div>
                     </div>
-                  ) : null}
-                  <div className="mt-2 pt-0.5">
+                    <div className="rounded-xl border border-violet-400/30 bg-black/25 px-1 py-3 text-center sm:px-2">
+                      <div className="text-lg font-extrabold text-violet-200">1%</div>
+                      <div className="text-[10px] font-medium leading-tight text-blue-100/70">Development</div>
+                    </div>
+                  </div>
+                  <div className="mt-4 rounded-xl border border-white/10 bg-black/20 p-3 text-sm text-blue-100/85">
+                    <span className="text-blue-100/55">Live market cap: </span>
+                    {tokenStats.loading
+                      ? '…'
+                      : tokenStats.marketCapUsd != null
+                        ? formatUsdCompact(tokenStats.marketCapUsd)
+                        : FALLBACK_MARKET_CAP}
+                    {tokenStats.priceUsd ? (
+                      <span className="mt-1 block text-xs text-blue-100/60">Price: {tokenStats.priceUsd}</span>
+                    ) : null}
                     <a
                       href={tokenStats.dexscreenerUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[12px] font-semibold text-cyan-300/90 underline decoration-cyan-400/35 underline-offset-2 hover:text-cyan-200"
+                      className="mt-2 inline-block text-xs font-semibold text-cyan-300/90 underline hover:text-cyan-200"
                     >
-                      Holders on DexScreener ↗
+                      DexScreener ↗
                     </a>
                   </div>
-                  {!tokenStats.loading && (tokenStats.priceUsd || tokenStats.liquidityUsd) ? (
-                    <div className="text-[11px] text-blue-100/55">
-                      Market data: DexScreener API · refreshes about every 90s
-                    </div>
-                  ) : null}
-                  {!tokenStats.loading && !tokenStats.priceUsd && !tokenStats.liquidityUsd ? (
-                    <div className="text-blue-100/60">No DEX pair — fallback market cap shown above</div>
-                  ) : null}
+                  <a
+                    href={SOLSCAN_TOKEN_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex rounded-xl border border-cyan-400/40 bg-blue-600/90 px-4 py-2.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(37,99,235,0.35)] transition hover:bg-blue-500"
+                  >
+                    View on Solscan
+                  </a>
+                </div>
+                <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/35 p-5 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-6">
+                  <div className="text-xl font-extrabold text-white">Roadmap</div>
+                  <ul className="relative mt-6 space-y-6 border-l border-cyan-500/35 pl-6">
+                    <li className="relative">
+                      <span className="absolute -left-[29px] top-1.5 h-3 w-3 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400 shadow-[0_0_10px_rgba(56,189,248,0.75)]" />
+                      <div className="font-bold text-amber-200/95">Wallet address</div>
+                      <p className="break-all font-mono text-xs text-blue-100/70 sm:text-sm">{PUBLIC_DONATION_WALLET}</p>
+                    </li>
+                    <li className="relative">
+                      <span className="absolute -left-[29px] top-1.5 h-3 w-3 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400 shadow-[0_0_10px_rgba(56,189,248,0.75)]" />
+                      <div className="font-bold text-amber-200/95">2026</div>
+                      <p className="text-sm text-blue-100/72">Website + donation system</p>
+                    </li>
+                    <li className="relative">
+                      <span className="absolute -left-[29px] top-1.5 h-3 w-3 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400 shadow-[0_0_10px_rgba(56,189,248,0.75)]" />
+                      <div className="font-bold text-amber-200/95">2026</div>
+                      <p className="text-sm text-blue-100/72">Community growth</p>
+                    </li>
+                    <li className="relative">
+                      <span className="absolute -left-[29px] top-1.5 h-3 w-3 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400 shadow-[0_0_10px_rgba(56,189,248,0.75)]" />
+                      <div className="font-bold text-amber-200/95">2027</div>
+                      <p className="text-sm text-blue-100/72">Global charity partnerships</p>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </section>
 
-            <section className="mt-6 sm:mt-8">
+            <section id="mission" className="mt-8 scroll-mt-28">
+              <button
+                type="button"
+                onClick={() => setStoryOpen(true)}
+                className="w-full rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-5 text-left shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:border-cyan-400/45 hover:bg-[#071a35]/40 hover:shadow-[0_0_22px_rgba(56,189,248,0.18)] active:scale-[0.99] sm:p-6"
+              >
+                <div className="text-2xl sm:text-3xl" aria-hidden="true">
+                  ✨
+                </div>
+                <div className="mt-2 text-2xl font-extrabold sm:text-3xl">Mission — What is HopeKids?</div>
+                <p className="mt-2 text-sm text-blue-100/74 sm:text-base">
+                  A movement of hope — tap to read our full story.
+                </p>
+                <p className="mt-3 text-[11px] font-semibold uppercase tracking-wide text-cyan-300/70">Open</p>
+              </button>
+            </section>
+
+            <section className="mt-6 sm:mt-8" id="donations">
               <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:rounded-[26px] sm:p-6">
                 <div className="text-2xl font-extrabold sm:text-[34px]">Transparency</div>
                 <div className="mt-4 rounded-2xl border border-cyan-400/20 bg-[#08172f]/50 p-4 shadow-[0_0_12px_rgba(56,189,248,0.1)] sm:mt-5 sm:p-5">
@@ -567,6 +575,70 @@ export default function HopeKidsLandingPage() {
               </div>
             </section>
 
+            <section id="community" className="mt-8 scroll-mt-28 sm:mt-10" aria-labelledby="community-heading">
+              <h2 id="community-heading" className="text-center text-2xl font-extrabold text-white sm:text-3xl">
+                Community
+              </h2>
+              <p className="mx-auto mt-2 max-w-lg text-center text-sm text-blue-100/75">
+                Join the conversation — Telegram, X, charts, and on-chain proof.
+              </p>
+              <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
+                <a
+                  href={SOCIAL_TELEGRAM_URL}
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
+                  aria-label="Telegram"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sky-500/25 shadow-[0_0_14px_rgba(14,165,233,0.35)]">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-sky-200" fill="currentColor" aria-hidden="true">
+                      <path d="M21.5 4.5L2.5 11.2c-1.1.4-1.1 1.1-.2 1.5l4.7 1.5 1.8 5.5c.2.6.9.7 1.3.3l2.4-2.2 5 3.7c.6.4 1.2.2 1.4-.5l3.5-16.5c.2-.9-.3-1.3-1-.9zM17.8 7.3l-9.8 9.1c-.2.2-.4.5-.4.8l-.3 2.8c0 .3-.3.4-.5.2l-1.1-3.8 10.1-9.4c.4-.4-.1-.7-.3-.5z" />
+                    </svg>
+                  </span>
+                  <span className="text-[11px] font-semibold">Telegram</span>
+                </a>
+                <a
+                  href={SOCIAL_X_URL}
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
+                  aria-label="Twitter / X"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/8 shadow-[0_0_12px_rgba(148,163,184,0.2)]">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-slate-100" fill="currentColor" aria-hidden="true">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                  </span>
+                  <span className="text-[11px] font-semibold">Twitter</span>
+                </a>
+                <a
+                  href={tokenStats.dexscreenerUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
+                  aria-label="DexScreener"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/15 shadow-[0_0_12px_rgba(52,211,153,0.25)]">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-200" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <path d="M4 16l5-5 4 4 7-7" />
+                      <path d="M20 7v6h-6" />
+                    </svg>
+                  </span>
+                  <span className="text-[11px] font-semibold">DexScreener</span>
+                </a>
+                <a
+                  href={SOLSCAN_TOKEN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
+                  aria-label="Solscan"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-violet-500/15 shadow-[0_0_12px_rgba(167,139,250,0.25)]">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 text-violet-200" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                  </span>
+                  <span className="text-[11px] font-semibold">Solscan</span>
+                </a>
+              </div>
+            </section>
+
             <section className="mt-6 sm:mt-8" id="contact" aria-labelledby="contact-heading">
               <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:rounded-[26px] sm:p-6">
                 <h2 id="contact-heading" className="text-2xl font-extrabold sm:text-[34px]">
@@ -590,7 +662,7 @@ export default function HopeKidsLandingPage() {
               </div>
             </section>
 
-            <footer className="py-8 text-center text-blue-100/70 sm:py-10">
+            <footer className="border-t-4 border-orange-500 bg-black/20 py-8 text-center text-blue-100/70 sm:py-10">
               <div className="text-2xl font-extrabold text-white sm:text-3xl">HopeKids © 2026</div>
               <div className="mt-1 text-base sm:mt-2 sm:text-lg">Trade crypto. Give hope.</div>
             </footer>
