@@ -23,8 +23,8 @@ const FALLBACK_MARKET_CAP = '$3,250,000';
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
 
-/** Dark night-sky mark with dim stars and a sombre expression — secondary brand accent */
-function HopeKidsNightMark({ className = 'h-10 w-10 sm:h-11 sm:w-11' }) {
+/** Dark night-sky mark with dim stars and a sombre expression — site logo */
+function HopeKidsNightMark({ className = 'h-12 w-12 sm:h-14 sm:w-14' }) {
   return (
     <svg
       viewBox="0 0 48 48"
@@ -346,7 +346,7 @@ export default function HopeKidsLandingPage() {
 
               <header className="sticky top-2 z-50 flex flex-wrap items-center justify-between gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3 lg:px-10">
               <a href="#home" className="flex items-center gap-3 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-                <span className="flex shrink-0 rounded-2xl shadow-[0_0_28px_rgba(0,0,0,0.55)] ring-1 ring-slate-500/25">
+                <span className="flex shrink-0 rounded-2xl shadow-[0_0_36px_rgba(251,191,36,0.2),0_0_28px_rgba(0,0,0,0.55)] ring-2 ring-amber-400/45 ring-offset-2 ring-offset-[rgba(2,4,12,0.4)]">
                   <HopeKidsNightMark />
                 </span>
                 <span className="text-lg font-extrabold tracking-tight">HopeKids</span>
@@ -387,9 +387,14 @@ export default function HopeKidsLandingPage() {
                 className="relative z-10 border-0 bg-transparent px-4 py-7 shadow-none sm:px-6 sm:py-9 lg:px-10 lg:pb-11 lg:pt-9"
               >
                 <div className="relative z-10 mx-auto flex max-w-xl flex-col justify-center text-center sm:max-w-lg lg:mx-0 lg:max-w-[min(100%,28rem)] lg:text-left">
-                  <h1 className="hopekids-title-glare text-4xl font-extrabold drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-6xl">
-                    HopeKids
-                  </h1>
+                  <div className="mb-5 flex flex-col items-center gap-4 sm:mb-6 lg:flex-row lg:items-center lg:justify-start lg:gap-6">
+                    <span className="shrink-0 rounded-2xl shadow-[0_0_40px_rgba(251,191,36,0.22),0_0_32px_rgba(0,0,0,0.5)] ring-2 ring-amber-400/45 ring-offset-2 ring-offset-[rgba(3,5,12,0.5)]">
+                      <HopeKidsNightMark className="h-[4.5rem] w-[4.5rem] sm:h-20 sm:w-20 lg:h-[5.25rem] lg:w-[5.25rem]" />
+                    </span>
+                    <h1 className="hopekids-title-glare text-4xl font-extrabold drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-6xl">
+                      HopeKids
+                    </h1>
+                  </div>
                   <p className="mt-4 text-lg font-semibold leading-snug text-amber-50 drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)] sm:mt-5 sm:text-xl lg:text-2xl">
                     Support sick children through cryptocurrency.
                   </p>
