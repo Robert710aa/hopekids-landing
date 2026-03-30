@@ -23,10 +23,12 @@ const FALLBACK_MARKET_CAP = '$3,250,000';
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
 
-/** Polished night mark with gold star — pairs with public/favicon.svg */
+/** Earth seen from space — pairs with public/favicon.svg */
 function HopeKidsBrandMark({ className = 'h-9 w-9 sm:h-10 sm:w-10' }) {
   const uid = useId().replace(/:/g, '');
-  const gid = `hkbrand-${uid}`;
+  const space = `hks-${uid}`;
+  const ocean = `hko-${uid}`;
+  const clip = `hkc-${uid}`;
   return (
     <svg
       viewBox="0 0 48 48"
@@ -36,22 +38,35 @@ function HopeKidsBrandMark({ className = 'h-9 w-9 sm:h-10 sm:w-10' }) {
       aria-hidden="true"
     >
       <defs>
-        <linearGradient id={gid} x1="6" y1="4" x2="42" y2="44" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#1e293b" />
-          <stop offset="0.5" stopColor="#1e1b4b" />
-          <stop offset="1" stopColor="#0a0e1a" />
+        <linearGradient id={space} x1="4" y1="2" x2="44" y2="46" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#020617" />
+          <stop offset="0.55" stopColor="#0f172a" />
+          <stop offset="1" stopColor="#020617" />
         </linearGradient>
+        <radialGradient id={ocean} cx="22" cy="20" r="17" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#bae6fd" />
+          <stop offset="0.28" stopColor="#38bdf8" />
+          <stop offset="0.55" stopColor="#0284c7" />
+          <stop offset="0.85" stopColor="#075985" />
+          <stop offset="1" stopColor="#0c4a6e" />
+        </radialGradient>
+        <clipPath id={clip}>
+          <circle cx="24" cy="24" r="13" />
+        </clipPath>
       </defs>
-      <rect width="48" height="48" rx="14" fill={`url(#${gid})`} />
-      <rect x="0.5" y="0.5" width="47" height="47" rx="13.5" stroke="rgba(251, 191, 36, 0.28)" />
-      <circle cx="13" cy="14" r="1" fill="#e2e8f0" opacity="0.32" />
-      <circle cx="36" cy="11" r="0.75" fill="#fde68a" opacity="0.35" />
-      <circle cx="34" cy="36" r="0.65" fill="#94a3b8" opacity="0.26" />
-      <path
-        d="M24 16.5l1.35 3.5h3.65l-2.9 2.15 1.1 3.55L24 24.85l-2.95 2.25 1.15-3.55-2.95-2.15h3.65z"
-        fill="#fbbf24"
-        opacity="0.96"
-      />
+      <rect width="48" height="48" rx="14" fill={`url(#${space})`} />
+      <circle cx="9" cy="11" r="0.65" fill="#e2e8f0" opacity="0.5" />
+      <circle cx="39" cy="9" r="0.5" fill="#fff" opacity="0.38" />
+      <circle cx="41" cy="36" r="0.45" fill="#cbd5e1" opacity="0.32" />
+      <g clipPath={`url(#${clip})`}>
+        <circle cx="24" cy="24" r="13" fill={`url(#${ocean})`} />
+        <ellipse cx="21" cy="20" rx="6.2" ry="4.8" fill="#15803d" opacity="0.9" transform="rotate(-22 21 20)" />
+        <ellipse cx="29" cy="25.5" rx="4.2" ry="5.8" fill="#166534" opacity="0.92" transform="rotate(15 29 25.5)" />
+        <ellipse cx="16.5" cy="26" rx="3.8" ry="5.2" fill="#14532d" opacity="0.85" transform="rotate(-10 16.5 26)" />
+      </g>
+      <circle cx="24" cy="24" r="13" fill="none" stroke="rgba(125, 211, 252, 0.5)" strokeWidth="0.75" />
+      <circle cx="24" cy="24" r="14.8" fill="none" stroke="rgba(56, 189, 248, 0.16)" strokeWidth="1.8" />
+      <rect x="0.5" y="0.5" width="47" height="47" rx="13.5" stroke="rgba(251, 191, 36, 0.24)" />
     </svg>
   );
 }
