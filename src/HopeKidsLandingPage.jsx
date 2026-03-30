@@ -233,10 +233,10 @@ export default function HopeKidsLandingPage() {
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
         }
 
-        /* Full-page backdrop: readable stars + visible amber/violet glows (still no cyan wash) */
+        /* Full-page backdrop: strong starfield + bold warm/cool glows */
         @keyframes hopekids-legacy-twinkle {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.82; }
+          50% { opacity: 0.92; }
         }
 
         .hopekids-legacy-stars {
@@ -244,15 +244,39 @@ export default function HopeKidsLandingPage() {
           inset: 0;
           z-index: 0;
           background-image:
-            radial-gradient(2.5px 2.5px at 20px 30px, rgba(255, 253, 245, 0.88), transparent),
-            radial-gradient(2px 2px at 40px 70px, rgba(252, 211, 77, 0.55), transparent),
-            radial-gradient(2.5px 2.5px at 50px 160px, rgba(255, 255, 255, 0.75), transparent),
-            radial-gradient(2px 2px at 90px 40px, rgba(253, 230, 138, 0.45), transparent),
-            radial-gradient(2px 2px at 130px 80px, rgba(255, 255, 255, 0.6), transparent),
-            radial-gradient(2px 2px at 160px 120px, rgba(255, 255, 255, 0.5), transparent),
-            radial-gradient(1.5px 1.5px at 175px 45px, rgba(254, 243, 199, 0.4), transparent);
-          background-size: 176px 176px;
+            radial-gradient(3px 3px at 12px 24px, rgba(255, 255, 255, 0.95), transparent),
+            radial-gradient(2px 2px at 38px 58px, rgba(252, 211, 77, 0.85), transparent),
+            radial-gradient(2.5px 2.5px at 62px 18px, rgba(255, 253, 245, 0.9), transparent),
+            radial-gradient(2px 2px at 84px 92px, rgba(255, 255, 255, 0.75), transparent),
+            radial-gradient(2px 2px at 104px 36px, rgba(253, 230, 138, 0.8), transparent),
+            radial-gradient(3px 3px at 118px 72px, rgba(255, 255, 255, 0.88), transparent),
+            radial-gradient(1.5px 1.5px at 132px 14px, rgba(254, 243, 199, 0.7), transparent),
+            radial-gradient(2px 2px at 24px 108px, rgba(255, 255, 255, 0.65), transparent),
+            radial-gradient(2px 2px at 52px 128px, rgba(252, 211, 77, 0.55), transparent),
+            radial-gradient(2.5px 2.5px at 76px 142px, rgba(255, 255, 255, 0.82), transparent),
+            radial-gradient(1.5px 1.5px at 96px 118px, rgba(255, 255, 255, 0.55), transparent),
+            radial-gradient(2px 2px at 128px 138px, rgba(253, 224, 71, 0.65), transparent);
+          background-size: 140px 140px;
           animation: hopekids-legacy-twinkle 8s ease-in-out infinite;
+        }
+
+        /* Second star tile, offset — doubles visible density */
+        .hopekids-legacy-stars2 {
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          opacity: 0.92;
+          background-image:
+            radial-gradient(2px 2px at 70px 22px, rgba(255, 255, 255, 0.7), transparent),
+            radial-gradient(2.5px 2.5px at 28px 88px, rgba(255, 255, 255, 0.85), transparent),
+            radial-gradient(2px 2px at 108px 104px, rgba(251, 191, 36, 0.6), transparent),
+            radial-gradient(1.5px 1.5px at 48px 48px, rgba(255, 255, 255, 0.5), transparent),
+            radial-gradient(2px 2px at 88px 60px, rgba(254, 240, 138, 0.72), transparent),
+            radial-gradient(2px 2px at 14px 132px, rgba(255, 255, 255, 0.68), transparent);
+          background-size: 140px 140px;
+          background-position: 70px 35px;
+          animation: hopekids-legacy-twinkle 11s ease-in-out infinite;
+          animation-delay: -2s;
         }
 
         .hopekids-legacy-gradient {
@@ -260,11 +284,12 @@ export default function HopeKidsLandingPage() {
           inset: 0;
           z-index: 0;
           background:
-            radial-gradient(ellipse 95% 50% at 50% 105%, rgba(0, 0, 0, 0.32) 0%, transparent 55%),
-            radial-gradient(ellipse 78% 52% at 88% 6%, rgba(245, 158, 11, 0.2) 0%, transparent 50%),
-            radial-gradient(ellipse 62% 48% at 8% 88%, rgba(124, 58, 237, 0.14) 0%, transparent 48%),
-            radial-gradient(ellipse 55% 42% at 70% 38%, rgba(49, 46, 129, 0.22) 0%, transparent 46%),
-            linear-gradient(165deg, #06080f 0%, #111827 32%, #0c101c 68%, #05070d 100%);
+            radial-gradient(ellipse 90% 48% at 50% 108%, rgba(0, 0, 0, 0.22) 0%, transparent 52%),
+            radial-gradient(ellipse 85% 58% at 92% 4%, rgba(251, 191, 36, 0.38) 0%, transparent 45%),
+            radial-gradient(ellipse 70% 55% at 4% 92%, rgba(167, 139, 250, 0.28) 0%, transparent 42%),
+            radial-gradient(ellipse 60% 50% at 68% 35%, rgba(67, 56, 202, 0.35) 0%, transparent 40%),
+            radial-gradient(ellipse 45% 40% at 40% 20%, rgba(120, 53, 15, 0.12) 0%, transparent 50%),
+            linear-gradient(165deg, #0a0f1a 0%, #1e293b 28%, #141c2e 62%, #080b14 100%);
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -274,7 +299,8 @@ export default function HopeKidsLandingPage() {
           .hopekids-hero-sheen,
           .hopekids-cinema-sheen,
           .hopekids-star,
-          .hopekids-legacy-stars {
+          .hopekids-legacy-stars,
+          .hopekids-legacy-stars2 {
             animation: none !important;
           }
           .hopekids-title-glare {
@@ -283,9 +309,11 @@ export default function HopeKidsLandingPage() {
         }
       `}</style>
 
-      <div className="relative min-h-screen bg-[#070910] text-white">
-        <div className="hopekids-legacy-stars pointer-events-none" aria-hidden="true" />
+      <div className="relative min-h-screen bg-[#0a0f1a] text-white">
+        {/* Gradient first so stars paint on top and stay visible */}
         <div className="hopekids-legacy-gradient pointer-events-none" aria-hidden="true" />
+        <div className="hopekids-legacy-stars pointer-events-none" aria-hidden="true" />
+        <div className="hopekids-legacy-stars2 pointer-events-none" aria-hidden="true" />
         <div className="relative z-10 min-h-screen overflow-x-hidden">
           <div className="mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
             {/* Full-bleed artwork: entire upper panel = one scene (nav + hero on top of art) */}
