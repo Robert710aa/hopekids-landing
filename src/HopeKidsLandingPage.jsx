@@ -611,7 +611,7 @@ export default function HopeKidsLandingPage() {
                 <div className="text-2xl sm:text-3xl" aria-hidden="true">
                   ✨
                 </div>
-                <div className="mt-2 text-2xl font-extrabold sm:text-3xl">Mission — What is HopeKids?</div>
+                <div className="mt-2 text-2xl font-extrabold text-amber-200 sm:text-3xl">Mission — What is HopeKids?</div>
                 <p className="mt-2 text-sm text-blue-100/74 sm:text-base">
                   A movement of hope — tap to read our full story.
                 </p>
