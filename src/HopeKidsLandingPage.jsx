@@ -233,10 +233,10 @@ export default function HopeKidsLandingPage() {
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
         }
 
-        /* Full-page backdrop: deep night + amber hope accent + faint violet (not cyan-washed) */
+        /* Full-page backdrop: readable stars + visible amber/violet glows (still no cyan wash) */
         @keyframes hopekids-legacy-twinkle {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.72; }
+          50% { opacity: 0.82; }
         }
 
         .hopekids-legacy-stars {
@@ -244,13 +244,14 @@ export default function HopeKidsLandingPage() {
           inset: 0;
           z-index: 0;
           background-image:
-            radial-gradient(2px 2px at 20px 30px, rgba(255, 253, 245, 0.55), transparent),
-            radial-gradient(2px 2px at 40px 70px, rgba(252, 211, 77, 0.28), transparent),
-            radial-gradient(2px 2px at 50px 160px, rgba(255, 255, 255, 0.45), transparent),
-            radial-gradient(2px 2px at 90px 40px, rgba(253, 230, 138, 0.22), transparent),
-            radial-gradient(2px 2px at 130px 80px, rgba(255, 255, 255, 0.35), transparent),
-            radial-gradient(1.5px 1.5px at 160px 120px, rgba(255, 255, 255, 0.3), transparent);
-          background-size: 200px 200px;
+            radial-gradient(2.5px 2.5px at 20px 30px, rgba(255, 253, 245, 0.88), transparent),
+            radial-gradient(2px 2px at 40px 70px, rgba(252, 211, 77, 0.55), transparent),
+            radial-gradient(2.5px 2.5px at 50px 160px, rgba(255, 255, 255, 0.75), transparent),
+            radial-gradient(2px 2px at 90px 40px, rgba(253, 230, 138, 0.45), transparent),
+            radial-gradient(2px 2px at 130px 80px, rgba(255, 255, 255, 0.6), transparent),
+            radial-gradient(2px 2px at 160px 120px, rgba(255, 255, 255, 0.5), transparent),
+            radial-gradient(1.5px 1.5px at 175px 45px, rgba(254, 243, 199, 0.4), transparent);
+          background-size: 176px 176px;
           animation: hopekids-legacy-twinkle 8s ease-in-out infinite;
         }
 
@@ -259,11 +260,11 @@ export default function HopeKidsLandingPage() {
           inset: 0;
           z-index: 0;
           background:
-            radial-gradient(ellipse 95% 55% at 50% 102%, rgba(0, 0, 0, 0.45) 0%, transparent 58%),
-            radial-gradient(ellipse 72% 48% at 88% 8%, rgba(217, 119, 6, 0.09) 0%, transparent 52%),
-            radial-gradient(ellipse 58% 42% at 10% 85%, rgba(91, 33, 182, 0.07) 0%, transparent 50%),
-            radial-gradient(ellipse 50% 38% at 72% 42%, rgba(30, 27, 75, 0.12) 0%, transparent 48%),
-            linear-gradient(165deg, #070910 0%, #0c1222 36%, #090c14 72%, #06080f 100%);
+            radial-gradient(ellipse 95% 50% at 50% 105%, rgba(0, 0, 0, 0.32) 0%, transparent 55%),
+            radial-gradient(ellipse 78% 52% at 88% 6%, rgba(245, 158, 11, 0.2) 0%, transparent 50%),
+            radial-gradient(ellipse 62% 48% at 8% 88%, rgba(124, 58, 237, 0.14) 0%, transparent 48%),
+            radial-gradient(ellipse 55% 42% at 70% 38%, rgba(49, 46, 129, 0.22) 0%, transparent 46%),
+            linear-gradient(165deg, #06080f 0%, #111827 32%, #0c101c 68%, #05070d 100%);
         }
 
         @media (prefers-reduced-motion: reduce) {
