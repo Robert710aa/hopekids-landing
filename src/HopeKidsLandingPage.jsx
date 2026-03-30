@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useId, useState } from 'react';
 
 // HKIDS token mint on Solana (Jupiter swap)
 const HKIDS_MINT = '6u5PLy9ePpuGEBK3kmQ9isVDFjqSurKpvmCFzheDgQke';
@@ -22,6 +22,39 @@ const FALLBACK_MARKET_CAP = '$3,250,000';
 
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
+
+/** Polished night mark with gold star — pairs with public/favicon.svg */
+function HopeKidsBrandMark({ className = 'h-9 w-9 sm:h-10 sm:w-10' }) {
+  const uid = useId().replace(/:/g, '');
+  const gid = `hkbrand-${uid}`;
+  return (
+    <svg
+      viewBox="0 0 48 48"
+      className={className}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id={gid} x1="6" y1="4" x2="42" y2="44" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#1e293b" />
+          <stop offset="0.5" stopColor="#1e1b4b" />
+          <stop offset="1" stopColor="#0a0e1a" />
+        </linearGradient>
+      </defs>
+      <rect width="48" height="48" rx="14" fill={`url(#${gid})`} />
+      <rect x="0.5" y="0.5" width="47" height="47" rx="13.5" stroke="rgba(251, 191, 36, 0.28)" />
+      <circle cx="13" cy="14" r="1" fill="#e2e8f0" opacity="0.32" />
+      <circle cx="36" cy="11" r="0.75" fill="#fde68a" opacity="0.35" />
+      <circle cx="34" cy="36" r="0.65" fill="#94a3b8" opacity="0.26" />
+      <path
+        d="M24 16.5l1.35 3.5h3.65l-2.9 2.15 1.1 3.55L24 24.85l-2.95 2.25 1.15-3.55-2.95-2.15h3.65z"
+        fill="#fbbf24"
+        opacity="0.96"
+      />
+    </svg>
+  );
+}
 
 function pickBestPair(pairs) {
   if (!pairs?.length) return null;
@@ -233,63 +266,38 @@ export default function HopeKidsLandingPage() {
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
         }
 
-        /* Full-page backdrop: strong starfield + bold warm/cool glows */
-        @keyframes hopekids-legacy-twinkle {
+        /* Page backdrop: soft aurora mesh + sparse elegant stars */
+        @keyframes hopekids-sky-twinkle {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.92; }
+          50% { opacity: 0.78; }
         }
 
-        .hopekids-legacy-stars {
-          position: fixed;
-          inset: 0;
-          z-index: 0;
-          background-image:
-            radial-gradient(3px 3px at 12px 24px, rgba(255, 255, 255, 0.95), transparent),
-            radial-gradient(2px 2px at 38px 58px, rgba(252, 211, 77, 0.85), transparent),
-            radial-gradient(2.5px 2.5px at 62px 18px, rgba(255, 253, 245, 0.9), transparent),
-            radial-gradient(2px 2px at 84px 92px, rgba(255, 255, 255, 0.75), transparent),
-            radial-gradient(2px 2px at 104px 36px, rgba(253, 230, 138, 0.8), transparent),
-            radial-gradient(3px 3px at 118px 72px, rgba(255, 255, 255, 0.88), transparent),
-            radial-gradient(1.5px 1.5px at 132px 14px, rgba(254, 243, 199, 0.7), transparent),
-            radial-gradient(2px 2px at 24px 108px, rgba(255, 255, 255, 0.65), transparent),
-            radial-gradient(2px 2px at 52px 128px, rgba(252, 211, 77, 0.55), transparent),
-            radial-gradient(2.5px 2.5px at 76px 142px, rgba(255, 255, 255, 0.82), transparent),
-            radial-gradient(1.5px 1.5px at 96px 118px, rgba(255, 255, 255, 0.55), transparent),
-            radial-gradient(2px 2px at 128px 138px, rgba(253, 224, 71, 0.65), transparent);
-          background-size: 140px 140px;
-          animation: hopekids-legacy-twinkle 8s ease-in-out infinite;
-        }
-
-        /* Second star tile, offset — doubles visible density */
-        .hopekids-legacy-stars2 {
-          position: fixed;
-          inset: 0;
-          z-index: 0;
-          opacity: 0.92;
-          background-image:
-            radial-gradient(2px 2px at 70px 22px, rgba(255, 255, 255, 0.7), transparent),
-            radial-gradient(2.5px 2.5px at 28px 88px, rgba(255, 255, 255, 0.85), transparent),
-            radial-gradient(2px 2px at 108px 104px, rgba(251, 191, 36, 0.6), transparent),
-            radial-gradient(1.5px 1.5px at 48px 48px, rgba(255, 255, 255, 0.5), transparent),
-            radial-gradient(2px 2px at 88px 60px, rgba(254, 240, 138, 0.72), transparent),
-            radial-gradient(2px 2px at 14px 132px, rgba(255, 255, 255, 0.68), transparent);
-          background-size: 140px 140px;
-          background-position: 70px 35px;
-          animation: hopekids-legacy-twinkle 11s ease-in-out infinite;
-          animation-delay: -2s;
-        }
-
-        .hopekids-legacy-gradient {
+        .hopekids-sky-base {
           position: fixed;
           inset: 0;
           z-index: 0;
           background:
-            radial-gradient(ellipse 90% 48% at 50% 108%, rgba(0, 0, 0, 0.22) 0%, transparent 52%),
-            radial-gradient(ellipse 85% 58% at 92% 4%, rgba(251, 191, 36, 0.38) 0%, transparent 45%),
-            radial-gradient(ellipse 70% 55% at 4% 92%, rgba(167, 139, 250, 0.28) 0%, transparent 42%),
-            radial-gradient(ellipse 60% 50% at 68% 35%, rgba(67, 56, 202, 0.35) 0%, transparent 40%),
-            radial-gradient(ellipse 45% 40% at 40% 20%, rgba(120, 53, 15, 0.12) 0%, transparent 50%),
-            linear-gradient(165deg, #0a0f1a 0%, #1e293b 28%, #141c2e 62%, #080b14 100%);
+            radial-gradient(ellipse 130% 85% at 50% -25%, rgba(96, 165, 250, 0.11) 0%, transparent 55%),
+            radial-gradient(ellipse 95% 70% at 100% 8%, rgba(251, 191, 36, 0.16) 0%, transparent 50%),
+            radial-gradient(ellipse 90% 75% at -5% 90%, rgba(139, 92, 246, 0.12) 0%, transparent 48%),
+            radial-gradient(ellipse 75% 55% at 75% 48%, rgba(14, 165, 233, 0.06) 0%, transparent 42%),
+            radial-gradient(ellipse 100% 45% at 50% 115%, rgba(0, 0, 0, 0.35) 0%, transparent 50%),
+            linear-gradient(168deg, #070b14 0%, #0f172a 34%, #0d1526 58%, #060910 100%);
+        }
+
+        .hopekids-sky-stars {
+          position: fixed;
+          inset: 0;
+          z-index: 0;
+          background-image:
+            radial-gradient(1.5px 1.5px at 52px 40px, rgba(255, 255, 255, 0.42), transparent),
+            radial-gradient(1px 1px at 128px 96px, rgba(253, 230, 138, 0.38), transparent),
+            radial-gradient(1.5px 1.5px at 210px 56px, rgba(255, 255, 255, 0.34), transparent),
+            radial-gradient(1px 1px at 288px 168px, rgba(255, 255, 255, 0.28), transparent),
+            radial-gradient(1.5px 1.5px at 88px 220px, rgba(251, 191, 36, 0.3), transparent),
+            radial-gradient(1px 1px at 248px 248px, rgba(226, 232, 240, 0.22), transparent);
+          background-size: 320px 320px;
+          animation: hopekids-sky-twinkle 12s ease-in-out infinite;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -299,8 +307,7 @@ export default function HopeKidsLandingPage() {
           .hopekids-hero-sheen,
           .hopekids-cinema-sheen,
           .hopekids-star,
-          .hopekids-legacy-stars,
-          .hopekids-legacy-stars2 {
+          .hopekids-sky-stars {
             animation: none !important;
           }
           .hopekids-title-glare {
@@ -309,11 +316,9 @@ export default function HopeKidsLandingPage() {
         }
       `}</style>
 
-      <div className="relative min-h-screen bg-[#0a0f1a] text-white">
-        {/* Gradient first so stars paint on top and stay visible */}
-        <div className="hopekids-legacy-gradient pointer-events-none" aria-hidden="true" />
-        <div className="hopekids-legacy-stars pointer-events-none" aria-hidden="true" />
-        <div className="hopekids-legacy-stars2 pointer-events-none" aria-hidden="true" />
+      <div className="relative min-h-screen bg-[#070b14] text-white">
+        <div className="hopekids-sky-base pointer-events-none" aria-hidden="true" />
+        <div className="hopekids-sky-stars pointer-events-none" aria-hidden="true" />
         <div className="relative z-10 min-h-screen overflow-x-hidden">
           <div className="mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
             {/* Full-bleed artwork: entire upper panel = one scene (nav + hero on top of art) */}
@@ -343,7 +348,10 @@ export default function HopeKidsLandingPage() {
               </div>
 
               <header className="sticky top-2 z-50 flex flex-wrap items-center justify-between gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3 lg:px-10">
-              <a href="#home" className="flex items-center gap-2.5 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+              <a href="#home" className="flex items-center gap-3 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+                <span className="flex shrink-0 rounded-[13px] shadow-[0_6px_28px_rgba(0,0,0,0.45)] ring-1 ring-white/12">
+                  <HopeKidsBrandMark />
+                </span>
                 <span className="text-lg font-extrabold tracking-tight">HopeKids</span>
               </a>
               <nav
@@ -682,8 +690,13 @@ export default function HopeKidsLandingPage() {
             </section>
 
             <footer className="border-t-4 border-orange-500 bg-black/20 py-8 text-center text-blue-100/70 sm:py-10">
-              <div className="text-2xl font-extrabold text-white sm:text-3xl">HopeKids © 2026</div>
-              <div className="mt-1 text-base sm:mt-2 sm:text-lg">Trade crypto. Give hope.</div>
+              <div className="flex flex-col items-center gap-3">
+                <span className="rounded-[13px] opacity-95 shadow-[0_4px_20px_rgba(0,0,0,0.35)] ring-1 ring-white/10">
+                  <HopeKidsBrandMark className="h-10 w-10 sm:h-11 sm:w-11" />
+                </span>
+                <div className="text-2xl font-extrabold text-white sm:text-3xl">HopeKids © 2026</div>
+                <div className="text-base sm:text-lg">Trade crypto. Give hope.</div>
+              </div>
             </footer>
           </div>
         </div>
