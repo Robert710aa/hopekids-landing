@@ -439,13 +439,9 @@ export default function HopeKidsLandingPage() {
                       href={JUPITER_BUY_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group relative inline-flex w-full min-w-[200px] justify-center overflow-hidden rounded-full bg-blue-600 px-6 py-3.5 text-base font-bold uppercase tracking-wide shadow-[0_0_36px_rgba(59,130,246,0.45),0_0_60px_rgba(251,191,36,0.08)] transition-all duration-200 hover:scale-[1.02] hover:bg-blue-500 sm:w-auto"
+                      className="inline-flex w-full min-w-[200px] items-center justify-center rounded-full border-2 border-blue-400/65 bg-transparent px-6 py-3.5 text-base font-bold tracking-tight text-blue-100 shadow-[0_0_24px_rgba(59,130,246,0.2)] backdrop-blur-sm transition-all duration-200 hover:scale-[1.02] hover:border-blue-300/90 hover:bg-blue-500/10 hover:text-white sm:w-auto"
                     >
-                      <span
-                        className="pointer-events-none absolute inset-0 -translate-x-full skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
-                        aria-hidden="true"
-                      />
-                      <span className="relative z-[1]">Buy $HOPEKIDS</span>
+                      Buy HopeKids
                     </a>
                     <a
                       href="#donations"
