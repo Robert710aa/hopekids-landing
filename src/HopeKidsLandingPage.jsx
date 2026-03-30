@@ -578,33 +578,26 @@ export default function HopeKidsLandingPage() {
                 <div className="relative flex h-full min-h-[200px] flex-col justify-center rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 text-center shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:min-h-0 sm:p-6 sm:text-left">
                   <a
                     href={`mailto:${HOPEKIDS_TEAM_EMAIL}`}
-                    className="absolute right-3 top-3 flex max-w-[calc(100%-1.5rem)] flex-col items-end gap-1 rounded-lg border border-cyan-400/40 bg-black/25 px-2 py-1.5 text-cyan-200 shadow-[0_0_12px_rgba(56,189,248,0.15)] transition hover:border-amber-400/45 hover:bg-amber-500/10 hover:text-amber-100 sm:right-4 sm:top-4"
+                    className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-400/40 bg-black/25 text-cyan-200 shadow-[0_0_12px_rgba(56,189,248,0.15)] transition hover:border-amber-400/45 hover:bg-amber-500/10 hover:text-amber-100 sm:right-4 sm:top-4"
                     aria-label={`Email HopeKids at ${HOPEKIDS_TEAM_EMAIL}`}
                     title={HOPEKIDS_TEAM_EMAIL}
                   >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-cyan-500/10 ring-1 ring-cyan-400/25">
-                      <svg
-                        viewBox="0 0 24 24"
-                        className="h-3.5 w-3.5"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <rect x="2" y="4" width="20" height="16" rx="2" />
-                        <path d="M22 6l-10 7L2 6" />
-                      </svg>
-                    </span>
-                    <span className="break-all text-right text-[9px] font-medium leading-tight tracking-tight text-cyan-100/90 sm:text-[10px]">
-                      {HOPEKIDS_TEAM_EMAIL}
-                    </span>
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <rect x="2" y="4" width="20" height="16" rx="2" />
+                      <path d="M22 6l-10 7L2 6" />
+                    </svg>
                   </a>
                   <div>
-                    <p className="pr-[9rem] text-lg font-extrabold text-amber-200 sm:pr-44 sm:text-xl">
-                      Support the project
-                    </p>
+                    <p className="pr-12 text-lg font-extrabold text-amber-200 sm:text-xl">Support the project</p>
                     <ul className="mx-auto mt-3 max-w-md space-y-2.5 text-left text-sm leading-snug text-blue-100/82 sm:mx-0">
                       <li className="flex gap-2.5">
                         <span
