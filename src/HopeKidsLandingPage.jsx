@@ -50,7 +50,13 @@ function formatPriceUsd(raw) {
 export default function HopeKidsLandingPage() {
   const [storyOpen, setStoryOpen] = useState(false);
   const [walletCopied, setWalletCopied] = useState(false);
-  const [heroChildImgSrc, setHeroChildImgSrc] = useState(HERO_CHILD_IMAGE_PRIMARY);
+  const [heroChildImgSrc, setHeroChildImgSrc] = useState(HERO_CHILD_IMAGE_FALLBACK);
+
+  useEffect(() => {
+    const probe = new Image();
+    probe.onload = () => setHeroChildImgSrc(HERO_CHILD_IMAGE_PRIMARY);
+    probe.src = HERO_CHILD_IMAGE_PRIMARY;
+  }, []);
 
   const copyDonationWallet = useCallback(async () => {
     try {
