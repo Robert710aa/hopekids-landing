@@ -165,13 +165,11 @@ export default function HopeKidsLandingPage() {
                   <h1 className="text-4xl font-extrabold text-amber-400 sm:text-5xl">HopeKids</h1>
 
                   <p className="mt-4 text-lg font-semibold text-blue-100 sm:mt-6 sm:text-2xl">
-                    Trade Crypto. Give Hope.<br />Help Children.
+                    HopeKids is more than a token —<br />it&apos;s hope.
                   </p>
 
                   <p className="mt-4 max-w-xl text-blue-200 sm:mt-6 sm:text-base">
-                    Each transaction saves tokens to help children.
-                    <br />
-                    5% of every transaction goes to the public donation wallet.
+                    3% of every transaction goes to the public donation wallet.
                   </p>
 
                   <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4 sm:justify-center lg:justify-start">
