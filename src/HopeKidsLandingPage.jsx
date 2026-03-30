@@ -256,16 +256,42 @@ export default function HopeKidsLandingPage() {
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
         }
 
+        @keyframes hopekids-heartline-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        @keyframes hopekids-heartline-pulse {
+          0%, 100% { opacity: 0.42; filter: drop-shadow(0 0 2px rgba(56, 189, 248, 0.25)); }
+          9% { opacity: 1; filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.95)); }
+          18% { opacity: 0.48; filter: drop-shadow(0 0 2px rgba(251, 191, 36, 0.3)); }
+          27% { opacity: 0.98; filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.85)); }
+          38% { opacity: 0.42; }
+        }
+
+        .hopekids-heartline-scroll {
+          animation: hopekids-heartline-scroll 14s linear infinite;
+        }
+
+        .hopekids-heartline-pulse {
+          animation: hopekids-heartline-pulse 1.2s ease-in-out infinite;
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .hopekids-title-glare,
           .hopekids-aurora-a,
           .hopekids-aurora-b,
           .hopekids-hero-sheen,
-          .hopekids-star {
+          .hopekids-star,
+          .hopekids-heartline-scroll,
+          .hopekids-heartline-pulse {
             animation: none !important;
           }
           .hopekids-title-glare {
             background-position: 50% 50%;
+          }
+          .hopekids-heartline-pulse {
+            opacity: 0.75;
           }
         }
       `}</style>
@@ -286,6 +312,43 @@ export default function HopeKidsLandingPage() {
 
           <div className="relative z-10 mx-auto max-w-[1180px] px-4 py-4 sm:px-6 lg:px-8">
             <section className="relative overflow-hidden rounded-2xl sm:rounded-[28px] border border-cyan-400/25 bg-[linear-gradient(180deg,rgba(4,10,25,0.25),rgba(3,7,18,0.38))] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.3),0_0_20px_rgba(56,189,248,0.1)] px-4 py-10 sm:px-6 sm:py-14 lg:px-12 lg:py-20">
+              <div
+                className="pointer-events-none absolute inset-x-0 top-0 z-[6] h-[22px] overflow-hidden rounded-t-2xl border-b border-cyan-400/20 bg-[linear-gradient(180deg,rgba(6,20,45,0.85),rgba(4,12,28,0.4))] sm:rounded-t-[28px] hopekids-heartline-pulse"
+                aria-hidden="true"
+              >
+                <div className="hopekids-heartline-scroll flex h-full w-[200%] will-change-transform">
+                  <svg
+                    className="h-full w-1/2 shrink-0 text-cyan-300"
+                    viewBox="0 0 200 24"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.35"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      vectorEffect="non-scaling-stroke"
+                      d="M0,12 L26,12 L32,12 L36,2.5 L40,20 L44,5.5 L48,12 L74,12 L100,12 L106,12 L110,2.5 L114,20 L118,5.5 L122,12 L148,12 L174,12 L180,12 L184,2.5 L188,20 L192,5.5 L196,12 L200,12"
+                    />
+                  </svg>
+                  <svg
+                    className="h-full w-1/2 shrink-0 text-cyan-300"
+                    viewBox="0 0 200 24"
+                    preserveAspectRatio="none"
+                  >
+                    <path
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.35"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      vectorEffect="non-scaling-stroke"
+                      d="M0,12 L26,12 L32,12 L36,2.5 L40,20 L44,5.5 L48,12 L74,12 L100,12 L106,12 L110,2.5 L114,20 L118,5.5 L122,12 L148,12 L174,12 L180,12 L184,2.5 L188,20 L192,5.5 L196,12 L200,12"
+                    />
+                  </svg>
+                </div>
+              </div>
               <div
                 className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl sm:rounded-[28px]"
                 aria-hidden="true"
