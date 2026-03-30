@@ -369,15 +369,9 @@ export default function HopeKidsLandingPage() {
                 <div className="hopekids-cinema-sheen absolute inset-0 opacity-[0.18]" />
               </div>
 
-              <header className="sticky top-2 z-50 flex flex-wrap items-center justify-between gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3 lg:px-10">
-              <a href="#home" className="flex items-center gap-3 text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-                <span className="flex shrink-0 rounded-[13px] shadow-[0_6px_28px_rgba(0,0,0,0.45)] ring-1 ring-white/12">
-                  <HopeKidsBrandMark />
-                </span>
-                <span className="text-lg font-extrabold tracking-tight">HopeKids</span>
-              </a>
+              <header className="sticky top-2 z-50 flex flex-wrap items-center justify-center gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3 lg:px-10">
               <nav
-                className="hidden flex-wrap items-center gap-3 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] lg:gap-4 md:flex"
+                className="flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] sm:gap-4"
                 aria-label="Social and charts"
               >
                 <a
