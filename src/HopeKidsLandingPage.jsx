@@ -421,14 +421,6 @@ export default function HopeKidsLandingPage() {
                   <span className="hidden md:inline">DexScreener</span>
                 </a>
               </nav>
-              <a
-                href={JUPITER_BUY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-xl bg-blue-600 px-3 py-2 text-xs font-bold text-white shadow-[0_0_24px_rgba(59,130,246,0.45)] transition hover:bg-blue-500 sm:px-4 sm:text-sm"
-              >
-                Buy $HOPEKIDS
-              </a>
               </header>
 
               <section
