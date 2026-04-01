@@ -24,6 +24,9 @@ const SOLSCAN_ACCOUNT_URL = `https://solscan.io/account/${PUBLIC_DONATION_WALLET
 /** Shown when DexScreener has no marketCap/fdv for the pair yet */
 const FALLBACK_MARKET_CAP = '$3,250,000';
 
+/** Full-page backdrop (Earth from space) — file in public/. */
+const PAGE_BACKGROUND_EARTH_SRC = '/hopekids-page-bg-earth.png';
+
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
 
@@ -359,6 +362,15 @@ export default function HopeKidsLandingPage() {
 
   return (
     <>
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[#030712]" aria-hidden="true">
+        <img
+          src={PAGE_BACKGROUND_EARTH_SRC}
+          alt=""
+          className="h-full w-full object-cover object-[50%_55%]"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
       <div className="hopekids-grain" aria-hidden="true" />
       <style>{`
         @keyframes float {
@@ -627,7 +639,7 @@ export default function HopeKidsLandingPage() {
         }
       `}</style>
 
-      <div className="relative min-h-screen bg-transparent text-white">
+      <div className="relative z-10 min-h-screen bg-transparent text-white">
         <div className="relative z-10 min-h-screen overflow-x-hidden">
           <div className="mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
             {/* Full-bleed artwork: entire upper panel = one scene (nav + hero on top of art) */}
