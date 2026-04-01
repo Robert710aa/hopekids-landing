@@ -362,11 +362,11 @@ export default function HopeKidsLandingPage() {
 
   return (
     <>
-      <div className="pointer-events-none fixed inset-0 z-0 bg-[#030712]" aria-hidden="true">
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[#010214]" aria-hidden="true">
         <img
           src={PAGE_BACKGROUND_EARTH_SRC}
           alt=""
-          className="h-full w-full object-cover object-[50%_55%]"
+          className="h-full w-full object-cover object-top"
           loading="eager"
           decoding="async"
         />
