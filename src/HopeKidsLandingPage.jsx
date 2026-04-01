@@ -246,6 +246,12 @@ export default function HopeKidsLandingPage() {
   const t = useMemo(() => createT('en'), []);
 
   useEffect(() => {
+    const root = document.documentElement;
+    root.classList.add('hopekids-strong-contrast');
+    return () => root.classList.remove('hopekids-strong-contrast');
+  }, []);
+
+  useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
@@ -559,6 +565,16 @@ export default function HopeKidsLandingPage() {
         @keyframes hopekids-grain-shift {
           0% { transform: translate(0, 0); }
           100% { transform: translate(-5%, -5%); }
+        }
+
+        /* Always-on strong contrast (accessibility) */
+        html.hopekids-strong-contrast {
+          color-scheme: dark;
+          filter: contrast(1.32) saturate(1.1) brightness(1.03);
+        }
+
+        html.hopekids-strong-contrast .hopekids-grain {
+          opacity: 0.02;
         }
 
         @media (prefers-reduced-motion: reduce) {
