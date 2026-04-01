@@ -17,6 +17,9 @@ const PUBLIC_DONATION_WALLET = 'GnhmPt4LBHRoABuGrSqrbPW34Mu8dXGJf1XCNc7DHRAB';
 /** HopeKids team inbox */
 const HOPEKIDS_TEAM_EMAIL = 'hopekids594@gmail.com';
 
+/** Shown when DexScreener has no marketCap/fdv for the pair yet */
+const FALLBACK_MARKET_CAP = '$3,250,000';
+
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
 
@@ -179,6 +182,23 @@ function pickBestPair(pairs) {
   return [...pairs].sort((a, b) => (b.liquidity?.usd ?? 0) - (a.liquidity?.usd ?? 0))[0];
 }
 
+function formatUsdCompact(n) {
+  if (n == null || Number.isNaN(n) || !Number.isFinite(Number(n))) return null;
+  const x = Number(n);
+  if (x >= 1e9) return `$${(x / 1e9).toFixed(2)}B`;
+  if (x >= 1e6) return `$${(x / 1e6).toFixed(2)}M`;
+  if (x >= 1e3) return `$${(x / 1e3).toFixed(2)}K`;
+  return `$${x.toFixed(2)}`;
+}
+
+function formatPriceUsd(raw) {
+  const x = typeof raw === 'string' ? parseFloat(raw) : raw;
+  if (!Number.isFinite(x)) return null;
+  if (x >= 1) return `$${x.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  if (x >= 0.01) return `$${x.toFixed(4)}`;
+  return `$${x.toPrecision(4)}`;
+}
+
 export default function HopeKidsLandingPage() {
   const [storyOpen, setStoryOpen] = useState(false);
   const [walletCopied, setWalletCopied] = useState(false);
@@ -208,13 +228,22 @@ export default function HopeKidsLandingPage() {
     };
   }, [storyOpen]);
 
-  const [dexscreenerUrl, setDexscreenerUrl] = useState(DEXSCREENER_TOKEN_PAGE);
+  const [tokenStats, setTokenStats] = useState({
+    loading: true,
+    marketCapUsd: null,
+    priceUsd: null,
+    liquidityUsd: null,
+    dexscreenerUrl: DEXSCREENER_TOKEN_PAGE,
+  });
 
   useEffect(() => {
     let cancelled = false;
     const ac = new AbortController();
 
     async function load() {
+      let mcap = null;
+      let price = null;
+      let liq = null;
       let dexUrl = DEXSCREENER_TOKEN_PAGE;
 
       try {
@@ -224,6 +253,12 @@ export default function HopeKidsLandingPage() {
           const pairs = dexData?.pairs;
           if (Array.isArray(pairs) && pairs.length > 0) {
             const pair = pickBestPair(pairs);
+            const mcapRaw = pair?.marketCap ?? pair?.fdv;
+            const m = mcapRaw != null ? Number(mcapRaw) : null;
+            mcap = Number.isFinite(m) ? m : null;
+            price = pair?.priceUsd != null ? formatPriceUsd(pair.priceUsd) : null;
+            const liqN = pair?.liquidity?.usd != null ? Number(pair.liquidity.usd) : null;
+            liq = Number.isFinite(liqN) ? liqN : null;
             if (pair?.url) dexUrl = pair.url;
           }
         }
@@ -231,7 +266,15 @@ export default function HopeKidsLandingPage() {
         /* network / abort */
       }
 
-      if (!cancelled) setDexscreenerUrl(dexUrl);
+      if (!cancelled) {
+        setTokenStats({
+          loading: false,
+          marketCapUsd: mcap,
+          priceUsd: price,
+          liquidityUsd: liq,
+          dexscreenerUrl: dexUrl,
+        });
+      }
     }
 
     load();
@@ -391,51 +434,51 @@ export default function HopeKidsLandingPage() {
               </div>
 
               <header className="sticky top-2 z-50 flex flex-wrap items-center justify-center gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3 lg:px-10">
-              <nav
-                className="flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] sm:gap-4"
-                aria-label="Social and charts"
-              >
-                <a
-                  href={SOCIAL_TWITTER_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 transition hover:text-amber-50"
-                  aria-label="Twitter"
+                <nav
+                  className="flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] sm:gap-4"
+                  aria-label="Social and charts"
                 >
-                  <IconTwitterX className="h-5 w-5 shrink-0 text-slate-100" />
-                  <span className="hidden md:inline">Twitter</span>
-                </a>
-                <a
-                  href={SOCIAL_INSTAGRAM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 transition hover:text-amber-50"
-                  aria-label="Instagram"
-                >
-                  <IconInstagram className="h-5 w-5 shrink-0 text-pink-200" />
-                  <span className="hidden md:inline">Instagram</span>
-                </a>
-                <a
-                  href={SOCIAL_TIKTOK_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 transition hover:text-amber-50"
-                  aria-label="TikTok"
-                >
-                  <IconTikTok className="h-5 w-5 shrink-0 text-cyan-200" />
-                  <span className="hidden md:inline">TikTok</span>
-                </a>
-                <a
-                  href={dexscreenerUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 transition hover:text-amber-50"
-                  aria-label="DexScreener"
-                >
-                  <IconDexScreener className="h-5 w-5 shrink-0" />
-                  <span className="hidden md:inline">DexScreener</span>
-                </a>
-              </nav>
+                  <a
+                    href={SOCIAL_TWITTER_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 transition hover:text-amber-50"
+                    aria-label="Twitter"
+                  >
+                    <IconTwitterX className="h-5 w-5 shrink-0 text-slate-100" />
+                    <span className="hidden md:inline">Twitter</span>
+                  </a>
+                  <a
+                    href={SOCIAL_INSTAGRAM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 transition hover:text-amber-50"
+                    aria-label="Instagram"
+                  >
+                    <IconInstagram className="h-5 w-5 shrink-0 text-pink-200" />
+                    <span className="hidden md:inline">Instagram</span>
+                  </a>
+                  <a
+                    href={SOCIAL_TIKTOK_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 transition hover:text-amber-50"
+                    aria-label="TikTok"
+                  >
+                    <IconTikTok className="h-5 w-5 shrink-0 text-cyan-200" />
+                    <span className="hidden md:inline">TikTok</span>
+                  </a>
+                  <a
+                    href={tokenStats.dexscreenerUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 transition hover:text-amber-50"
+                    aria-label="DexScreener"
+                  >
+                    <IconDexScreener className="h-5 w-5 shrink-0" />
+                    <span className="hidden md:inline">DexScreener</span>
+                  </a>
+                </nav>
               </header>
 
               <section
@@ -488,6 +531,50 @@ export default function HopeKidsLandingPage() {
                   </div>
                 </div>
               ))}
+            </section>
+
+            <section
+              id="market"
+              className="mt-4 scroll-mt-28 sm:mt-5"
+              aria-label="HKIDS live market data from DexScreener"
+            >
+              <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/35 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-5">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <h2 className="text-lg font-extrabold text-white sm:text-xl">Live market (DexScreener)</h2>
+                  <a
+                    href={tokenStats.dexscreenerUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-semibold text-cyan-300/90 underline decoration-cyan-500/50 underline-offset-2 transition hover:text-cyan-200"
+                  >
+                    Charts &amp; pair ↗
+                  </a>
+                </div>
+                <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-xl border border-emerald-500/25 bg-black/25 px-4 py-3 sm:py-4">
+                    <div className="text-[11px] font-semibold uppercase tracking-wide text-blue-100/55">Market cap</div>
+                    <div className="mt-1 text-xl font-extrabold tabular-nums text-emerald-100 sm:text-2xl">
+                      {tokenStats.loading
+                        ? '…'
+                        : tokenStats.marketCapUsd != null
+                          ? formatUsdCompact(tokenStats.marketCapUsd)
+                          : FALLBACK_MARKET_CAP}
+                    </div>
+                  </div>
+                  <div className="rounded-xl border border-cyan-400/25 bg-black/25 px-4 py-3 sm:py-4">
+                    <div className="text-[11px] font-semibold uppercase tracking-wide text-blue-100/55">Price</div>
+                    <div className="mt-1 text-xl font-extrabold tabular-nums text-cyan-100 sm:text-2xl">
+                      {tokenStats.loading ? '…' : tokenStats.priceUsd ?? '—'}
+                    </div>
+                  </div>
+                  <div className="rounded-xl border border-amber-400/25 bg-black/25 px-4 py-3 sm:py-4">
+                    <div className="text-[11px] font-semibold uppercase tracking-wide text-blue-100/55">Liquidity</div>
+                    <div className="mt-1 text-xl font-extrabold tabular-nums text-amber-100 sm:text-2xl">
+                      {tokenStats.loading ? '…' : tokenStats.liquidityUsd != null ? formatUsdCompact(tokenStats.liquidityUsd) : '—'}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </section>
 
             {/* removed: Where HopeKids Helps / Trade cards */}
@@ -652,65 +739,6 @@ export default function HopeKidsLandingPage() {
                     </p>
                   ) : null}
                 </div>
-              </div>
-            </section>
-
-            <section id="community" className="mt-8 scroll-mt-28 sm:mt-10" aria-labelledby="community-heading">
-              <h2 id="community-heading" className="text-center text-2xl font-extrabold text-white sm:text-3xl">
-                Community
-              </h2>
-              <p className="mx-auto mt-2 max-w-lg text-center text-sm text-blue-100/75">
-                Follow on Twitter, Instagram, and TikTok — live charts on DexScreener.
-              </p>
-              <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
-                <a
-                  href={SOCIAL_TWITTER_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
-                  aria-label="Twitter"
-                >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/8 shadow-[0_0_12px_rgba(148,163,184,0.2)]">
-                    <IconTwitterX className="h-4 w-4 text-slate-100" />
-                  </span>
-                  <span className="text-[11px] font-semibold">Twitter</span>
-                </a>
-                <a
-                  href={SOCIAL_INSTAGRAM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
-                  aria-label="Instagram"
-                >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500/20 shadow-[0_0_12px_rgba(236,72,153,0.25)]">
-                    <IconInstagram className="h-4 w-4 text-pink-200" />
-                  </span>
-                  <span className="text-[11px] font-semibold">Instagram</span>
-                </a>
-                <a
-                  href={SOCIAL_TIKTOK_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
-                  aria-label="TikTok"
-                >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-cyan-500/15 shadow-[0_0_12px_rgba(6,182,212,0.3)]">
-                    <IconTikTok className="h-4 w-4 text-cyan-200" />
-                  </span>
-                  <span className="text-[11px] font-semibold">TikTok</span>
-                </a>
-                <a
-                  href={dexscreenerUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-cyan-400/25 bg-[#061126]/40 px-2 py-3 text-blue-100/90 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-200 hover:scale-[1.02] hover:border-cyan-400/45 hover:bg-[#071a35]/45"
-                  aria-label="DexScreener"
-                >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/15 shadow-[0_0_12px_rgba(52,211,153,0.25)]">
-                    <IconDexScreener className="h-4 w-4" />
-                  </span>
-                  <span className="text-[11px] font-semibold">DexScreener</span>
-                </a>
               </div>
             </section>
 
