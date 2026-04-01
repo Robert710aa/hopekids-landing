@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 // HKIDS token mint on Solana (Jupiter swap)
 const HKIDS_MINT = '6u5PLy9ePpuGEBK3kmQ9isVDFjqSurKpvmCFzheDgQke';
@@ -199,6 +199,40 @@ function formatPriceUsd(raw) {
   return `$${x.toPrecision(4)}`;
 }
 
+/** Fade/slide in when the block enters the viewport (once). */
+function RevealOnScroll({ children, className = '', delayMs = 0 }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setVisible(true);
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -7% 0px', threshold: 0.06 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`hopekids-reveal${visible ? ' hopekids-reveal--visible' : ''}${className ? ` ${className}` : ''}`}
+      style={delayMs ? { transitionDelay: `${delayMs}ms` } : undefined}
+    >
+      {children}
+    </div>
+  );
+}
+
 export default function HopeKidsLandingPage() {
   const [storyOpen, setStoryOpen] = useState(false);
   const [walletCopied, setWalletCopied] = useState(false);
@@ -389,15 +423,142 @@ export default function HopeKidsLandingPage() {
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
         }
 
+        @keyframes hopekids-enter-up {
+          from {
+            opacity: 0;
+            transform: translateY(14px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes hopekids-header-drop {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes hopekids-modal-in {
+          from {
+            opacity: 0;
+            transform: scale(0.97) translateY(12px);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+
+        @keyframes hopekids-sparkle-wobble {
+          0%, 100% { transform: rotate(-5deg) scale(1); }
+          50% { transform: rotate(5deg) scale(1.06); }
+        }
+
+        @keyframes hopekids-border-glow {
+          0%, 100% { box-shadow: 0 0 14px rgba(56, 189, 248, 0.12); }
+          50% { box-shadow: 0 0 22px rgba(56, 189, 248, 0.2), 0 0 36px rgba(251, 191, 36, 0.06); }
+        }
+
+        .hopekids-reveal {
+          opacity: 0;
+          transform: translateY(1.1rem);
+          transition: opacity 0.68s cubic-bezier(0.22, 1, 0.36, 1), transform 0.68s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .hopekids-reveal--visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .hopekids-header-enter {
+          animation: hopekids-header-drop 0.55s ease-out both;
+        }
+
+        .hopekids-hero-stack > * {
+          opacity: 0;
+          animation: hopekids-enter-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .hopekids-hero-stack > *:nth-child(1) {
+          animation-delay: 0.07s;
+        }
+
+        .hopekids-hero-stack > *:nth-child(2) {
+          animation-delay: 0.18s;
+        }
+
+        .hopekids-hero-stack > *:nth-child(3) {
+          animation-delay: 0.28s;
+        }
+
+        .hopekids-hero-stack > *:nth-child(4) {
+          animation-delay: 0.38s;
+        }
+
+        .hopekids-modal-panel {
+          animation: hopekids-modal-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .hopekids-footer-mark {
+          animation: float 5.5s ease-in-out infinite;
+        }
+
+        .hopekids-sparkle {
+          display: inline-block;
+          animation: hopekids-sparkle-wobble 4.5s ease-in-out infinite;
+        }
+
+        .hopekids-live-card {
+          animation: hopekids-border-glow 6s ease-in-out infinite;
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .hopekids-title-glare,
           .hopekids-aurora-a,
           .hopekids-aurora-b,
           .hopekids-hero-sheen,
           .hopekids-cinema-sheen,
-          .hopekids-star {
+          .hopekids-star,
+          .hopekids-footer-mark,
+          .hopekids-sparkle,
+          .hopekids-live-card {
             animation: none !important;
           }
+
+          .hopekids-live-card {
+            box-shadow: 0 0 14px rgba(56, 189, 248, 0.12);
+          }
+
+          .hopekids-header-enter {
+            animation: none !important;
+            opacity: 1;
+            transform: none;
+          }
+
+          .hopekids-hero-stack > * {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+          }
+
+          .hopekids-modal-panel {
+            animation: none !important;
+          }
+
+          .hopekids-reveal,
+          .hopekids-reveal--visible {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+          }
+
           .hopekids-title-glare {
             background-position: 50% 50%;
           }
@@ -433,7 +594,7 @@ export default function HopeKidsLandingPage() {
                 <div className="hopekids-cinema-sheen absolute inset-0 opacity-[0.18]" />
               </div>
 
-              <header className="sticky top-2 z-50 flex flex-wrap items-center justify-center gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3 lg:px-10">
+              <header className="hopekids-header-enter sticky top-2 z-50 flex flex-wrap items-center justify-center gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3 lg:px-10">
                 <nav
                   className="flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] sm:gap-4"
                   aria-label="Social and charts"
@@ -442,7 +603,7 @@ export default function HopeKidsLandingPage() {
                     href={SOCIAL_TWITTER_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 transition hover:text-amber-50"
+                    className="inline-flex items-center gap-2 transition-all duration-300 hover:scale-[1.06] hover:text-amber-50 active:scale-[0.98]"
                     aria-label="Twitter"
                   >
                     <IconTwitterX className="h-5 w-5 shrink-0 text-slate-100" />
@@ -452,7 +613,7 @@ export default function HopeKidsLandingPage() {
                     href={SOCIAL_INSTAGRAM_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 transition hover:text-amber-50"
+                    className="inline-flex items-center gap-2 transition-all duration-300 hover:scale-[1.06] hover:text-amber-50 active:scale-[0.98]"
                     aria-label="Instagram"
                   >
                     <IconInstagram className="h-5 w-5 shrink-0 text-pink-200" />
@@ -462,7 +623,7 @@ export default function HopeKidsLandingPage() {
                     href={SOCIAL_TIKTOK_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 transition hover:text-amber-50"
+                    className="inline-flex items-center gap-2 transition-all duration-300 hover:scale-[1.06] hover:text-amber-50 active:scale-[0.98]"
                     aria-label="TikTok"
                   >
                     <IconTikTok className="h-5 w-5 shrink-0 text-cyan-200" />
@@ -472,7 +633,7 @@ export default function HopeKidsLandingPage() {
                     href={tokenStats.dexscreenerUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 transition hover:text-amber-50"
+                    className="inline-flex items-center gap-2 transition-all duration-300 hover:scale-[1.06] hover:text-amber-50 active:scale-[0.98]"
                     aria-label="DexScreener"
                   >
                     <IconDexScreener className="h-5 w-5 shrink-0" />
@@ -486,7 +647,7 @@ export default function HopeKidsLandingPage() {
                 aria-label="HopeKids introduction"
                 className="relative z-10 border-0 bg-transparent px-4 py-7 shadow-none sm:px-6 sm:py-9 lg:px-10 lg:pb-11 lg:pt-9"
               >
-                <div className="relative z-10 mx-auto flex max-w-xl flex-col justify-center text-center sm:max-w-lg lg:mx-0 lg:max-w-[min(100%,28rem)] lg:text-left">
+                <div className="hopekids-hero-stack relative z-10 mx-auto flex max-w-xl flex-col justify-center text-center sm:max-w-lg lg:mx-0 lg:max-w-[min(100%,28rem)] lg:text-left">
                   <h1 className="hopekids-title-glare text-4xl font-extrabold drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-6xl">
                     HopeKids
                   </h1>
@@ -503,13 +664,13 @@ export default function HopeKidsLandingPage() {
                       href={JUPITER_BUY_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex w-full min-w-[200px] items-center justify-center rounded-full border-2 border-blue-400/65 bg-transparent px-6 py-3.5 text-base font-bold tracking-tight text-blue-100 shadow-[0_0_24px_rgba(59,130,246,0.2)] backdrop-blur-sm transition-all duration-200 hover:scale-[1.02] hover:border-blue-300/90 hover:bg-blue-500/10 hover:text-white sm:w-auto"
+                      className="inline-flex w-full min-w-[200px] items-center justify-center rounded-full border-2 border-blue-400/65 bg-transparent px-6 py-3.5 text-base font-bold tracking-tight text-blue-100 shadow-[0_0_24px_rgba(59,130,246,0.2)] backdrop-blur-sm transition-all duration-300 hover:scale-[1.04] hover:border-blue-300/90 hover:bg-blue-500/10 hover:text-white hover:shadow-[0_0_32px_rgba(59,130,246,0.35)] active:scale-[0.98] sm:w-auto"
                     >
                       Buy HopeKids
                     </a>
                     <a
                       href="#donations"
-                      className="inline-flex w-full min-w-[200px] items-center justify-center rounded-full border border-amber-400/45 bg-amber-500/[0.08] px-6 py-3.5 text-base font-semibold text-amber-100/95 shadow-[0_0_28px_rgba(251,191,36,0.12)] backdrop-blur-sm transition hover:border-amber-300/60 hover:bg-amber-400/10 sm:w-auto"
+                      className="inline-flex w-full min-w-[200px] items-center justify-center rounded-full border border-amber-400/45 bg-amber-500/[0.08] px-6 py-3.5 text-base font-semibold text-amber-100/95 shadow-[0_0_28px_rgba(251,191,36,0.12)] backdrop-blur-sm transition-all duration-300 hover:scale-[1.04] hover:border-amber-300/60 hover:bg-amber-400/10 hover:shadow-[0_0_36px_rgba(251,191,36,0.2)] active:scale-[0.98] sm:w-auto"
                     >
                       View Donation Wallet
                     </a>
@@ -519,26 +680,26 @@ export default function HopeKidsLandingPage() {
             </div>
 
             <section className="mt-6 grid gap-4 md:grid-cols-3">
-              {stats.map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-2xl border border-cyan-400/25 bg-[#071226]/28 px-4 py-4 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.2),0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_14px_32px_-8px_rgba(0,0,0,0.25),0_0_28px_rgba(56,189,248,0.2)] sm:px-6 sm:py-5"
-                >
-                  <div className="text-xs text-blue-100/72 sm:text-sm">{item.label}</div>
-                  <div className="mt-2 flex items-end gap-2 sm:mt-3">
-                    <span className="text-2xl font-extrabold tracking-tight sm:text-4xl">{item.value}</span>
-                    {item.suffix ? <span className="pb-1 text-lg font-semibold text-blue-100/80">{item.suffix}</span> : null}
+              {stats.map((item, i) => (
+                <RevealOnScroll key={item.label} delayMs={i * 75} className="min-w-0">
+                  <div className="rounded-2xl border border-cyan-400/25 bg-[#071226]/28 px-4 py-4 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.2),0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-500 hover:-translate-y-1.5 hover:border-cyan-400/45 hover:shadow-[0_14px_32px_-8px_rgba(0,0,0,0.25),0_0_28px_rgba(56,189,248,0.22)] sm:px-6 sm:py-5">
+                    <div className="text-xs text-blue-100/72 sm:text-sm">{item.label}</div>
+                    <div className="mt-2 flex items-end gap-2 sm:mt-3">
+                      <span className="text-2xl font-extrabold tracking-tight sm:text-4xl">{item.value}</span>
+                      {item.suffix ? <span className="pb-1 text-lg font-semibold text-blue-100/80">{item.suffix}</span> : null}
+                    </div>
                   </div>
-                </div>
+                </RevealOnScroll>
               ))}
             </section>
 
+            <RevealOnScroll className="mt-4 sm:mt-5">
             <section
               id="market"
-              className="mt-4 scroll-mt-28 sm:mt-5"
+              className="scroll-mt-28"
               aria-label="HKIDS live market data from DexScreener"
             >
-              <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/35 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:p-5">
+              <div className="hopekids-live-card rounded-2xl border border-cyan-400/25 bg-[#061126]/35 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-shadow duration-500 sm:p-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <h2 className="text-lg font-extrabold text-white sm:text-xl">Live market (DexScreener)</h2>
                   <a
@@ -551,7 +712,7 @@ export default function HopeKidsLandingPage() {
                   </a>
                 </div>
                 <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                  <div className="rounded-xl border border-emerald-500/25 bg-black/25 px-4 py-3 sm:py-4">
+                  <div className="rounded-xl border border-emerald-500/25 bg-black/25 px-4 py-3 transition-all duration-300 hover:border-emerald-400/40 hover:shadow-[0_0_20px_rgba(52,211,153,0.12)] sm:py-4">
                     <div className="text-[11px] font-semibold uppercase tracking-wide text-blue-100/55">Market cap</div>
                     <div className="mt-1 text-xl font-extrabold tabular-nums text-emerald-100 sm:text-2xl">
                       {tokenStats.loading
@@ -561,13 +722,13 @@ export default function HopeKidsLandingPage() {
                           : FALLBACK_MARKET_CAP}
                     </div>
                   </div>
-                  <div className="rounded-xl border border-cyan-400/25 bg-black/25 px-4 py-3 sm:py-4">
+                  <div className="rounded-xl border border-cyan-400/25 bg-black/25 px-4 py-3 transition-all duration-300 hover:border-cyan-300/45 hover:shadow-[0_0_20px_rgba(56,189,248,0.14)] sm:py-4">
                     <div className="text-[11px] font-semibold uppercase tracking-wide text-blue-100/55">Price</div>
                     <div className="mt-1 text-xl font-extrabold tabular-nums text-cyan-100 sm:text-2xl">
                       {tokenStats.loading ? '…' : tokenStats.priceUsd ?? '—'}
                     </div>
                   </div>
-                  <div className="rounded-xl border border-amber-400/25 bg-black/25 px-4 py-3 sm:py-4">
+                  <div className="rounded-xl border border-amber-400/25 bg-black/25 px-4 py-3 transition-all duration-300 hover:border-amber-300/45 hover:shadow-[0_0_20px_rgba(251,191,36,0.12)] sm:py-4">
                     <div className="text-[11px] font-semibold uppercase tracking-wide text-blue-100/55">Liquidity</div>
                     <div className="mt-1 text-xl font-extrabold tabular-nums text-amber-100 sm:text-2xl">
                       {tokenStats.loading ? '…' : tokenStats.liquidityUsd != null ? formatUsdCompact(tokenStats.liquidityUsd) : '—'}
@@ -576,12 +737,14 @@ export default function HopeKidsLandingPage() {
                 </div>
               </div>
             </section>
+            </RevealOnScroll>
 
             {/* removed: Where HopeKids Helps / Trade cards */}
 
             <section className="mt-8 scroll-mt-28" aria-label="Fundraiser spotlight and supporting the project">
               <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
-                <div className="flex h-full min-h-[200px] flex-col justify-center gap-4 rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:min-h-[220px] sm:flex-row sm:items-center sm:gap-5 sm:p-6">
+                <RevealOnScroll className="min-w-0">
+                <div className="flex h-full min-h-[200px] flex-col justify-center gap-4 rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-500 hover:border-cyan-400/40 hover:shadow-[0_0_24px_rgba(56,189,248,0.16)] sm:min-h-[220px] sm:flex-row sm:items-center sm:gap-5 sm:p-6">
                   <div className="flex shrink-0 flex-col items-center sm:items-start">
                     <img
                       src={SPOTLIGHT_CHILD_IMAGE_SRC}
@@ -619,7 +782,9 @@ export default function HopeKidsLandingPage() {
                     </div>
                   </div>
                 </div>
-                <div className="relative flex h-full min-h-[200px] flex-col justify-center rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 text-center shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:min-h-0 sm:p-6 sm:text-left">
+                </RevealOnScroll>
+                <RevealOnScroll delayMs={100} className="min-w-0">
+                <div className="relative flex h-full min-h-[200px] flex-col justify-center rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 text-center shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-500 hover:border-cyan-400/40 hover:shadow-[0_0_24px_rgba(56,189,248,0.16)] sm:min-h-0 sm:p-6 sm:text-left">
                   <a
                     href={`mailto:${HOPEKIDS_TEAM_EMAIL}`}
                     className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-400/40 bg-black/25 text-cyan-200 shadow-[0_0_12px_rgba(56,189,248,0.15)] transition hover:border-amber-400/45 hover:bg-amber-500/10 hover:text-amber-100 sm:right-4 sm:top-4"
@@ -686,16 +851,18 @@ export default function HopeKidsLandingPage() {
                     </ul>
                   </div>
                 </div>
+                </RevealOnScroll>
               </div>
             </section>
 
-            <section id="mission" className="mt-8 scroll-mt-28">
+            <RevealOnScroll className="mt-8">
+            <section id="mission" className="scroll-mt-28">
               <button
                 type="button"
                 onClick={() => setStoryOpen(true)}
-                className="w-full rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-5 text-left shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-200 hover:border-cyan-400/45 hover:bg-[#071a35]/40 hover:shadow-[0_0_22px_rgba(56,189,248,0.18)] active:scale-[0.99] sm:p-6"
+                className="w-full rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-5 text-left shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-300 hover:border-cyan-400/45 hover:bg-[#071a35]/40 hover:shadow-[0_0_26px_rgba(56,189,248,0.22)] active:scale-[0.99] sm:p-6"
               >
-                <div className="text-2xl sm:text-3xl" aria-hidden="true">
+                <div className="hopekids-sparkle text-2xl sm:text-3xl" aria-hidden="true">
                   ✨
                 </div>
                 <div className="mt-2 text-2xl font-extrabold text-amber-200 sm:text-3xl">Mission — What is HopeKids?</div>
@@ -705,8 +872,10 @@ export default function HopeKidsLandingPage() {
                 <p className="mt-3 text-[11px] font-semibold uppercase tracking-wide text-cyan-300/70">Open</p>
               </button>
             </section>
+            </RevealOnScroll>
 
-            <section className="mt-6 sm:mt-8" id="donations">
+            <RevealOnScroll className="mt-6 sm:mt-8">
+            <section id="donations">
               <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:rounded-[26px] sm:p-6">
                 <div className="text-2xl font-extrabold sm:text-[34px]">Transparency</div>
                 <div className="mt-4 rounded-2xl border border-cyan-400/20 bg-[#08172f]/50 p-4 shadow-[0_0_12px_rgba(56,189,248,0.1)] sm:mt-5 sm:p-5">
@@ -741,8 +910,10 @@ export default function HopeKidsLandingPage() {
                 </div>
               </div>
             </section>
+            </RevealOnScroll>
 
-            <section className="mt-6 sm:mt-8" id="contact" aria-labelledby="contact-heading">
+            <RevealOnScroll className="mt-6 sm:mt-8">
+            <section id="contact" aria-labelledby="contact-heading">
               <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:rounded-[26px] sm:p-6">
                 <h2 id="contact-heading" className="text-2xl font-extrabold sm:text-[34px]">
                   Contact the team
@@ -764,10 +935,11 @@ export default function HopeKidsLandingPage() {
                 </div>
               </div>
             </section>
+            </RevealOnScroll>
 
             <footer className="border-t-4 border-orange-500 bg-black/20 py-8 text-center text-blue-100/70 sm:py-10">
               <div className="flex flex-col items-center gap-3">
-                <span className="rounded-[13px] opacity-95 shadow-[0_4px_20px_rgba(0,0,0,0.35)] ring-1 ring-white/10">
+                <span className="hopekids-footer-mark rounded-[13px] opacity-95 shadow-[0_4px_20px_rgba(0,0,0,0.35)] ring-1 ring-white/10">
                   <HopeKidsBrandMark className="h-10 w-10 sm:h-11 sm:w-11" />
                 </span>
                 <div className="text-2xl font-extrabold text-white sm:text-3xl">HopeKids © 2026</div>
@@ -791,7 +963,7 @@ export default function HopeKidsLandingPage() {
             className="fixed inset-0 bg-black/75 backdrop-blur-sm"
             onClick={() => setStoryOpen(false)}
           />
-          <div className="relative z-[1] mx-4 w-full max-w-2xl overflow-hidden rounded-2xl border border-cyan-400/35 shadow-[0_0_40px_rgba(56,189,248,0.15)]">
+          <div className="hopekids-modal-panel relative z-[1] mx-4 w-full max-w-2xl overflow-hidden rounded-2xl border border-cyan-400/35 shadow-[0_0_40px_rgba(56,189,248,0.15)]">
             <div
               className="pointer-events-none absolute inset-0 bg-[url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06')] bg-cover bg-center"
               aria-hidden="true"
