@@ -834,15 +834,17 @@ export default function HopeKidsLandingPage() {
                 <RevealOnScroll className="min-w-0">
                 <div className="flex h-full min-h-[200px] flex-col justify-center gap-4 rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-500 hover:border-cyan-400/40 hover:shadow-[0_0_24px_rgba(56,189,248,0.16)] sm:min-h-[220px] sm:flex-row sm:items-center sm:gap-5 sm:p-6">
                   <div className="flex shrink-0 flex-col items-center sm:items-start">
-                    <img
-                      src={SPOTLIGHT_CHILD_IMAGE_SRC}
-                      alt={t('spotlight_alt')}
-                      width={144}
-                      height={144}
-                      className="h-28 w-28 rounded-xl object-cover shadow-[0_8px_24px_rgba(0,0,0,0.4)] ring-2 ring-cyan-400/35 sm:h-32 sm:w-32"
-                      loading="lazy"
-                      decoding="async"
-                    />
+                    <div className="hopekids-spotlight-photo group relative h-28 w-28 cursor-zoom-in overflow-hidden rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.4)] ring-2 ring-cyan-400/35 sm:h-32 sm:w-32">
+                      <img
+                        src={SPOTLIGHT_CHILD_IMAGE_SRC}
+                        alt={t('spotlight_alt')}
+                        width={144}
+                        height={144}
+                        className="h-full w-full object-cover transition-transform duration-500 ease-out will-change-transform group-hover:scale-[1.14] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
                     <p className="mt-2 text-center text-sm font-semibold text-amber-100/95 sm:text-left">{SPOTLIGHT_CHILD_NAME}</p>
                   </div>
                   <div className="min-w-0 flex-1 text-center sm:text-left">
