@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { createT } from './hopekidsCopy.js';
 
 // HKIDS token mint on Solana (Jupiter swap)
 const HKIDS_MINT = '6u5PLy9ePpuGEBK3kmQ9isVDFjqSurKpvmCFzheDgQke';
@@ -16,6 +17,9 @@ const PUBLIC_DONATION_WALLET = 'GnhmPt4LBHRoABuGrSqrbPW34Mu8dXGJf1XCNc7DHRAB';
 
 /** HopeKids team inbox */
 const HOPEKIDS_TEAM_EMAIL = 'hopekids594@gmail.com';
+
+/** On-chain account view for the donation wallet (read-only transparency). */
+const SOLSCAN_ACCOUNT_URL = `https://solscan.io/account/${PUBLIC_DONATION_WALLET}`;
 
 /** Shown when DexScreener has no marketCap/fdv for the pair yet */
 const FALLBACK_MARKET_CAP = '$3,250,000';
@@ -52,12 +56,8 @@ function ensureSpotlightDeadlineMs() {
 }
 
 function useSpotlightCountdown() {
-  const [endMs, setEndMs] = useState(() => Date.now() + SPOTLIGHT_WINDOW_MS);
+  const [endMs, setEndMs] = useState(() => ensureSpotlightDeadlineMs());
   const [now, setNow] = useState(() => Date.now());
-
-  useEffect(() => {
-    setEndMs(ensureSpotlightDeadlineMs());
-  }, []);
 
   useEffect(() => {
     const id = window.setInterval(() => {
@@ -235,8 +235,80 @@ function RevealOnScroll({ children, className = '', delayMs = 0 }) {
 
 export default function HopeKidsLandingPage() {
   const [storyOpen, setStoryOpen] = useState(false);
+  const [storyScrollSession, setStoryScrollSession] = useState(0);
   const [walletCopied, setWalletCopied] = useState(false);
   const spotlightCountdown = useSpotlightCountdown();
+
+  const [locale, setLocale] = useState(() => {
+    if (typeof window === 'undefined') return 'en';
+    try {
+      return window.localStorage.getItem('hopekids-locale') === 'pl' ? 'pl' : 'en';
+    } catch {
+      return 'en';
+    }
+  });
+  const [highContrast, setHighContrast] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    try {
+      return window.localStorage.getItem('hopekids-high-contrast') === '1';
+    } catch {
+      return false;
+    }
+  });
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  const [recentSigs, setRecentSigs] = useState({ loading: true, items: [], ok: false });
+  const storyScrollRef = useRef(null);
+  const [storyScrollPct, setStoryScrollPct] = useState(0);
+
+  const t = useMemo(() => createT(locale), [locale]);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem('hopekids-locale', locale);
+    } catch {
+      /* private mode */
+    }
+    document.documentElement.lang = locale === 'pl' ? 'pl' : 'en';
+  }, [locale]);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem('hopekids-high-contrast', highContrast ? '1' : '0');
+    } catch {
+      /* private mode */
+    }
+    document.documentElement.classList.toggle('hopekids-high-contrast', highContrast);
+  }, [highContrast]);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.target?.closest?.('input, textarea, select, [contenteditable="true"]')) return;
+      if (e.key === '?' || (e.shiftKey && e.key === '/')) {
+        e.preventDefault();
+        setShortcutsOpen(true);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const r = await fetch('/api/wallet-recent');
+        const data = await r.json();
+        if (!cancelled) {
+          setRecentSigs({ loading: false, items: Array.isArray(data.items) ? data.items : [], ok: data.ok === true });
+        }
+      } catch {
+        if (!cancelled) setRecentSigs({ loading: false, items: [], ok: false });
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const copyDonationWallet = useCallback(async () => {
     try {
@@ -261,6 +333,15 @@ export default function HopeKidsLandingPage() {
       document.body.style.overflow = prev;
     };
   }, [storyOpen]);
+
+  useEffect(() => {
+    if (!shortcutsOpen) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') setShortcutsOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [shortcutsOpen]);
 
   const [tokenStats, setTokenStats] = useState({
     loading: true,
@@ -321,13 +402,14 @@ export default function HopeKidsLandingPage() {
   }, []);
 
   const stats = [
-    { label: 'Tokens Saved for Children', value: '2,350,000', suffix: 'HKIDS' },
-    { label: 'Current Value', value: '$14,200', suffix: '' },
-    { label: 'Total Transactions Helping Children', value: '9,482', suffix: '' },
+    { label: t('stats_tokensSaved'), value: '2,350,000', suffix: 'HKIDS' },
+    { label: t('stats_currentValue'), value: '$14,200', suffix: '' },
+    { label: t('stats_txs'), value: '9,482', suffix: '' },
   ];
 
   return (
     <>
+      <div className="hopekids-grain" aria-hidden="true" />
       <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
@@ -519,6 +601,34 @@ export default function HopeKidsLandingPage() {
           animation: hopekids-border-glow 6s ease-in-out infinite;
         }
 
+        .hopekids-grain {
+          pointer-events: none;
+          position: fixed;
+          inset: 0;
+          z-index: 5;
+          opacity: 0.045;
+          mix-blend-mode: overlay;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+          animation: hopekids-grain-shift 8s steps(10) infinite;
+        }
+
+        @keyframes hopekids-grain-shift {
+          0% { transform: translate(0, 0); }
+          100% { transform: translate(-5%, -5%); }
+        }
+
+        html.hopekids-high-contrast .hopekids-hc-text {
+          color: #f8fafc !important;
+        }
+
+        html.hopekids-high-contrast .hopekids-hc-border {
+          border-color: rgba(250, 250, 250, 0.55) !important;
+        }
+
+        html.hopekids-high-contrast {
+          filter: contrast(1.12) saturate(1.08);
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .hopekids-title-glare,
           .hopekids-aurora-a,
@@ -530,6 +640,10 @@ export default function HopeKidsLandingPage() {
           .hopekids-sparkle,
           .hopekids-live-card {
             animation: none !important;
+          }
+
+          .hopekids-grain {
+            display: none !important;
           }
 
           .hopekids-live-card {
@@ -597,7 +711,7 @@ export default function HopeKidsLandingPage() {
               <header className="hopekids-header-enter sticky top-2 z-50 flex flex-wrap items-center justify-center gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3 lg:px-10">
                 <nav
                   className="flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] sm:gap-4"
-                  aria-label="Social and charts"
+                  aria-label={t('nav_socialAria')}
                 >
                   <a
                     href={SOCIAL_TWITTER_URL}
@@ -644,20 +758,19 @@ export default function HopeKidsLandingPage() {
 
               <section
                 id="home"
-                aria-label="HopeKids introduction"
+                aria-label={t('intro_aria')}
                 className="relative z-10 border-0 bg-transparent px-4 py-7 shadow-none sm:px-6 sm:py-9 lg:px-10 lg:pb-11 lg:pt-9"
               >
                 <div className="hopekids-hero-stack relative z-10 mx-auto flex max-w-xl flex-col justify-center text-center sm:max-w-lg lg:mx-0 lg:max-w-[min(100%,28rem)] lg:text-left">
                   <h1 className="hopekids-title-glare text-4xl font-extrabold drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-6xl">
-                    HopeKids
+                    {t('hero_title')}
                   </h1>
                   <p className="mt-4 text-lg font-semibold leading-snug text-amber-50 drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)] sm:mt-5 sm:text-xl lg:text-2xl">
-                    Support sick children through cryptocurrency.
+                    {t('hero_tagline')}
                   </p>
                   <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-stone-200/95 drop-shadow-[0_1px_12px_rgba(0,0,0,0.8)] sm:mt-5 sm:text-base lg:mx-0">
-                    When you buy or trade HKIDS, part of every swap supports sick children.{' '}
-                    <span className="font-semibold text-amber-200">3%</span> of each transaction goes to the public
-                    donation wallet.
+                    {t('hero_bodyBefore')}{' '}
+                    <span className="font-semibold text-amber-200">{t('hero_bodyPercent')}</span> {t('hero_bodyAfter')}
                   </p>
                   <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap lg:justify-start">
                     <a
@@ -666,13 +779,13 @@ export default function HopeKidsLandingPage() {
                       rel="noopener noreferrer"
                       className="inline-flex w-full min-w-[200px] items-center justify-center rounded-full border-2 border-blue-400/65 bg-transparent px-6 py-3.5 text-base font-bold tracking-tight text-blue-100 shadow-[0_0_24px_rgba(59,130,246,0.2)] backdrop-blur-sm transition-all duration-300 hover:scale-[1.04] hover:border-blue-300/90 hover:bg-blue-500/10 hover:text-white hover:shadow-[0_0_32px_rgba(59,130,246,0.35)] active:scale-[0.98] sm:w-auto"
                     >
-                      Buy HopeKids
+                      {t('hero_buy')}
                     </a>
                     <a
                       href="#donations"
                       className="inline-flex w-full min-w-[200px] items-center justify-center rounded-full border border-amber-400/45 bg-amber-500/[0.08] px-6 py-3.5 text-base font-semibold text-amber-100/95 shadow-[0_0_28px_rgba(251,191,36,0.12)] backdrop-blur-sm transition-all duration-300 hover:scale-[1.04] hover:border-amber-300/60 hover:bg-amber-400/10 hover:shadow-[0_0_36px_rgba(251,191,36,0.2)] active:scale-[0.98] sm:w-auto"
                     >
-                      View Donation Wallet
+                      {t('hero_wallet')}
                     </a>
                   </div>
                 </div>
@@ -697,23 +810,33 @@ export default function HopeKidsLandingPage() {
             <section
               id="market"
               className="scroll-mt-28"
-              aria-label="HKIDS live market data from DexScreener"
+              aria-label={t('section_marketAria')}
             >
               <div className="hopekids-live-card rounded-2xl border border-cyan-400/25 bg-[#061126]/35 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-shadow duration-500 sm:p-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <h2 className="text-lg font-extrabold text-white sm:text-xl">Live market (DexScreener)</h2>
-                  <a
-                    href={tokenStats.dexscreenerUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-semibold text-cyan-300/90 underline decoration-cyan-500/50 underline-offset-2 transition hover:text-cyan-200"
-                  >
-                    Charts &amp; pair ↗
-                  </a>
+                  <h2 className="text-lg font-extrabold text-white sm:text-xl">{t('market_title')}</h2>
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                    <a
+                      href={tokenStats.dexscreenerUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-semibold text-cyan-300/90 underline decoration-cyan-500/50 underline-offset-2 transition hover:text-cyan-200"
+                    >
+                      {t('market_charts')}
+                    </a>
+                    <a
+                      href={DEXSCREENER_TOKEN_PAGE}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-semibold text-emerald-300/90 underline decoration-emerald-500/50 underline-offset-2 transition hover:text-emerald-200"
+                    >
+                      {t('market_holders')}
+                    </a>
+                  </div>
                 </div>
                 <div className="mt-4 grid gap-3 sm:grid-cols-3">
                   <div className="rounded-xl border border-emerald-500/25 bg-black/25 px-4 py-3 transition-all duration-300 hover:border-emerald-400/40 hover:shadow-[0_0_20px_rgba(52,211,153,0.12)] sm:py-4">
-                    <div className="text-[11px] font-semibold uppercase tracking-wide text-blue-100/55">Market cap</div>
+                    <div className="text-[11px] font-semibold uppercase tracking-wide text-blue-100/55">{t('market_cap')}</div>
                     <div className="mt-1 text-xl font-extrabold tabular-nums text-emerald-100 sm:text-2xl">
                       {tokenStats.loading
                         ? '…'
@@ -723,13 +846,13 @@ export default function HopeKidsLandingPage() {
                     </div>
                   </div>
                   <div className="rounded-xl border border-cyan-400/25 bg-black/25 px-4 py-3 transition-all duration-300 hover:border-cyan-300/45 hover:shadow-[0_0_20px_rgba(56,189,248,0.14)] sm:py-4">
-                    <div className="text-[11px] font-semibold uppercase tracking-wide text-blue-100/55">Price</div>
+                    <div className="text-[11px] font-semibold uppercase tracking-wide text-blue-100/55">{t('market_price')}</div>
                     <div className="mt-1 text-xl font-extrabold tabular-nums text-cyan-100 sm:text-2xl">
                       {tokenStats.loading ? '…' : tokenStats.priceUsd ?? '—'}
                     </div>
                   </div>
                   <div className="rounded-xl border border-amber-400/25 bg-black/25 px-4 py-3 transition-all duration-300 hover:border-amber-300/45 hover:shadow-[0_0_20px_rgba(251,191,36,0.12)] sm:py-4">
-                    <div className="text-[11px] font-semibold uppercase tracking-wide text-blue-100/55">Liquidity</div>
+                    <div className="text-[11px] font-semibold uppercase tracking-wide text-blue-100/55">{t('market_liq')}</div>
                     <div className="mt-1 text-xl font-extrabold tabular-nums text-amber-100 sm:text-2xl">
                       {tokenStats.loading ? '…' : tokenStats.liquidityUsd != null ? formatUsdCompact(tokenStats.liquidityUsd) : '—'}
                     </div>
@@ -739,16 +862,33 @@ export default function HopeKidsLandingPage() {
             </section>
             </RevealOnScroll>
 
+            <RevealOnScroll className="mt-6">
+              <section id="jupiter" className="scroll-mt-28" aria-label="Jupiter swap">
+                <div className="rounded-2xl border border-blue-400/30 bg-[#061126]/45 p-5 shadow-[0_0_14px_rgba(59,130,246,0.15)] backdrop-blur sm:p-6">
+                  <h2 className="text-lg font-extrabold text-white sm:text-xl">{t('jupiter_title')}</h2>
+                  <p className="mt-2 max-w-3xl text-sm text-blue-100/78 sm:text-base">{t('jupiter_body')}</p>
+                  <a
+                    href={JUPITER_BUY_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center justify-center rounded-xl border border-blue-400/50 bg-blue-600/25 px-5 py-2.5 text-sm font-bold text-blue-100 transition hover:border-blue-300/70 hover:bg-blue-500/35"
+                  >
+                    {t('jupiter_cta')}
+                  </a>
+                </div>
+              </section>
+            </RevealOnScroll>
+
             {/* removed: Where HopeKids Helps / Trade cards */}
 
-            <section className="mt-8 scroll-mt-28" aria-label="Fundraiser spotlight and supporting the project">
+            <section className="mt-8 scroll-mt-28" aria-label={t('section_fundraiserAria')}>
               <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 md:gap-6">
                 <RevealOnScroll className="min-w-0">
                 <div className="flex h-full min-h-[200px] flex-col justify-center gap-4 rounded-2xl border border-cyan-400/25 bg-[#061126]/55 p-5 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur transition-all duration-500 hover:border-cyan-400/40 hover:shadow-[0_0_24px_rgba(56,189,248,0.16)] sm:min-h-[220px] sm:flex-row sm:items-center sm:gap-5 sm:p-6">
                   <div className="flex shrink-0 flex-col items-center sm:items-start">
                     <img
                       src={SPOTLIGHT_CHILD_IMAGE_SRC}
-                      alt="Example HopeKids spotlight child (illustrative photo)"
+                      alt={t('spotlight_alt')}
                       width={144}
                       height={144}
                       className="h-28 w-28 rounded-xl object-cover shadow-[0_8px_24px_rgba(0,0,0,0.4)] ring-2 ring-cyan-400/35 sm:h-32 sm:w-32"
@@ -758,18 +898,15 @@ export default function HopeKidsLandingPage() {
                     <p className="mt-2 text-center text-sm font-semibold text-amber-100/95 sm:text-left">{SPOTLIGHT_CHILD_NAME}</p>
                   </div>
                   <div className="min-w-0 flex-1 text-center sm:text-left">
-                    <div className="text-lg font-extrabold text-amber-200 sm:text-xl">Fundraiser</div>
-                    <p className="mt-2 text-sm leading-relaxed text-blue-100/75 sm:text-base">
-                      A HopeKids fundraiser for children who need care. Share the page, donate to the public wallet, or get
-                      HKIDS — every contribution supports the mission.
-                    </p>
+                    <div className="text-lg font-extrabold text-amber-200 sm:text-xl">{t('fundraiser_title')}</div>
+                    <p className="mt-2 text-sm leading-relaxed text-blue-100/75 sm:text-base">{t('fundraiser_body')}</p>
                     <div
                       className="mt-4 rounded-xl border border-cyan-500/25 bg-black/25 px-3 py-2.5 sm:px-4"
                       role="timer"
                       aria-live="polite"
-                      aria-label="Time remaining in this 30-day support window"
+                      aria-label={t('timer_aria')}
                     >
-                      <p className="text-[10px] font-semibold uppercase tracking-wider text-cyan-200/80">Support window</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-wider text-cyan-200/80">{t('support_window')}</p>
                       <p className="mt-1 font-mono text-lg tabular-nums text-cyan-100 sm:text-xl">
                         <span className="font-extrabold text-amber-200">{spotlightCountdown.hours}</span>
                         <span className="text-blue-100/60">h </span>
@@ -778,7 +915,7 @@ export default function HopeKidsLandingPage() {
                         <span className="font-extrabold text-amber-200">{String(spotlightCountdown.seconds).padStart(2, '0')}</span>
                         <span className="text-blue-100/60">s</span>
                       </p>
-                      <p className="mt-0.5 text-[11px] text-blue-100/55">30-day cycle · hours shown first</p>
+                      <p className="mt-0.5 text-[11px] text-blue-100/55">{t('support_cycle')}</p>
                     </div>
                   </div>
                 </div>
@@ -788,7 +925,7 @@ export default function HopeKidsLandingPage() {
                   <a
                     href={`mailto:${HOPEKIDS_TEAM_EMAIL}`}
                     className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-400/40 bg-black/25 text-cyan-200 shadow-[0_0_12px_rgba(56,189,248,0.15)] transition hover:border-amber-400/45 hover:bg-amber-500/10 hover:text-amber-100 sm:right-4 sm:top-4"
-                    aria-label={`Email HopeKids at ${HOPEKIDS_TEAM_EMAIL}`}
+                    aria-label={`${t('email_aria')} ${HOPEKIDS_TEAM_EMAIL}`}
                     title={HOPEKIDS_TEAM_EMAIL}
                   >
                     <svg
@@ -806,7 +943,7 @@ export default function HopeKidsLandingPage() {
                     </svg>
                   </a>
                   <div>
-                    <p className="pr-12 text-lg font-extrabold text-amber-200 sm:text-xl">Support the project</p>
+                    <p className="pr-12 text-lg font-extrabold text-amber-200 sm:text-xl">{t('support_title')}</p>
                     <ul className="mx-auto mt-3 max-w-md space-y-2.5 text-left text-sm leading-snug text-blue-100/82 sm:mx-0">
                       <li className="flex gap-2.5">
                         <span
@@ -814,8 +951,7 @@ export default function HopeKidsLandingPage() {
                           aria-hidden="true"
                         />
                         <span>
-                          <span className="font-semibold text-blue-100/95">Growth ideas</span> — new campaigns, better
-                          storytelling, or features that make donating and tracking impact easier.
+                          <span className="font-semibold text-blue-100/95">{t('support_growth')}</span> {t('support_growthBody')}
                         </span>
                       </li>
                       <li className="flex gap-2.5">
@@ -824,8 +960,7 @@ export default function HopeKidsLandingPage() {
                           aria-hidden="true"
                         />
                         <span>
-                          <span className="font-semibold text-blue-100/95">Partnerships</span> — brands, creators, hospitals,
-                          or NGOs that share the mission and want to co-create reach or events.
+                          <span className="font-semibold text-blue-100/95">{t('support_partners')}</span> {t('support_partnersBody')}
                         </span>
                       </li>
                       <li className="flex gap-2.5">
@@ -834,8 +969,7 @@ export default function HopeKidsLandingPage() {
                           aria-hidden="true"
                         />
                         <span>
-                          <span className="font-semibold text-blue-100/95">Build &amp; ship</span> — developers, designers,
-                          or volunteers who can help improve the site, wallet flows, or transparency tools.
+                          <span className="font-semibold text-blue-100/95">{t('support_build')}</span> {t('support_buildBody')}
                         </span>
                       </li>
                       <li className="flex gap-2.5">
@@ -844,8 +978,7 @@ export default function HopeKidsLandingPage() {
                           aria-hidden="true"
                         />
                         <span>
-                          <span className="font-semibold text-blue-100/95">Spread the word</span> — share on socials, invite
-                          communities, and point people to the public donation wallet and HKIDS.
+                          <span className="font-semibold text-blue-100/95">{t('support_spread')}</span> {t('support_spreadBody')}
                         </span>
                       </li>
                     </ul>
@@ -859,27 +992,30 @@ export default function HopeKidsLandingPage() {
             <section id="mission" className="scroll-mt-28">
               <button
                 type="button"
-                onClick={() => setStoryOpen(true)}
+                onClick={() => {
+                  setStoryScrollPct(0);
+                  setStoryScrollSession((s) => s + 1);
+                  setStoryOpen(true);
+                }}
                 className="w-full rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-5 text-left shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur transition-all duration-300 hover:border-cyan-400/45 hover:bg-[#071a35]/40 hover:shadow-[0_0_26px_rgba(56,189,248,0.22)] active:scale-[0.99] sm:p-6"
               >
                 <div className="hopekids-sparkle text-2xl sm:text-3xl" aria-hidden="true">
                   ✨
                 </div>
-                <div className="mt-2 text-2xl font-extrabold text-amber-200 sm:text-3xl">Mission — What is HopeKids?</div>
-                <p className="mt-2 text-sm text-blue-100/74 sm:text-base">
-                  A movement of hope — tap to read our full story.
-                </p>
-                <p className="mt-3 text-[11px] font-semibold uppercase tracking-wide text-cyan-300/70">Open</p>
+                <div className="mt-2 text-2xl font-extrabold text-amber-200 sm:text-3xl">{t('mission_title')}</div>
+                <p className="mt-2 text-sm text-blue-100/74 sm:text-base">{t('mission_sub')}</p>
+                <p className="mt-3 text-[11px] font-semibold uppercase tracking-wide text-cyan-300/70">{t('mission_open')}</p>
               </button>
             </section>
             </RevealOnScroll>
 
             <RevealOnScroll className="mt-6 sm:mt-8">
-            <section id="donations">
+            <section id="donations" className="scroll-mt-28">
               <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:rounded-[26px] sm:p-6">
-                <div className="text-2xl font-extrabold sm:text-[34px]">Transparency</div>
+                <div className="text-2xl font-extrabold sm:text-[34px]">{t('transparency_title')}</div>
                 <div className="mt-4 rounded-2xl border border-cyan-400/20 bg-[#08172f]/50 p-4 shadow-[0_0_12px_rgba(56,189,248,0.1)] sm:mt-5 sm:p-5">
-                  <div className="text-lg font-bold sm:text-xl">Public Donation Wallet</div>
+                  <div className="text-lg font-bold sm:text-xl">{t('wallet_title')}</div>
+                  <p className="mt-2 text-xs text-blue-100/60 sm:text-sm">{t('wallet_verifyHint')}</p>
                   <div className="mt-3 flex min-w-0 items-stretch gap-2 rounded-xl border border-white/10 bg-black/20 sm:mt-4 sm:gap-3">
                     <div className="min-w-0 flex-1 px-3 py-2.5 font-mono text-sm leading-relaxed text-blue-100/90 break-all sm:px-4 sm:py-3 sm:text-base">
                       {PUBLIC_DONATION_WALLET}
@@ -887,7 +1023,7 @@ export default function HopeKidsLandingPage() {
                     <button
                       type="button"
                       onClick={copyDonationWallet}
-                      aria-label={walletCopied ? 'Copied' : 'Copy wallet address'}
+                      aria-label={walletCopied ? t('copy_ariaDone') : t('copy_aria')}
                       className="flex shrink-0 items-center justify-center border-l border-white/10 px-3 text-cyan-300 transition hover:bg-white/5 hover:text-cyan-200 active:scale-[0.97] sm:px-4"
                     >
                       {walletCopied ? (
@@ -904,23 +1040,52 @@ export default function HopeKidsLandingPage() {
                   </div>
                   {walletCopied ? (
                     <p className="mt-2 text-sm font-medium text-emerald-300/90" role="status">
-                      Copied to clipboard
+                      {t('copy_done')}
                     </p>
                   ) : null}
+                  <a
+                    href={SOLSCAN_ACCOUNT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex text-sm font-semibold text-cyan-300/90 underline decoration-cyan-500/45 underline-offset-2 hover:text-cyan-200"
+                  >
+                    {t('wallet_verify')}
+                  </a>
+                  <div className="mt-5 border-t border-white/10 pt-4">
+                    <div className="text-sm font-bold text-blue-100/90">{t('wallet_recent')}</div>
+                    {recentSigs.loading ? (
+                      <p className="mt-2 text-xs text-blue-100/50">…</p>
+                    ) : !recentSigs.ok || recentSigs.items.length === 0 ? (
+                      <p className="mt-2 text-xs text-blue-100/55">{recentSigs.ok ? t('wallet_recentEmpty') : t('wallet_recentErr')}</p>
+                    ) : (
+                      <ul className="mt-2 space-y-1.5 font-mono text-[11px] text-blue-100/70 sm:text-xs">
+                        {recentSigs.items.map((row) => (
+                          <li key={row.signature}>
+                            <a
+                              href={`https://solscan.io/tx/${row.signature}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="break-all text-cyan-300/85 underline decoration-cyan-600/50 underline-offset-1 hover:text-cyan-200"
+                            >
+                              {row.signature.slice(0, 10)}…{row.signature.slice(-6)}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
               </div>
             </section>
             </RevealOnScroll>
 
             <RevealOnScroll className="mt-6 sm:mt-8">
-            <section id="contact" aria-labelledby="contact-heading">
+            <section id="contact" className="scroll-mt-28" aria-labelledby="contact-heading">
               <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/28 p-4 shadow-[0_0_14px_rgba(56,189,248,0.12)] backdrop-blur sm:rounded-[26px] sm:p-6">
                 <h2 id="contact-heading" className="text-2xl font-extrabold sm:text-[34px]">
-                  Contact the team
+                  {t('contact_title')}
                 </h2>
-                <p className="mt-2 max-w-2xl text-sm text-blue-100/75 sm:text-base">
-                  Questions, partnerships, or support — email us. We respond to HopeKids-related messages.
-                </p>
+                <p className="mt-2 max-w-2xl text-sm text-blue-100/75 sm:text-base">{t('contact_body')}</p>
                 <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                   <a
                     href={`mailto:${HOPEKIDS_TEAM_EMAIL}`}
@@ -937,13 +1102,56 @@ export default function HopeKidsLandingPage() {
             </section>
             </RevealOnScroll>
 
+            <RevealOnScroll className="mt-8">
+              <section id="faq" className="scroll-mt-28">
+                <h2 className="text-2xl font-extrabold text-white sm:text-3xl">{t('faq_title')}</h2>
+                <dl className="mt-5 space-y-4">
+                  {[
+                    ['faq_q1', 'faq_a1'],
+                    ['faq_q2', 'faq_a2'],
+                    ['faq_q3', 'faq_a3'],
+                    ['faq_q4', 'faq_a4'],
+                  ].map(([qk, ak]) => (
+                    <div
+                      key={qk}
+                      className="rounded-2xl border border-cyan-400/22 bg-[#061126]/38 p-4 shadow-[0_0_12px_rgba(56,189,248,0.08)] backdrop-blur sm:p-5"
+                    >
+                      <dt className="text-base font-extrabold text-amber-200 sm:text-lg">{t(qk)}</dt>
+                      <dd className="mt-2 text-sm leading-relaxed text-blue-100/78 sm:text-base">{t(ak)}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </section>
+            </RevealOnScroll>
+
+            <RevealOnScroll className="mt-8">
+              <section id="privacy" className="scroll-mt-28">
+                <div className="rounded-2xl border border-cyan-400/25 bg-[#061126]/30 p-5 shadow-[0_0_14px_rgba(56,189,248,0.1)] backdrop-blur sm:p-6">
+                  <h2 className="text-2xl font-extrabold text-white sm:text-3xl">{t('privacy_title')}</h2>
+                  <div className="mt-4 space-y-3 text-sm leading-relaxed text-blue-100/75 sm:text-base">
+                    <p>{t('privacy_p1')}</p>
+                    <p>{t('privacy_p2')}</p>
+                    <p>{t('privacy_p3')}</p>
+                  </div>
+                </div>
+              </section>
+            </RevealOnScroll>
+
             <footer className="border-t-4 border-orange-500 bg-black/20 py-8 text-center text-blue-100/70 sm:py-10">
               <div className="flex flex-col items-center gap-3">
                 <span className="hopekids-footer-mark rounded-[13px] opacity-95 shadow-[0_4px_20px_rgba(0,0,0,0.35)] ring-1 ring-white/10">
                   <HopeKidsBrandMark className="h-10 w-10 sm:h-11 sm:w-11" />
                 </span>
-                <div className="text-2xl font-extrabold text-white sm:text-3xl">HopeKids © 2026</div>
-                <div className="text-base sm:text-lg">Trade crypto. Give hope.</div>
+                <div className="text-2xl font-extrabold text-white sm:text-3xl">{t('footer_rights')}</div>
+                <div className="text-base sm:text-lg">{t('footer_tagline')}</div>
+                <div className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
+                  <a href="#faq" className="text-cyan-300/85 underline-offset-2 hover:text-cyan-200 hover:underline">
+                    FAQ
+                  </a>
+                  <a href="#privacy" className="text-cyan-300/85 underline-offset-2 hover:text-cyan-200 hover:underline">
+                    {t('privacy_title')}
+                  </a>
+                </div>
               </div>
             </footer>
           </div>
@@ -964,6 +1172,12 @@ export default function HopeKidsLandingPage() {
             onClick={() => setStoryOpen(false)}
           />
           <div className="hopekids-modal-panel relative z-[1] mx-4 w-full max-w-2xl overflow-hidden rounded-2xl border border-cyan-400/35 shadow-[0_0_40px_rgba(56,189,248,0.15)]">
+            <div className="relative z-[2] h-1 w-full bg-black/45" aria-hidden="true">
+              <div
+                className="h-full bg-gradient-to-r from-cyan-400 via-amber-300 to-cyan-300 transition-[width] duration-100 ease-linear"
+                style={{ width: `${storyScrollPct}%` }}
+              />
+            </div>
             <div
               className="pointer-events-none absolute inset-0 bg-[url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06')] bg-cover bg-center"
               aria-hidden="true"
@@ -979,17 +1193,27 @@ export default function HopeKidsLandingPage() {
             <div className="relative z-[1] bg-[linear-gradient(180deg,rgba(4,10,25,0.72),rgba(3,7,18,0.88))] p-5 sm:p-8">
               <div className="flex items-start justify-between gap-4 border-b border-amber-400/25 pb-4">
                 <h2 id="hopekids-story-title" className="text-xl font-extrabold text-amber-300 sm:text-2xl">
-                  The HopeKids story
+                  {t('story_title')}
                 </h2>
                 <button
                   type="button"
                   onClick={() => setStoryOpen(false)}
                   className="shrink-0 rounded-lg border border-amber-400/35 px-3 py-1.5 text-sm font-semibold text-amber-200 transition hover:bg-amber-400/10 hover:text-amber-100"
                 >
-                  Close
+                  {t('story_close')}
                 </button>
               </div>
-              <div className="max-h-[min(70vh,540px)] overflow-y-auto pr-1 pt-5 sm:max-h-[min(75vh,620px)]">
+              <div
+                key={storyScrollSession}
+                ref={storyScrollRef}
+                onScroll={() => {
+                  const el = storyScrollRef.current;
+                  if (!el) return;
+                  const max = el.scrollHeight - el.clientHeight;
+                  setStoryScrollPct(max <= 0 ? 100 : Math.min(100, Math.max(0, (el.scrollTop / max) * 100)));
+                }}
+                className="max-h-[min(70vh,540px)] overflow-y-auto pr-1 pt-5 sm:max-h-[min(75vh,620px)]"
+              >
                 <div className="space-y-4 text-sm leading-relaxed text-amber-100/95 sm:text-base">
                   <p>
                     Today, all it takes is opening social media to see something that breaks your heart. Post after post.
@@ -1051,6 +1275,83 @@ export default function HopeKidsLandingPage() {
           </div>
         </div>
       ) : null}
+
+      {shortcutsOpen ? (
+        <div
+          className="fixed inset-0 z-[110] flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="hk-shortcuts-title"
+        >
+          <button
+            type="button"
+            aria-label={t('shortcuts_close')}
+            className="absolute inset-0 bg-black/75 backdrop-blur-sm"
+            onClick={() => setShortcutsOpen(false)}
+          />
+          <div className="hopekids-modal-panel relative z-[1] w-full max-w-md rounded-2xl border border-cyan-400/40 bg-[linear-gradient(180deg,rgba(6,18,38,0.97),rgba(3,8,20,0.98))] p-5 shadow-[0_0_40px_rgba(56,189,248,0.2)] sm:p-6">
+            <h2 id="hk-shortcuts-title" className="text-lg font-extrabold text-amber-200 sm:text-xl">
+              {t('shortcuts_title')}
+            </h2>
+            <ul className="mt-4 space-y-3 text-sm text-blue-100/85">
+              <li className="flex flex-wrap items-center gap-2">
+                <kbd className="rounded border border-cyan-500/40 bg-black/40 px-2 py-0.5 font-mono text-xs text-cyan-100">Esc</kbd>
+                <span>{t('shortcuts_esc')}</span>
+              </li>
+              <li className="flex flex-wrap items-center gap-2">
+                <kbd className="rounded border border-cyan-500/40 bg-black/40 px-2 py-0.5 font-mono text-xs text-cyan-100">?</kbd>
+                <span>{t('shortcuts_slash')}</span>
+              </li>
+            </ul>
+            <button
+              type="button"
+              onClick={() => setShortcutsOpen(false)}
+              className="mt-6 w-full rounded-xl border border-amber-400/40 py-2.5 text-sm font-semibold text-amber-100 transition hover:bg-amber-500/10"
+            >
+              {t('shortcuts_close')}
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+      <div className="pointer-events-none fixed bottom-4 right-4 z-[85] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6">
+        <div
+          className="pointer-events-auto flex flex-wrap items-center justify-end gap-1.5 rounded-2xl border border-cyan-400/35 bg-[rgba(4,12,28,0.94)] p-1.5 shadow-[0_8px_36px_rgba(0,0,0,0.5)] backdrop-blur-md"
+          role="group"
+          aria-label={t('tools_lang')}
+        >
+          <button
+            type="button"
+            onClick={() => setLocale('en')}
+            className={`rounded-lg px-2.5 py-1.5 text-xs font-bold transition sm:text-sm ${locale === 'en' ? 'bg-cyan-500/25 text-cyan-100' : 'text-blue-100/70 hover:bg-white/5'}`}
+          >
+            {t('tools_en')}
+          </button>
+          <button
+            type="button"
+            onClick={() => setLocale('pl')}
+            className={`rounded-lg px-2.5 py-1.5 text-xs font-bold transition sm:text-sm ${locale === 'pl' ? 'bg-cyan-500/25 text-cyan-100' : 'text-blue-100/70 hover:bg-white/5'}`}
+          >
+            {t('tools_pl')}
+          </button>
+          <span className="mx-0.5 hidden h-5 w-px bg-white/15 sm:inline" aria-hidden="true" />
+          <button
+            type="button"
+            onClick={() => setHighContrast((v) => !v)}
+            aria-pressed={highContrast}
+            className={`rounded-lg px-2.5 py-1.5 text-xs font-semibold transition sm:text-sm ${highContrast ? 'bg-amber-500/30 text-amber-100' : 'text-blue-100/75 hover:bg-white/5'}`}
+          >
+            {t('tools_contrast')}
+          </button>
+          <button
+            type="button"
+            onClick={() => setShortcutsOpen(true)}
+            className="rounded-lg px-2.5 py-1.5 text-xs font-semibold text-blue-100/80 transition hover:bg-white/5 sm:text-sm"
+          >
+            {t('tools_help')}
+          </button>
+        </div>
+      </div>
     </>
   );
 }
