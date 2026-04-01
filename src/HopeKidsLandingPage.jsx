@@ -239,58 +239,11 @@ export default function HopeKidsLandingPage() {
   const [walletCopied, setWalletCopied] = useState(false);
   const spotlightCountdown = useSpotlightCountdown();
 
-  const [locale, setLocale] = useState(() => {
-    if (typeof window === 'undefined') return 'en';
-    try {
-      return window.localStorage.getItem('hopekids-locale') === 'pl' ? 'pl' : 'en';
-    } catch {
-      return 'en';
-    }
-  });
-  const [highContrast, setHighContrast] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    try {
-      return window.localStorage.getItem('hopekids-high-contrast') === '1';
-    } catch {
-      return false;
-    }
-  });
-  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [recentSigs, setRecentSigs] = useState({ loading: true, items: [], ok: false });
   const storyScrollRef = useRef(null);
   const [storyScrollPct, setStoryScrollPct] = useState(0);
 
-  const t = useMemo(() => createT(locale), [locale]);
-
-  useEffect(() => {
-    try {
-      window.localStorage.setItem('hopekids-locale', locale);
-    } catch {
-      /* private mode */
-    }
-    document.documentElement.lang = locale === 'pl' ? 'pl' : 'en';
-  }, [locale]);
-
-  useEffect(() => {
-    try {
-      window.localStorage.setItem('hopekids-high-contrast', highContrast ? '1' : '0');
-    } catch {
-      /* private mode */
-    }
-    document.documentElement.classList.toggle('hopekids-high-contrast', highContrast);
-  }, [highContrast]);
-
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.target?.closest?.('input, textarea, select, [contenteditable="true"]')) return;
-      if (e.key === '?' || (e.shiftKey && e.key === '/')) {
-        e.preventDefault();
-        setShortcutsOpen(true);
-      }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, []);
+  const t = useMemo(() => createT('en'), []);
 
   useEffect(() => {
     let cancelled = false;
@@ -333,15 +286,6 @@ export default function HopeKidsLandingPage() {
       document.body.style.overflow = prev;
     };
   }, [storyOpen]);
-
-  useEffect(() => {
-    if (!shortcutsOpen) return;
-    const onKey = (e) => {
-      if (e.key === 'Escape') setShortcutsOpen(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [shortcutsOpen]);
 
   const [tokenStats, setTokenStats] = useState({
     loading: true,
@@ -615,18 +559,6 @@ export default function HopeKidsLandingPage() {
         @keyframes hopekids-grain-shift {
           0% { transform: translate(0, 0); }
           100% { transform: translate(-5%, -5%); }
-        }
-
-        html.hopekids-high-contrast .hopekids-hc-text {
-          color: #f8fafc !important;
-        }
-
-        html.hopekids-high-contrast .hopekids-hc-border {
-          border-color: rgba(250, 250, 250, 0.55) !important;
-        }
-
-        html.hopekids-high-contrast {
-          filter: contrast(1.12) saturate(1.08);
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1275,83 +1207,6 @@ export default function HopeKidsLandingPage() {
           </div>
         </div>
       ) : null}
-
-      {shortcutsOpen ? (
-        <div
-          className="fixed inset-0 z-[110] flex items-center justify-center p-4"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="hk-shortcuts-title"
-        >
-          <button
-            type="button"
-            aria-label={t('shortcuts_close')}
-            className="absolute inset-0 bg-black/75 backdrop-blur-sm"
-            onClick={() => setShortcutsOpen(false)}
-          />
-          <div className="hopekids-modal-panel relative z-[1] w-full max-w-md rounded-2xl border border-cyan-400/40 bg-[linear-gradient(180deg,rgba(6,18,38,0.97),rgba(3,8,20,0.98))] p-5 shadow-[0_0_40px_rgba(56,189,248,0.2)] sm:p-6">
-            <h2 id="hk-shortcuts-title" className="text-lg font-extrabold text-amber-200 sm:text-xl">
-              {t('shortcuts_title')}
-            </h2>
-            <ul className="mt-4 space-y-3 text-sm text-blue-100/85">
-              <li className="flex flex-wrap items-center gap-2">
-                <kbd className="rounded border border-cyan-500/40 bg-black/40 px-2 py-0.5 font-mono text-xs text-cyan-100">Esc</kbd>
-                <span>{t('shortcuts_esc')}</span>
-              </li>
-              <li className="flex flex-wrap items-center gap-2">
-                <kbd className="rounded border border-cyan-500/40 bg-black/40 px-2 py-0.5 font-mono text-xs text-cyan-100">?</kbd>
-                <span>{t('shortcuts_slash')}</span>
-              </li>
-            </ul>
-            <button
-              type="button"
-              onClick={() => setShortcutsOpen(false)}
-              className="mt-6 w-full rounded-xl border border-amber-400/40 py-2.5 text-sm font-semibold text-amber-100 transition hover:bg-amber-500/10"
-            >
-              {t('shortcuts_close')}
-            </button>
-          </div>
-        </div>
-      ) : null}
-
-      <div className="pointer-events-none fixed bottom-4 right-4 z-[85] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6">
-        <div
-          className="pointer-events-auto flex flex-wrap items-center justify-end gap-1.5 rounded-2xl border border-cyan-400/35 bg-[rgba(4,12,28,0.94)] p-1.5 shadow-[0_8px_36px_rgba(0,0,0,0.5)] backdrop-blur-md"
-          role="group"
-          aria-label={t('tools_lang')}
-        >
-          <button
-            type="button"
-            onClick={() => setLocale('en')}
-            className={`rounded-lg px-2.5 py-1.5 text-xs font-bold transition sm:text-sm ${locale === 'en' ? 'bg-cyan-500/25 text-cyan-100' : 'text-blue-100/70 hover:bg-white/5'}`}
-          >
-            {t('tools_en')}
-          </button>
-          <button
-            type="button"
-            onClick={() => setLocale('pl')}
-            className={`rounded-lg px-2.5 py-1.5 text-xs font-bold transition sm:text-sm ${locale === 'pl' ? 'bg-cyan-500/25 text-cyan-100' : 'text-blue-100/70 hover:bg-white/5'}`}
-          >
-            {t('tools_pl')}
-          </button>
-          <span className="mx-0.5 hidden h-5 w-px bg-white/15 sm:inline" aria-hidden="true" />
-          <button
-            type="button"
-            onClick={() => setHighContrast((v) => !v)}
-            aria-pressed={highContrast}
-            className={`rounded-lg px-2.5 py-1.5 text-xs font-semibold transition sm:text-sm ${highContrast ? 'bg-amber-500/30 text-amber-100' : 'text-blue-100/75 hover:bg-white/5'}`}
-          >
-            {t('tools_contrast')}
-          </button>
-          <button
-            type="button"
-            onClick={() => setShortcutsOpen(true)}
-            className="rounded-lg px-2.5 py-1.5 text-xs font-semibold text-blue-100/80 transition hover:bg-white/5 sm:text-sm"
-          >
-            {t('tools_help')}
-          </button>
-        </div>
-      </div>
     </>
   );
 }
