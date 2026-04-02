@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createT } from './hopekidsCopy.js';
 
 // HKIDS token mint on Solana (Jupiter swap)
@@ -31,6 +31,10 @@ const PAGE_BACKGROUND_EARTH_SRC = '/hopekids-page-bg-earth.png';
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
 /** Query helps avoid stale hero bitmap after deploy (CSS background + CDN). */
 const HERO_ILLUSTRATION_BG_URL = `${HERO_ILLUSTRATION_SRC}?v=hk-panel-bg-40`;
+
+/** Official HopeKids HKIDS coin artwork — file in public/. */
+const HKIDS_TOKEN_LOGO_SRC = '/hopekids-token-logo.png';
+const HKIDS_TOKEN_LOGO_URL = `${HKIDS_TOKEN_LOGO_SRC}?v=hk-coin-1`;
 
 /** Example spotlight in Fundraiser panel — replace image in public/ or name as needed. */
 const SPOTLIGHT_CHILD_IMAGE_SRC = '/hopekids-spotlight-child.jpg';
@@ -99,54 +103,6 @@ function useSpotlightCountdown() {
   const minutes = Math.floor((remaining % 3_600_000) / 60_000);
   const seconds = Math.floor((remaining % 60_000) / 1000);
   return { hours, minutes, seconds, remaining };
-}
-
-/** Earth seen from space — pairs with public/favicon.svg */
-function HopeKidsBrandMark({ className = 'h-9 w-9 sm:h-10 sm:w-10' }) {
-  const uid = useId().replace(/:/g, '');
-  const space = `hks-${uid}`;
-  const ocean = `hko-${uid}`;
-  const clip = `hkc-${uid}`;
-  return (
-    <svg
-      viewBox="0 0 48 48"
-      className={className}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id={space} x1="4" y1="2" x2="44" y2="46" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#020617" />
-          <stop offset="0.55" stopColor="#0f172a" />
-          <stop offset="1" stopColor="#020617" />
-        </linearGradient>
-        <radialGradient id={ocean} cx="22" cy="20" r="17" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#bae6fd" />
-          <stop offset="0.28" stopColor="#38bdf8" />
-          <stop offset="0.55" stopColor="#0284c7" />
-          <stop offset="0.85" stopColor="#075985" />
-          <stop offset="1" stopColor="#0c4a6e" />
-        </radialGradient>
-        <clipPath id={clip}>
-          <circle cx="24" cy="24" r="13" />
-        </clipPath>
-      </defs>
-      <rect width="48" height="48" rx="14" fill={`url(#${space})`} />
-      <circle cx="9" cy="11" r="0.65" fill="#e2e8f0" opacity="0.5" />
-      <circle cx="39" cy="9" r="0.5" fill="#fff" opacity="0.38" />
-      <circle cx="41" cy="36" r="0.45" fill="#cbd5e1" opacity="0.32" />
-      <g clipPath={`url(#${clip})`}>
-        <circle cx="24" cy="24" r="13" fill={`url(#${ocean})`} />
-        <ellipse cx="21" cy="20" rx="6.2" ry="4.8" fill="#15803d" opacity="0.9" transform="rotate(-22 21 20)" />
-        <ellipse cx="29" cy="25.5" rx="4.2" ry="5.8" fill="#166534" opacity="0.92" transform="rotate(15 29 25.5)" />
-        <ellipse cx="16.5" cy="26" rx="3.8" ry="5.2" fill="#14532d" opacity="0.85" transform="rotate(-10 16.5 26)" />
-      </g>
-      <circle cx="24" cy="24" r="13" fill="none" stroke="rgba(125, 211, 252, 0.5)" strokeWidth="0.75" />
-      <circle cx="24" cy="24" r="14.8" fill="none" stroke="rgba(56, 189, 248, 0.16)" strokeWidth="1.8" />
-      <rect x="0.5" y="0.5" width="47" height="47" rx="13.5" stroke="rgba(251, 191, 36, 0.24)" />
-    </svg>
-  );
 }
 
 function IconTwitterX({ className = 'h-5 w-5' }) {
@@ -808,10 +764,17 @@ export default function HopeKidsLandingPage() {
                   href={JUPITER_BUY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hidden sm:col-start-3 sm:flex sm:h-9 sm:w-9 sm:shrink-0 sm:items-center sm:justify-center sm:justify-self-end sm:rounded-[11px] sm:shadow-[0_2px_16px_rgba(0,0,0,0.45)] sm:ring-1 sm:ring-amber-400/35 sm:transition-transform sm:duration-300 sm:hover:scale-[1.06] sm:hover:ring-amber-300/50 sm:active:scale-[0.98]"
+                  className="hidden overflow-hidden sm:col-start-3 sm:flex sm:h-9 sm:w-9 sm:shrink-0 sm:items-center sm:justify-center sm:justify-self-end sm:rounded-full sm:shadow-[0_2px_16px_rgba(0,0,0,0.45)] sm:ring-1 sm:ring-amber-400/35 sm:transition-transform sm:duration-300 sm:hover:scale-[1.06] sm:hover:ring-amber-300/50 sm:active:scale-[0.98]"
                   aria-label="HopeKids HKIDS — buy on Jupiter"
                 >
-                  <HopeKidsBrandMark className="h-9 w-9" />
+                  <img
+                    src={HKIDS_TOKEN_LOGO_URL}
+                    alt=""
+                    width={36}
+                    height={36}
+                    decoding="async"
+                    className="h-full w-full object-cover"
+                  />
                 </a>
                 <div ref={langMenuRef} className="absolute right-2 top-1/2 z-[55] -translate-y-1/2 sm:hidden">
                   <button
@@ -1246,8 +1209,15 @@ export default function HopeKidsLandingPage() {
 
             <footer className="border-t-4 border-orange-500 bg-black/20 py-8 text-center text-blue-100/70 sm:py-10">
               <div className="flex flex-col items-center gap-3">
-                <span className="hopekids-footer-mark rounded-[13px] opacity-95 shadow-[0_4px_20px_rgba(0,0,0,0.35)] ring-1 ring-white/10">
-                  <HopeKidsBrandMark className="h-10 w-10 sm:h-11 sm:w-11" />
+                <span className="hopekids-footer-mark block h-11 w-11 overflow-hidden rounded-full opacity-95 shadow-[0_4px_20px_rgba(0,0,0,0.35)] ring-2 ring-amber-400/35 sm:h-12 sm:w-12">
+                  <img
+                    src={HKIDS_TOKEN_LOGO_URL}
+                    alt="HopeKids"
+                    width={48}
+                    height={48}
+                    decoding="async"
+                    className="h-full w-full object-cover"
+                  />
                 </span>
                 <div className="text-2xl font-extrabold text-white sm:text-3xl">{t('footer_rights')}</div>
                 <div className="text-base sm:text-lg">{t('footer_tagline')}</div>
