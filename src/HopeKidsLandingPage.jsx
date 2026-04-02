@@ -37,21 +37,6 @@ const SPOTLIGHT_CHILD_NAME = 'Sofia M.';
 const SPOTLIGHT_WINDOW_MS = 30 * 24 * 60 * 60 * 1000;
 const SPOTLIGHT_DEADLINE_STORAGE_KEY = 'hopekids-spotlight-deadline-ms';
 
-/** Fixed seed — twinkle dots over the earth backdrop (no layout shift). */
-const PAGE_BACKDROP_STARS = Array.from({ length: 52 }, (_, i) => {
-  const a = (i * 9301 + 49297) % 233280;
-  const b = (i * 7919 + 104729) % 233280;
-  const u1 = a / 233280;
-  const u2 = b / 233280;
-  return {
-    leftPct: u1 * 94 + 3,
-    topPct: u2 * 72 + 6,
-    sizePx: u1 > 0.8 ? 2.25 : u1 > 0.42 ? 1.5 : 1,
-    delayS: u2 * 4.5,
-    durationS: 2.2 + u1 * 3.4,
-  };
-});
-
 function ensureSpotlightDeadlineMs() {
   if (typeof window === 'undefined') return Date.now() + SPOTLIGHT_WINDOW_MS;
   try {
@@ -386,25 +371,6 @@ export default function HopeKidsLandingPage() {
           decoding="async"
         />
       </div>
-      <div className="hopekids-space-fx pointer-events-none fixed inset-0 z-[1] overflow-hidden" aria-hidden="true">
-        {PAGE_BACKDROP_STARS.map((s, i) => (
-          <span
-            key={`bg-star-${i}`}
-            className="hopekids-bg-star"
-            style={{
-              left: `${s.leftPct}%`,
-              top: `${s.topPct}%`,
-              width: s.sizePx,
-              height: s.sizePx,
-              animationDelay: `${s.delayS}s`,
-              animationDuration: `${s.durationS}s`,
-            }}
-          />
-        ))}
-        <span className="hopekids-shooting-star hopekids-shooting-star--a" />
-        <span className="hopekids-shooting-star hopekids-shooting-star--b" />
-        <span className="hopekids-shooting-star hopekids-shooting-star--c" />
-      </div>
       <div className="hopekids-grain" aria-hidden="true" />
       <style>{`
         @keyframes float {
@@ -499,128 +465,6 @@ export default function HopeKidsLandingPage() {
         .hopekids-star {
           animation: hopekids-star-twinkle 3.2s ease-in-out infinite;
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
-        }
-
-        .hopekids-space-fx {
-          opacity: 0.88;
-        }
-
-        .hopekids-bg-star {
-          position: absolute;
-          margin: 0;
-          border-radius: 50%;
-          background: radial-gradient(
-            circle,
-            rgba(255, 255, 255, 0.95) 0%,
-            rgba(186, 230, 253, 0.45) 45%,
-            transparent 72%
-          );
-          box-shadow: 0 0 7px rgba(165, 243, 252, 0.5);
-          animation-name: hopekids-star-twinkle;
-          animation-timing-function: ease-in-out;
-          animation-iteration-count: infinite;
-          will-change: opacity, transform;
-        }
-
-        @keyframes hopekids-meteor-a {
-          0%,
-          78% {
-            opacity: 0;
-            transform: translate3d(0, 0, 0) rotate(32deg) scaleX(0.55);
-          }
-          79% {
-            opacity: 0;
-          }
-          80% {
-            opacity: 0.92;
-          }
-          88% {
-            opacity: 0.75;
-            transform: translate3d(-72vw, 48vh, 0) rotate(32deg) scaleX(1.05);
-          }
-          89%,
-          100% {
-            opacity: 0;
-            transform: translate3d(-72vw, 48vh, 0) rotate(32deg) scaleX(1.05);
-          }
-        }
-
-        @keyframes hopekids-meteor-b {
-          0%,
-          40% {
-            opacity: 0;
-            transform: translate3d(0, 0, 0) rotate(28deg) scaleX(0.5);
-          }
-          41% {
-            opacity: 0.88;
-          }
-          49% {
-            opacity: 0.65;
-            transform: translate3d(-58vw, 38vh, 0) rotate(28deg) scaleX(1);
-          }
-          50%,
-          100% {
-            opacity: 0;
-            transform: translate3d(-58vw, 38vh, 0) rotate(28deg) scaleX(1);
-          }
-        }
-
-        @keyframes hopekids-meteor-c {
-          0%,
-          62% {
-            opacity: 0;
-            transform: translate3d(0, 0, 0) rotate(36deg) scaleX(0.48);
-          }
-          63% {
-            opacity: 0.9;
-          }
-          72% {
-            opacity: 0.7;
-            transform: translate3d(-80vw, 55vh, 0) rotate(36deg) scaleX(1.08);
-          }
-          73%,
-          100% {
-            opacity: 0;
-            transform: translate3d(-80vw, 55vh, 0) rotate(36deg) scaleX(1.08);
-          }
-        }
-
-        .hopekids-shooting-star {
-          position: absolute;
-          width: clamp(72px, 16vw, 160px);
-          height: 2px;
-          border-radius: 2px;
-          background: linear-gradient(
-            90deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.2) 18%,
-            rgba(255, 255, 255, 0.95) 48%,
-            rgba(186, 230, 253, 0.55) 72%,
-            transparent 100%
-          );
-          filter: blur(0.4px);
-          opacity: 0;
-          transform-origin: 100% 50%;
-        }
-
-        .hopekids-shooting-star--a {
-          top: 8%;
-          right: -4%;
-          animation: hopekids-meteor-a 22s linear infinite;
-        }
-
-        .hopekids-shooting-star--b {
-          top: 22%;
-          right: 4%;
-          animation: hopekids-meteor-b 26s linear infinite;
-          animation-delay: -9s;
-        }
-
-        .hopekids-shooting-star--c {
-          top: 14%;
-          right: 12%;
-          animation: hopekids-meteor-c 24s linear infinite;
-          animation-delay: -4s;
         }
 
         @keyframes hopekids-enter-up {
@@ -752,21 +596,10 @@ export default function HopeKidsLandingPage() {
           .hopekids-hero-sheen,
           .hopekids-cinema-sheen,
           .hopekids-star,
-          .hopekids-bg-star,
-          .hopekids-shooting-star,
           .hopekids-footer-mark,
           .hopekids-sparkle,
           .hopekids-live-card {
             animation: none !important;
-          }
-
-          .hopekids-bg-star {
-            opacity: 0.32;
-            transform: none;
-          }
-
-          .hopekids-shooting-star {
-            visibility: hidden;
           }
 
           .hopekids-grain {
