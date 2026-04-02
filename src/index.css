@@ -4,6 +4,7 @@
 
 /*
  * Photographic Earth-from-space backdrop (user asset: public/hopekids-earth-from-space.png).
+ * Overlays keep left column readable for landing copy.
  */
 html {
   min-height: 100%;
@@ -22,13 +23,6 @@ html {
   background-position: 88% 60%;
   background-repeat: no-repeat;
   background-attachment: fixed;
-}
-
-@media (max-width: 768px) {
-  html {
-    background-attachment: scroll;
-    background-position: 82% 50%;
-  }
 }
 
 html,
