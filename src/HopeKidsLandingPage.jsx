@@ -30,7 +30,7 @@ const PAGE_BACKGROUND_EARTH_SRC = '/hopekids-page-bg-earth.png';
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
 /** Query helps avoid stale hero bitmap after deploy (CSS background + CDN). */
-const HERO_ILLUSTRATION_BG_URL = `${HERO_ILLUSTRATION_SRC}?v=hk-panel-bg-18`;
+const HERO_ILLUSTRATION_BG_URL = `${HERO_ILLUSTRATION_SRC}?v=hk-panel-bg-19`;
 
 /** Example spotlight in Fundraiser panel — replace image in public/ or name as needed. */
 const SPOTLIGHT_CHILD_IMAGE_SRC = '/hopekids-spotlight-child.jpg';
@@ -470,9 +470,9 @@ export default function HopeKidsLandingPage() {
         }
 
         /*
-         * Hero art: full square via contain; vertical stretch scaleY(1.13) on ::before.
-         * Avoid overflow:hidden on this layer — it clipped scaleY so the stretch looked like “no change”.
-         * Panel parent still has overflow-hidden + radius.
+         * Hero art: contain + scaleY on the same node as inline backgroundImage (reliable on mobile WebKit).
+         * No ::before + CSS variable — some phones ignored var() on pseudo-element backgrounds.
+         * overflow: visible so scaleY is not self-clipped; outer panel keeps overflow-hidden.
          */
         .hopekids-hero-panel-wrap {
           position: absolute;
@@ -481,14 +481,6 @@ export default function HopeKidsLandingPage() {
           pointer-events: none;
           overflow: visible;
           border-radius: inherit;
-        }
-
-        .hopekids-hero-panel-wrap::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border-radius: inherit;
-          background-image: var(--hk-hero-bg);
           background-repeat: no-repeat;
           -webkit-background-size: contain;
           background-size: contain;
@@ -678,7 +670,7 @@ export default function HopeKidsLandingPage() {
             <div className="relative min-h-[min(78vh,720px)] max-sm:min-h-[min(60vh,480px)] overflow-hidden rounded-2xl border border-amber-500/25 bg-[#03050f] shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(74vh,640px)] sm:rounded-[28px]">
               <div
                 className="hopekids-hero-panel-wrap"
-                style={{ ['--hk-hero-bg']: `url("${HERO_ILLUSTRATION_BG_URL}")` }}
+                style={{ backgroundImage: `url("${HERO_ILLUSTRATION_BG_URL}")` }}
                 role="presentation"
                 aria-hidden="true"
               />
