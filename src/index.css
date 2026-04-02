@@ -25,6 +25,13 @@ html {
   background-attachment: fixed;
 }
 
+@media (max-width: 768px) {
+  html {
+    background-attachment: scroll;
+    background-position: 82% 50%;
+  }
+}
+
 html,
 body {
   min-height: 100%;
