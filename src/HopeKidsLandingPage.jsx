@@ -666,7 +666,7 @@ export default function HopeKidsLandingPage() {
         <div className="relative z-10 min-h-screen overflow-x-hidden">
           <div className="mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
             {/* Full-bleed artwork: entire upper panel = one scene (nav + hero on top of art) */}
-            <div className="relative min-h-[min(78vh,720px)] max-sm:min-h-[min(60vh,480px)] overflow-hidden rounded-2xl border border-amber-500/25 bg-[#03050f] shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(74vh,640px)] sm:rounded-[28px]">
+            <div className="relative min-h-[min(74vh,680px)] max-sm:min-h-[min(56vh,450px)] overflow-hidden rounded-2xl border border-amber-500/25 bg-[#03050f] shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(70vh,600px)] sm:rounded-[28px]">
               <img
                 className="hopekids-hero-panel-art"
                 src={HERO_ILLUSTRATION_BG_URL}
