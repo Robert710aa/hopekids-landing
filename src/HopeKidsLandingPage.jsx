@@ -30,7 +30,7 @@ const PAGE_BACKGROUND_EARTH_SRC = '/hopekids-page-bg-earth.png';
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
 /** Query helps avoid stale hero bitmap after deploy (CSS background + CDN). */
-const HERO_ILLUSTRATION_BG_URL = `${HERO_ILLUSTRATION_SRC}?v=hk-panel-bg-36`;
+const HERO_ILLUSTRATION_BG_URL = `${HERO_ILLUSTRATION_SRC}?v=hk-panel-bg-37`;
 
 /** Example spotlight in Fundraiser panel — replace image in public/ or name as needed. */
 const SPOTLIGHT_CHILD_IMAGE_SRC = '/hopekids-spotlight-child.jpg';
@@ -470,7 +470,7 @@ export default function HopeKidsLandingPage() {
         }
 
         /*
-         * Hero art: sm+ uses cover. Mobile: contain + scale(1.06, 2.6).
+         * Hero art: sm+ uses cover. Mobile: contain + scale(1.06, 2.75).
          */
         .hopekids-hero-panel-art {
           position: absolute;
@@ -489,8 +489,8 @@ export default function HopeKidsLandingPage() {
           .hopekids-hero-panel-art {
             object-fit: contain;
             object-position: 50% 38%;
-            -webkit-transform: translateZ(0) scale(1.06, 2.6);
-            transform: translateZ(0) scale(1.06, 2.6);
+            -webkit-transform: translateZ(0) scale(1.06, 2.75);
+            transform: translateZ(0) scale(1.06, 2.75);
             -webkit-transform-origin: center center;
             transform-origin: center center;
           }
