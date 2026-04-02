@@ -30,7 +30,7 @@ const PAGE_BACKGROUND_EARTH_SRC = '/hopekids-page-bg-earth.png';
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
 /** Query helps avoid stale hero bitmap after deploy (CSS background + CDN). */
-const HERO_ILLUSTRATION_BG_URL = `${HERO_ILLUSTRATION_SRC}?v=hk-panel-bg-19`;
+const HERO_ILLUSTRATION_BG_URL = `${HERO_ILLUSTRATION_SRC}?v=hk-panel-bg-20`;
 
 /** Example spotlight in Fundraiser panel — replace image in public/ or name as needed. */
 const SPOTLIGHT_CHILD_IMAGE_SRC = '/hopekids-spotlight-child.jpg';
@@ -470,23 +470,22 @@ export default function HopeKidsLandingPage() {
         }
 
         /*
-         * Hero art: contain + scaleY on the same node as inline backgroundImage (reliable on mobile WebKit).
-         * No ::before + CSS variable — some phones ignored var() on pseudo-element backgrounds.
-         * overflow: visible so scaleY is not self-clipped; outer panel keeps overflow-hidden.
+         * Hero art: real <img> + object-fit contain — mobile Safari often skips/flatten background+transform.
+         * translateZ(0) promotes a compositor layer so scaleY reliably applies on iOS.
          */
-        .hopekids-hero-panel-wrap {
+        .hopekids-hero-panel-art {
           position: absolute;
           inset: 0;
           z-index: 0;
+          box-sizing: border-box;
+          width: 100%;
+          height: 100%;
           pointer-events: none;
-          overflow: visible;
           border-radius: inherit;
-          background-repeat: no-repeat;
-          -webkit-background-size: contain;
-          background-size: contain;
-          background-position: center center;
-          -webkit-transform: scaleY(1.13);
-          transform: scaleY(1.13);
+          object-fit: contain;
+          object-position: center center;
+          -webkit-transform: translateZ(0) scaleY(1.13);
+          transform: translateZ(0) scaleY(1.13);
           -webkit-transform-origin: center center;
           transform-origin: center center;
         }
@@ -668,10 +667,12 @@ export default function HopeKidsLandingPage() {
           <div className="mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
             {/* Full-bleed artwork: entire upper panel = one scene (nav + hero on top of art) */}
             <div className="relative min-h-[min(78vh,720px)] max-sm:min-h-[min(60vh,480px)] overflow-hidden rounded-2xl border border-amber-500/25 bg-[#03050f] shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(74vh,640px)] sm:rounded-[28px]">
-              <div
-                className="hopekids-hero-panel-wrap"
-                style={{ backgroundImage: `url("${HERO_ILLUSTRATION_BG_URL}")` }}
-                role="presentation"
+              <img
+                className="hopekids-hero-panel-art"
+                src={HERO_ILLUSTRATION_BG_URL}
+                alt=""
+                decoding="async"
+                fetchPriority="high"
                 aria-hidden="true"
               />
               {/* sm+: strong left veil. <sm: hide diagonal wash (covers full narrow width). */}
