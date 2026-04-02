@@ -652,13 +652,13 @@ export default function HopeKidsLandingPage() {
                 decoding="async"
                 aria-hidden="true"
               />
-              {/* Readability: dark veil on left (copy + nav), lighter toward art on the right */}
+              {/* Readability: desktop = strong left veil for copy; mobile = light veil so hero art stays visible (centered layout). */}
               <div
-                className="pointer-events-none absolute inset-0 bg-[linear-gradient(105deg,rgba(3,5,12,0.93)_0%,rgba(3,8,20,0.72)_28%,rgba(5,10,22,0.35)_52%,transparent_76%)] sm:bg-[linear-gradient(105deg,rgba(3,5,12,0.94)_0%,rgba(3,8,20,0.68)_26%,rgba(5,12,28,0.28)_50%,transparent_74%)]"
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(3,5,12,0.38)_0%,rgba(3,8,20,0.22)_42%,rgba(5,10,22,0.08)_72%,transparent_92%)] sm:bg-[linear-gradient(105deg,rgba(3,5,12,0.94)_0%,rgba(3,8,20,0.68)_26%,rgba(5,12,28,0.28)_50%,transparent_74%)]"
                 aria-hidden="true"
               />
               <div
-                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,4,10,0.82)_0%,transparent_35%,transparent_58%,rgba(2,4,10,0.55)_100%)]"
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,4,10,0.28)_0%,transparent_22%,transparent_58%,rgba(2,4,10,0.5)_100%)] sm:bg-[linear-gradient(180deg,rgba(2,4,10,0.82)_0%,transparent_35%,transparent_58%,rgba(2,4,10,0.55)_100%)]"
                 aria-hidden="true"
               />
               <div
@@ -668,7 +668,7 @@ export default function HopeKidsLandingPage() {
                 <div className="hopekids-cinema-sheen absolute inset-0 opacity-[0.18]" />
               </div>
 
-              <header className="hopekids-header-enter sticky top-2 z-50 flex flex-wrap items-center justify-center gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.55)] px-4 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-6 sm:py-3 lg:px-10">
+              <header className="hopekids-header-enter sticky top-2 z-50 flex flex-wrap items-center justify-center gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.32)] shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:bg-[rgba(2,4,12,0.55)] px-4 py-2.5 sm:px-6 sm:py-3 lg:px-10">
                 <nav
                   className="flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] sm:gap-4"
                   aria-label={t('nav_socialAria')}
