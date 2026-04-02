@@ -467,6 +467,29 @@ export default function HopeKidsLandingPage() {
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
         }
 
+        /* Full-bleed hero art: CSS background fills the panel reliably on mobile (avoids img + abspos quirks). */
+        .hopekids-hero-panel-visual {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: 52% 20%;
+        }
+
+        @media (min-width: 640px) {
+          .hopekids-hero-panel-visual {
+            background-position: 48% center;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .hopekids-hero-panel-visual {
+            background-position: 46% center;
+          }
+        }
+
         @keyframes hopekids-enter-up {
           from {
             opacity: 0;
@@ -643,32 +666,30 @@ export default function HopeKidsLandingPage() {
         <div className="relative z-10 min-h-screen overflow-x-hidden">
           <div className="mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
             {/* Full-bleed artwork: entire upper panel = one scene (nav + hero on top of art) */}
-            <div className="relative min-h-[min(78vh,720px)] overflow-hidden rounded-2xl border border-amber-500/25 shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(74vh,640px)] sm:rounded-[28px]">
-              <img
-                src={HERO_ILLUSTRATION_SRC}
-                alt=""
-                className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[52%_top] sm:object-[48%_center] lg:object-[46%_center]"
-                loading="eager"
-                decoding="async"
+            <div className="relative isolate min-h-[min(78vh,720px)] overflow-hidden rounded-2xl border border-amber-500/25 shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(74vh,640px)] sm:rounded-[28px]">
+              <div
+                className="hopekids-hero-panel-visual"
+                style={{ backgroundImage: `url(${HERO_ILLUSTRATION_SRC})` }}
+                role="presentation"
                 aria-hidden="true"
               />
-              {/* Readability: desktop = strong left veil for copy; mobile = light veil so hero art stays visible (centered layout). */}
+              {/* Readability: desktop = strong left veil; mobile = minimal top wash (backdrop-blur on nav is off <sm — iOS compositing bug). */}
               <div
-                className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,rgba(3,5,12,0.38)_0%,rgba(3,8,20,0.22)_42%,rgba(5,10,22,0.08)_72%,transparent_92%)] sm:bg-[linear-gradient(105deg,rgba(3,5,12,0.94)_0%,rgba(3,8,20,0.68)_26%,rgba(5,12,28,0.28)_50%,transparent_74%)]"
-                aria-hidden="true"
-              />
-              <div
-                className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,4,10,0.28)_0%,transparent_22%,transparent_58%,rgba(2,4,10,0.5)_100%)] sm:bg-[linear-gradient(180deg,rgba(2,4,10,0.82)_0%,transparent_35%,transparent_58%,rgba(2,4,10,0.55)_100%)]"
+                className="pointer-events-none absolute inset-0 z-[1] max-sm:bg-[linear-gradient(165deg,rgba(3,5,12,0.14)_0%,rgba(3,8,20,0.05)_45%,transparent_82%)] sm:bg-[linear-gradient(105deg,rgba(3,5,12,0.94)_0%,rgba(3,8,20,0.68)_26%,rgba(5,12,28,0.28)_50%,transparent_74%)]"
                 aria-hidden="true"
               />
               <div
-                className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl sm:rounded-[28px]"
+                className="pointer-events-none absolute inset-0 z-[1] max-sm:bg-[linear-gradient(180deg,rgba(2,4,10,0.05)_0%,transparent_38%,transparent_55%,rgba(2,4,10,0.42)_100%)] sm:bg-[linear-gradient(180deg,rgba(2,4,10,0.82)_0%,transparent_35%,transparent_58%,rgba(2,4,10,0.55)_100%)]"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute inset-0 z-[1] overflow-hidden rounded-2xl sm:rounded-[28px]"
                 aria-hidden="true"
               >
                 <div className="hopekids-cinema-sheen absolute inset-0 opacity-[0.18]" />
               </div>
 
-              <header className="hopekids-header-enter sticky top-2 z-50 flex flex-wrap items-center justify-center gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.32)] shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-md sm:bg-[rgba(2,4,12,0.55)] px-4 py-2.5 sm:px-6 sm:py-3 lg:px-10">
+              <header className="hopekids-header-enter sticky top-2 z-50 flex flex-wrap items-center justify-center gap-3 border-b border-amber-400/15 bg-[rgba(2,4,12,0.22)] shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-none sm:bg-[rgba(2,4,12,0.55)] sm:backdrop-blur-md px-4 py-2.5 sm:px-6 sm:py-3 lg:px-10">
                 <nav
                   className="flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] sm:gap-4"
                   aria-label={t('nav_socialAria')}
