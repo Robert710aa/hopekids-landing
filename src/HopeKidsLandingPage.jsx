@@ -30,7 +30,7 @@ const PAGE_BACKGROUND_EARTH_SRC = '/hopekids-page-bg-earth.png';
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
 /** Query helps avoid stale hero bitmap after deploy (CSS background + CDN). */
-const HERO_ILLUSTRATION_BG_URL = `${HERO_ILLUSTRATION_SRC}?v=hk-panel-bg-1`;
+const HERO_ILLUSTRATION_BG_URL = `${HERO_ILLUSTRATION_SRC}?v=hk-panel-bg-2`;
 
 /** Example spotlight in Fundraiser panel — replace image in public/ or name as needed. */
 const SPOTLIGHT_CHILD_IMAGE_SRC = '/hopekids-spotlight-child.jpg';
@@ -485,9 +485,9 @@ export default function HopeKidsLandingPage() {
 
         @media (max-width: 639px) {
           .hopekids-hero-panel-wrap {
-            -webkit-background-size: 190% 190%;
-            background-size: 190% 190%;
-            background-position: 52% 42%;
+            -webkit-background-size: 178% 178%;
+            background-size: 178% 178%;
+            background-position: 51% 40%;
           }
         }
 
@@ -673,7 +673,7 @@ export default function HopeKidsLandingPage() {
         <div className="relative z-10 min-h-screen overflow-x-hidden">
           <div className="mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
             {/* Full-bleed artwork: entire upper panel = one scene (nav + hero on top of art) */}
-            <div className="relative min-h-[min(78vh,720px)] max-sm:min-h-[min(78dvh,720px)] overflow-hidden rounded-2xl border border-amber-500/25 bg-[#03050f] shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(74vh,640px)] sm:rounded-[28px]">
+            <div className="relative min-h-[min(78vh,720px)] max-sm:min-h-[min(68vh,560px)] overflow-hidden rounded-2xl border border-amber-500/25 bg-[#03050f] shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(74vh,640px)] sm:rounded-[28px]">
               <div
                 className="hopekids-hero-panel-wrap"
                 style={{ backgroundImage: `url(${HERO_ILLUSTRATION_BG_URL})` }}
@@ -747,7 +747,7 @@ export default function HopeKidsLandingPage() {
               <section
                 id="home"
                 aria-label={t('intro_aria')}
-                className="relative z-10 border-0 bg-transparent px-4 py-7 shadow-none sm:px-6 sm:py-9 lg:px-10 lg:pb-11 lg:pt-9"
+                className="relative z-10 border-0 bg-transparent px-4 py-5 shadow-none sm:px-6 sm:py-9 lg:px-10 lg:pb-11 lg:pt-9"
               >
                 <div className="hopekids-hero-stack relative z-10 mx-auto flex max-w-xl flex-col justify-center text-center sm:max-w-lg lg:mx-0 lg:max-w-[min(100%,28rem)] lg:text-left">
                   <h1 className="hopekids-title-glare text-4xl font-extrabold drop-shadow-[0_4px_24px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-6xl">
