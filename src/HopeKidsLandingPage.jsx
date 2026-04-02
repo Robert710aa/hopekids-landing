@@ -647,7 +647,7 @@ export default function HopeKidsLandingPage() {
               <img
                 src={HERO_ILLUSTRATION_SRC}
                 alt=""
-                className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[52%_center] sm:object-[48%_center] lg:object-[46%_center]"
+                className="pointer-events-none absolute inset-0 h-full w-full object-cover object-[52%_top] sm:object-[48%_center] lg:object-[46%_center]"
                 loading="eager"
                 decoding="async"
                 aria-hidden="true"
