@@ -477,6 +477,19 @@ export default function HopeKidsLandingPage() {
           border-radius: inherit;
         }
 
+        /* Mobile: full-bleed via CSS background (reliable on iOS). Desktop: <img> object-fit. */
+        .hopekids-hero-panel-bg-mobile {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          border-radius: inherit;
+          background-repeat: no-repeat;
+          -webkit-background-size: 175% 175%;
+          background-size: 175% 175%;
+          background-position: 52% 42%;
+        }
+
         .hopekids-hero-panel-img {
           position: absolute;
           left: 0;
@@ -490,30 +503,9 @@ export default function HopeKidsLandingPage() {
           transform: translateZ(0);
         }
 
-        /* Mobile: bitmap larger than panel + centered — guarantees no empty bands after rounded clip (cover + scale was leaving gaps). */
-        @media (max-width: 639px) {
-          .hopekids-hero-panel-img {
-            left: 50%;
-            top: 50%;
-            width: 138%;
-            height: 138%;
-            max-width: none;
-            max-height: none;
-            object-position: 52% 40%;
-            transform: translate(-50%, -50%) translateZ(0);
-          }
-        }
-
         @media (min-width: 640px) {
           .hopekids-hero-panel-img {
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            max-width: none;
-            max-height: none;
             object-position: 48% center;
-            transform: translateZ(0);
           }
         }
 
@@ -673,12 +665,6 @@ export default function HopeKidsLandingPage() {
           }
 
           .hopekids-hero-panel-img {
-            left: 0 !important;
-            top: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            max-width: none !important;
-            max-height: none !important;
             transform: translateZ(0) !important;
           }
 
@@ -711,10 +697,16 @@ export default function HopeKidsLandingPage() {
             {/* Full-bleed artwork: entire upper panel = one scene (nav + hero on top of art) */}
             <div className="relative min-h-[min(78vh,720px)] max-sm:min-h-[min(78dvh,720px)] overflow-hidden rounded-2xl border border-amber-500/25 bg-[#03050f] shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(74vh,640px)] sm:rounded-[28px]">
               <div className="hopekids-hero-panel-wrap">
+                <div
+                  className="hopekids-hero-panel-bg-mobile sm:hidden"
+                  style={{ backgroundImage: `url(${HERO_ILLUSTRATION_SRC})` }}
+                  role="presentation"
+                  aria-hidden="true"
+                />
                 <img
                   src={HERO_ILLUSTRATION_SRC}
                   alt=""
-                  className="hopekids-hero-panel-img"
+                  className="hopekids-hero-panel-img hidden sm:block"
                   loading="eager"
                   decoding="async"
                   aria-hidden="true"
