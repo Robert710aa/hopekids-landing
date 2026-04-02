@@ -757,9 +757,10 @@ export default function HopeKidsLandingPage() {
                 <div className="hopekids-cinema-sheen absolute inset-0 opacity-[0.18]" />
               </div>
 
-              <header className="hopekids-header-enter sticky top-2 z-50 flex flex-wrap items-center justify-center gap-3 border-b border-transparent max-sm:relative sm:border-amber-400/15 bg-transparent shadow-none backdrop-blur-none sm:bg-[rgba(2,4,12,0.55)] sm:shadow-[0_12px_40px_rgba(0,0,0,0.35)] sm:backdrop-blur-md px-4 py-2.5 sm:px-6 sm:py-3 lg:px-10">
+              <header className="hopekids-header-enter sticky top-2 z-50 flex flex-wrap items-center justify-center gap-3 border-b border-transparent bg-transparent shadow-none backdrop-blur-none max-sm:relative sm:grid sm:grid-cols-[2.5rem_minmax(0,1fr)_2.5rem] sm:items-center sm:gap-x-2 sm:gap-y-0 sm:border-amber-400/15 sm:bg-[rgba(2,4,12,0.55)] sm:shadow-[0_12px_40px_rgba(0,0,0,0.35)] sm:backdrop-blur-md sm:px-6 sm:py-3 lg:grid-cols-[2.75rem_minmax(0,1fr)_2.75rem] lg:px-10 px-4 py-2.5">
+                <div className="hidden sm:block sm:w-10 sm:shrink-0" aria-hidden="true" />
                 <nav
-                  className="flex max-sm:pr-14 flex-wrap items-center justify-center gap-3 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] sm:gap-4"
+                  className="flex max-sm:pr-14 flex-wrap items-center justify-center gap-3 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] sm:col-start-2 sm:gap-4"
                   aria-label={t('nav_socialAria')}
                 >
                   <a
@@ -803,6 +804,15 @@ export default function HopeKidsLandingPage() {
                     <span className="hidden md:inline">DexScreener</span>
                   </a>
                 </nav>
+                <a
+                  href={JUPITER_BUY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden sm:col-start-3 sm:flex sm:h-9 sm:w-9 sm:shrink-0 sm:items-center sm:justify-center sm:justify-self-end sm:rounded-[11px] sm:shadow-[0_2px_16px_rgba(0,0,0,0.45)] sm:ring-1 sm:ring-amber-400/35 sm:transition-transform sm:duration-300 sm:hover:scale-[1.06] sm:hover:ring-amber-300/50 sm:active:scale-[0.98]"
+                  aria-label="HopeKids HKIDS — buy on Jupiter"
+                >
+                  <HopeKidsBrandMark className="h-9 w-9" />
+                </a>
                 <div ref={langMenuRef} className="absolute right-2 top-1/2 z-[55] -translate-y-1/2 sm:hidden">
                   <button
                     type="button"
