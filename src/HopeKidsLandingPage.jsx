@@ -29,6 +29,8 @@ const PAGE_BACKGROUND_EARTH_SRC = '/hopekids-page-bg-earth.png';
 
 /** Cinematic hero art: token, child, hospital + space — swap file in public/ to update. */
 const HERO_ILLUSTRATION_SRC = '/hopekids-hero-illustration.png';
+/** Query helps avoid stale hero bitmap after deploy (CSS background + CDN). */
+const HERO_ILLUSTRATION_BG_URL = `${HERO_ILLUSTRATION_SRC}?v=hk-panel-bg-1`;
 
 /** Example spotlight in Fundraiser panel — replace image in public/ or name as needed. */
 const SPOTLIGHT_CHILD_IMAGE_SRC = '/hopekids-spotlight-child.jpg';
@@ -467,7 +469,7 @@ export default function HopeKidsLandingPage() {
           box-shadow: 0 0 8px rgba(165, 243, 252, 0.6);
         }
 
-        /* Small screens: tall narrow viewports — soften overlays, avoid nav backdrop-blur bugs, full-bleed hero art. */
+        /* Hero panel art: single CSS background on .wrap (same code path mobile + desktop — avoids img/WebKit gaps). */
         .hopekids-hero-panel-wrap {
           position: absolute;
           inset: 0;
@@ -475,43 +477,23 @@ export default function HopeKidsLandingPage() {
           pointer-events: none;
           overflow: hidden;
           border-radius: inherit;
-        }
-
-        /* Mobile: full-bleed via CSS background (reliable on iOS). Desktop: <img> object-fit. */
-        .hopekids-hero-panel-bg-mobile {
-          position: absolute;
-          inset: 0;
-          z-index: 0;
-          pointer-events: none;
-          border-radius: inherit;
           background-repeat: no-repeat;
-          -webkit-background-size: 175% 175%;
-          background-size: 175% 175%;
-          background-position: 52% 42%;
+          -webkit-background-size: cover;
+          background-size: cover;
+          background-position: 48% center;
         }
 
-        .hopekids-hero-panel-img {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          display: block;
-          object-fit: cover;
-          object-position: 48% center;
-          -webkit-transform: translateZ(0);
-          transform: translateZ(0);
-        }
-
-        @media (min-width: 640px) {
-          .hopekids-hero-panel-img {
-            object-position: 48% center;
+        @media (max-width: 639px) {
+          .hopekids-hero-panel-wrap {
+            -webkit-background-size: 190% 190%;
+            background-size: 190% 190%;
+            background-position: 52% 42%;
           }
         }
 
         @media (min-width: 1024px) {
-          .hopekids-hero-panel-img {
-            object-position: 46% center;
+          .hopekids-hero-panel-wrap {
+            background-position: 46% center;
           }
         }
 
@@ -664,10 +646,6 @@ export default function HopeKidsLandingPage() {
             transform: none;
           }
 
-          .hopekids-hero-panel-img {
-            transform: translateZ(0) !important;
-          }
-
           .hopekids-hero-stack > * {
             animation: none !important;
             opacity: 1 !important;
@@ -696,22 +674,12 @@ export default function HopeKidsLandingPage() {
           <div className="mx-auto max-w-[1180px] px-4 pb-8 pt-2 sm:px-6 lg:px-8">
             {/* Full-bleed artwork: entire upper panel = one scene (nav + hero on top of art) */}
             <div className="relative min-h-[min(78vh,720px)] max-sm:min-h-[min(78dvh,720px)] overflow-hidden rounded-2xl border border-amber-500/25 bg-[#03050f] shadow-[0_0_80px_rgba(251,191,36,0.1),0_30px_70px_-20px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,250,235,0.05)] sm:min-h-[min(74vh,640px)] sm:rounded-[28px]">
-              <div className="hopekids-hero-panel-wrap">
-                <div
-                  className="hopekids-hero-panel-bg-mobile sm:hidden"
-                  style={{ backgroundImage: `url(${HERO_ILLUSTRATION_SRC})` }}
-                  role="presentation"
-                  aria-hidden="true"
-                />
-                <img
-                  src={HERO_ILLUSTRATION_SRC}
-                  alt=""
-                  className="hopekids-hero-panel-img hidden sm:block"
-                  loading="eager"
-                  decoding="async"
-                  aria-hidden="true"
-                />
-              </div>
+              <div
+                className="hopekids-hero-panel-wrap"
+                style={{ backgroundImage: `url(${HERO_ILLUSTRATION_BG_URL})` }}
+                role="presentation"
+                aria-hidden="true"
+              />
               {/* sm+: strong left veil. <sm: hide diagonal wash (covers full narrow width). */}
               <div
                 className="pointer-events-none absolute inset-0 z-[1] max-sm:hidden sm:block sm:bg-[linear-gradient(105deg,rgba(3,5,12,0.94)_0%,rgba(3,8,20,0.68)_26%,rgba(5,12,28,0.28)_50%,transparent_74%)]"
