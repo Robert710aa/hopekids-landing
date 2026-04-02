@@ -36,6 +36,16 @@ const HERO_ILLUSTRATION_BG_URL = `${HERO_ILLUSTRATION_SRC}?v=hk-panel-bg-40`;
 const SPOTLIGHT_CHILD_IMAGE_SRC = '/hopekids-spotlight-child.jpg';
 const SPOTLIGHT_CHILD_NAME = 'Sofia M.';
 
+const HK_UI_LOCALE_KEY = 'hopekids-ui-locale';
+const MOBILE_LANG_OPTIONS = [
+  { id: 'en', label: 'English', short: 'EN' },
+  { id: 'pl', label: 'Polski', short: 'PL' },
+  { id: 'ru', label: 'Русский', short: 'RU' },
+  { id: 'tr', label: 'Türkçe', short: 'TR' },
+  { id: 'de', label: 'Deutsch', short: 'DE' },
+  { id: 'hi', label: 'हिन्दी', short: 'HI' },
+];
+
 const SPOTLIGHT_WINDOW_MS = 30 * 24 * 60 * 60 * 1000;
 const SPOTLIGHT_DEADLINE_STORAGE_KEY = 'hopekids-spotlight-deadline-ms';
 
@@ -182,6 +192,15 @@ function IconDexScreener({ className = 'h-5 w-5' }) {
   );
 }
 
+function IconGlobe({ className = 'h-5 w-5' }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+    </svg>
+  );
+}
+
 function pickBestPair(pairs) {
   if (!pairs?.length) return null;
   return [...pairs].sort((a, b) => (b.liquidity?.usd ?? 0) - (a.liquidity?.usd ?? 0))[0];
@@ -248,13 +267,54 @@ export default function HopeKidsLandingPage() {
   const storyScrollRef = useRef(null);
   const [storyScrollPct, setStoryScrollPct] = useState(0);
 
-  const t = useMemo(() => createT('en'), []);
+  const [locale, setLocale] = useState(() => {
+    if (typeof window === 'undefined') return 'en';
+    try {
+      const raw = window.localStorage.getItem(HK_UI_LOCALE_KEY);
+      if (raw && MOBILE_LANG_OPTIONS.some((o) => o.id === raw)) return raw;
+    } catch {
+      /* private mode */
+    }
+    return 'en';
+  });
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const langMenuRef = useRef(null);
+
+  const t = useMemo(() => createT(locale), [locale]);
 
   useEffect(() => {
     const root = document.documentElement;
     root.classList.add('hopekids-strong-contrast');
     return () => root.classList.remove('hopekids-strong-contrast');
   }, []);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(HK_UI_LOCALE_KEY, locale);
+    } catch {
+      /* private mode */
+    }
+  }, [locale]);
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
+
+  useEffect(() => {
+    if (!langMenuOpen) return;
+    const onDoc = (e) => {
+      if (langMenuRef.current && !langMenuRef.current.contains(e.target)) setLangMenuOpen(false);
+    };
+    const onKey = (e) => {
+      if (e.key === 'Escape') setLangMenuOpen(false);
+    };
+    document.addEventListener('mousedown', onDoc);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDoc);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [langMenuOpen]);
 
   useEffect(() => {
     let cancelled = false;
@@ -697,9 +757,9 @@ export default function HopeKidsLandingPage() {
                 <div className="hopekids-cinema-sheen absolute inset-0 opacity-[0.18]" />
               </div>
 
-              <header className="hopekids-header-enter sticky top-2 z-50 flex flex-wrap items-center justify-center gap-3 border-b border-transparent sm:border-amber-400/15 bg-transparent shadow-none backdrop-blur-none sm:bg-[rgba(2,4,12,0.55)] sm:shadow-[0_12px_40px_rgba(0,0,0,0.35)] sm:backdrop-blur-md px-4 py-2.5 sm:px-6 sm:py-3 lg:px-10">
+              <header className="hopekids-header-enter sticky top-2 z-50 flex flex-wrap items-center justify-center gap-3 border-b border-transparent max-sm:relative sm:border-amber-400/15 bg-transparent shadow-none backdrop-blur-none sm:bg-[rgba(2,4,12,0.55)] sm:shadow-[0_12px_40px_rgba(0,0,0,0.35)] sm:backdrop-blur-md px-4 py-2.5 sm:px-6 sm:py-3 lg:px-10">
                 <nav
-                  className="flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] sm:gap-4"
+                  className="flex max-sm:pr-14 flex-wrap items-center justify-center gap-3 text-sm font-semibold text-stone-100/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)] sm:gap-4"
                   aria-label={t('nav_socialAria')}
                 >
                   <a
@@ -743,6 +803,52 @@ export default function HopeKidsLandingPage() {
                     <span className="hidden md:inline">DexScreener</span>
                   </a>
                 </nav>
+                <div ref={langMenuRef} className="absolute right-2 top-1/2 z-[55] -translate-y-1/2 sm:hidden">
+                  <button
+                    type="button"
+                    aria-expanded={langMenuOpen}
+                    aria-haspopup="listbox"
+                    aria-label={t('lang_picker_aria')}
+                    onClick={() => setLangMenuOpen((o) => !o)}
+                    className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-amber-400/45 bg-black/40 text-amber-100 shadow-[0_2px_20px_rgba(0,0,0,0.55)] backdrop-blur-sm transition hover:border-amber-300/60 hover:bg-black/50 active:scale-[0.97]"
+                  >
+                    <IconGlobe className="h-5 w-5" />
+                    <span className="pointer-events-none absolute bottom-0.5 right-0.5 rounded bg-black/70 px-[3px] py-px text-[8px] font-extrabold leading-none tracking-tight text-amber-200">
+                      {MOBILE_LANG_OPTIONS.find((o) => o.id === locale)?.short ?? 'EN'}
+                    </span>
+                  </button>
+                  {langMenuOpen ? (
+                    <ul
+                      role="listbox"
+                      aria-label={t('lang_picker_aria')}
+                      className="absolute right-0 top-[calc(100%+6px)] min-w-[10.5rem] rounded-xl border border-cyan-400/35 bg-[#050b18]/96 py-1 shadow-[0_16px_48px_rgba(0,0,0,0.65)] backdrop-blur-md"
+                    >
+                      {MOBILE_LANG_OPTIONS.map((opt) => (
+                        <li key={opt.id} role="presentation">
+                          <button
+                            type="button"
+                            role="option"
+                            aria-selected={locale === opt.id}
+                            className={`flex w-full items-center gap-2 px-3.5 py-2.5 text-left text-sm font-semibold transition hover:bg-white/10 active:bg-white/5 ${
+                              locale === opt.id ? 'text-amber-200' : 'text-stone-100'
+                            }`}
+                            onClick={() => {
+                              setLocale(opt.id);
+                              setLangMenuOpen(false);
+                            }}
+                          >
+                            <span className="min-w-0 flex-1">{opt.label}</span>
+                            {locale === opt.id ? (
+                              <span className="shrink-0 text-xs text-cyan-300" aria-hidden="true">
+                                ✓
+                              </span>
+                            ) : null}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </div>
               </header>
 
               <section
