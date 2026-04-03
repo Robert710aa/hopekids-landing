@@ -624,6 +624,129 @@ export default function HopeKidsLandingPage() {
           100% { transform: translate(-5%, -5%); }
         }
 
+        /* HKIDS coin — soft glow pulse (header + footer) */
+        @keyframes hopekids-token-aura-pulse {
+          0%,
+          100% {
+            opacity: 0.28;
+            transform: translate(-50%, -50%) scale(0.9);
+          }
+          50% {
+            opacity: 0.62;
+            transform: translate(-50%, -50%) scale(1.06);
+          }
+        }
+
+        @keyframes hopekids-footer-aura-pulse {
+          0%,
+          100% {
+            opacity: 0.18;
+            transform: translate(-50%, -50%) scale(0.94);
+          }
+          50% {
+            opacity: 0.42;
+            transform: translate(-50%, -50%) scale(1.04);
+          }
+        }
+
+        @keyframes hopekids-token-ring-shimmer {
+          0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+          }
+          100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+          }
+        }
+
+        .hopekids-token-aura {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 155%;
+          height: 155%;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 0;
+          background: radial-gradient(
+            circle,
+            rgba(251, 191, 36, 0.5) 0%,
+            rgba(245, 158, 11, 0.22) 32%,
+            rgba(56, 189, 248, 0.14) 52%,
+            transparent 70%
+          );
+          filter: blur(11px);
+          animation: hopekids-token-aura-pulse 3.1s ease-in-out infinite;
+        }
+
+        .hopekids-token-mark-header .hopekids-token-ring {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 128%;
+          height: 128%;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 0;
+          opacity: 0.35;
+          background: conic-gradient(
+            from 120deg,
+            transparent 0deg,
+            rgba(251, 191, 36, 0.55) 72deg,
+            transparent 120deg,
+            rgba(56, 189, 248, 0.45) 200deg,
+            transparent 260deg,
+            rgba(253, 224, 71, 0.35) 310deg,
+            transparent 360deg
+          );
+          animation: hopekids-token-ring-shimmer 14s linear infinite;
+          mask: radial-gradient(circle, transparent 58%, #000 62%, #000 100%);
+          -webkit-mask: radial-gradient(circle, transparent 58%, #000 62%, #000 100%);
+        }
+
+        .hopekids-token-mark-header:hover .hopekids-token-aura {
+          animation-duration: 2s;
+          opacity: 0.85;
+        }
+
+        .hopekids-token-mark-header:hover .hopekids-token-ring {
+          opacity: 0.55;
+          animation-duration: 9s;
+        }
+
+        .hopekids-token-mark-header img {
+          position: relative;
+          z-index: 1;
+          transition: filter 0.35s ease, transform 0.35s ease;
+        }
+
+        .hopekids-token-mark-header:hover img {
+          filter: brightness(1.1) saturate(1.08);
+        }
+
+        .hopekids-footer-aura {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 150%;
+          height: 150%;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 0;
+          background: radial-gradient(
+            circle,
+            rgba(251, 191, 36, 0.35) 0%,
+            rgba(56, 189, 248, 0.1) 48%,
+            transparent 68%
+          );
+          filter: blur(9px);
+          animation: hopekids-footer-aura-pulse 5.8s ease-in-out infinite;
+        }
+
+        .hopekids-footer-mark img {
+          position: relative;
+          z-index: 1;
+        }
+
         /* Always-on strong contrast (accessibility) */
         html.hopekids-strong-contrast {
           color-scheme: dark;
@@ -642,9 +765,16 @@ export default function HopeKidsLandingPage() {
           .hopekids-cinema-sheen,
           .hopekids-star,
           .hopekids-footer-mark,
+          .hopekids-footer-aura,
+          .hopekids-token-aura,
+          .hopekids-token-ring,
           .hopekids-sparkle,
           .hopekids-live-card {
             animation: none !important;
+          }
+
+          .hopekids-token-mark-header:hover img {
+            filter: none;
           }
 
           .hopekids-grain {
@@ -764,16 +894,18 @@ export default function HopeKidsLandingPage() {
                   href={JUPITER_BUY_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hidden overflow-hidden sm:col-start-3 sm:flex sm:h-12 sm:w-12 sm:shrink-0 sm:items-center sm:justify-center sm:justify-self-end sm:rounded-full sm:shadow-[0_2px_20px_rgba(0,0,0,0.5)] sm:ring-2 sm:ring-amber-400/35 sm:transition-transform sm:duration-300 lg:h-14 lg:w-14 sm:hover:scale-[1.06] sm:hover:ring-amber-300/50 sm:active:scale-[0.98]"
+                  className="hopekids-token-mark-header relative hidden sm:col-start-3 sm:flex sm:h-12 sm:w-12 sm:shrink-0 sm:items-center sm:justify-center sm:justify-self-end sm:overflow-visible sm:rounded-full sm:shadow-[0_2px_20px_rgba(0,0,0,0.5)] sm:ring-2 sm:ring-amber-400/35 sm:transition-transform sm:duration-300 lg:h-14 lg:w-14 sm:hover:scale-[1.06] sm:hover:shadow-[0_0_28px_rgba(251,191,36,0.35),0_2px_24px_rgba(0,0,0,0.55)] sm:hover:ring-amber-300/55 sm:active:scale-[0.98]"
                   aria-label="HopeKids HKIDS — buy on Jupiter"
                 >
+                  <span className="hopekids-token-ring" aria-hidden="true" />
+                  <span className="hopekids-token-aura" aria-hidden="true" />
                   <img
                     src={HKIDS_TOKEN_LOGO_URL}
                     alt=""
                     width={56}
                     height={56}
                     decoding="async"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full rounded-full object-cover ring-1 ring-black/20"
                   />
                 </a>
                 <div ref={langMenuRef} className="absolute right-2 top-1/2 z-[55] -translate-y-1/2 sm:hidden">
@@ -1209,14 +1341,15 @@ export default function HopeKidsLandingPage() {
 
             <footer className="border-t-4 border-orange-500 bg-black/20 py-8 text-center text-blue-100/70 sm:py-10">
               <div className="flex flex-col items-center gap-3">
-                <span className="hopekids-footer-mark block h-11 w-11 overflow-hidden rounded-full opacity-95 shadow-[0_4px_20px_rgba(0,0,0,0.35)] ring-2 ring-amber-400/35 sm:h-12 sm:w-12">
+                <span className="hopekids-footer-mark relative block h-11 w-11 overflow-visible rounded-full opacity-95 shadow-[0_4px_20px_rgba(0,0,0,0.35)] ring-2 ring-amber-400/35 sm:h-12 sm:w-12">
+                  <span className="hopekids-footer-aura" aria-hidden="true" />
                   <img
                     src={HKIDS_TOKEN_LOGO_URL}
                     alt="HopeKids"
                     width={48}
                     height={48}
                     decoding="async"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full rounded-full object-cover ring-1 ring-black/25"
                   />
                 </span>
                 <div className="text-2xl font-extrabold text-white sm:text-3xl">{t('footer_rights')}</div>
